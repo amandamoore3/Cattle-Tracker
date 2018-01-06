@@ -13,7 +13,7 @@ new Vue({
   created() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.$router.push('/loggedin');
+        // this.$router.push('/loggedin');
       } else {
         // this.$router.push('/');
       }

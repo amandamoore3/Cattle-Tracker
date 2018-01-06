@@ -15,7 +15,7 @@ const router = new vueRouter({
       component: LoggedIn
     },
     {
-      path: '/cows',
+      path: '/cattle'
       component: Cows
     }
   ]

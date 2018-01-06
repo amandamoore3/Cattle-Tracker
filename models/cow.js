@@ -12,14 +12,44 @@ let cowSchema = mongoose.Schema({
     minLength: 1,
     trim: true
   },
-  year: {
-    type: Number,
+  type: {
+    type: String,
+    required: true
+  },
+  dob: {
+    type: Date,
+    required: true,
+    trim: true
+  },
+  pasture: {
+    type: String,
+    required: true,
+    minLength: 1,
+    trim: true
+  },
+  dateCreated: {
+    type: Date,
+    required: true,
+    default: Date.now()
+  },
+  status: {
+    type: String,
+    required: true,
+    default: "Active"
+  },
+  sire: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  dam: {
+    type: String,
     required: true,
     trim: true
   }
 });
 
-let cow = mongoose.model('Cow', cowSchema);
+let Cow = mongoose.model('Cow', cowSchema);
 
 
 module.exports = {
