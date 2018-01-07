@@ -90,6 +90,27 @@ app.delete('/cattle/:id', (req, res) => {
 });
 ////DELETE ANIMAL BY ID
 
+//UPDATE ANIMAL BY ID
+app.patch('/cattle/:id', (req, res) => {
+  Cow.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE ANIMAL BY ID
+
 // GET ALL DATA FROM BREEDING TABLE
 app.get('/breeding', (req, res) => {
   Breeding.find()
@@ -135,6 +156,27 @@ app.delete('/breeding/:id', (req, res) => {
     });
 });
 ////DELETE BREEDING DOCUMENT BY ID
+
+//UPDATE BREEDING DOCUMENT BY ID
+app.patch('/breeding/:id', (req, res) => {
+  Breeding.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE BREEDING DOCUMENT BY ID
 
 // GET ALL DATA FROM HEALTH TABLE
 app.get('/health', (req, res) => {
@@ -183,6 +225,27 @@ app.delete('/health/:id', (req, res) => {
 });
 ////DELETE HEALTH DOCUMENT BY ID
 
+//UPDATE HEALTH DOCUMENT BY ID
+app.patch('/health/:id', (req, res) => {
+  Health.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE HEALTH DOCUMENT BY ID
+
 // GET ALL DATA FROM OUTCOMES TABLE
 app.get('/outcomes', (req, res) => {
   Outcome.find()
@@ -229,6 +292,27 @@ app.delete('/outcomes/:id', (req, res) => {
 });
 ////DELETE OUTCOME DOCUMENT BY ID
 
+//UPDATE OUTCOME DOCUMENT BY ID
+app.patch('/outcomes/:id', (req, res) => {
+  Outcome.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE OUTCOME DOCUMENT BY ID
+
 // GET ALL DATA FROM PASTURES TABLE
 app.get('/pastures', (req, res) => {
   Pasture.find()
@@ -271,6 +355,27 @@ app.delete('/pastures/:id', (req, res) => {
     });
 });
 ////DELETE PASTURE DOCUMENT BY ID
+
+//UPDATE PASTURE DOCUMENT BY ID
+app.patch('/pastures/:id', (req, res) => {
+  Pasture.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE PASTURE DOCUMENT BY ID
 
 // GET ALL DATA FROM PREG-CHECK TABLE
 app.get('/pregnancy', (req, res) => {
@@ -316,6 +421,27 @@ app.delete('/pregnancy/:id', (req, res) => {
     });
 });
 ////DELETE PREG-CHECK DOCUMENT BY ID
+
+//UPDATE PREG-CHECK DOCUMENT BY ID
+app.patch('/pregnancy/:id', (req, res) => {
+  PregCheck.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE PREG-CHECK DOCUMENT BY ID
 
 app.listen(3004, () => {
   console.log('listening on port 3000');
