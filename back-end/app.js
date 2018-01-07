@@ -74,7 +74,21 @@ app.post('/cattle', (req, res) => {
 });
 // POST TO CATTLE TABLE
 
-
+//DELETE ANIMAL BY ID
+app.delete('/cattle/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
+  Cow.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE ANIMAL BY ID
 
 // GET ALL DATA FROM BREEDING TABLE
 app.get('/breeding', (req, res) => {
@@ -105,6 +119,22 @@ app.post('/breeding', (req, res) => {
     });
 });
 // POST TO BREEDING TABLE
+
+//DELETE BREEDING DOCUMENT BY ID
+app.delete('/breeding/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
+  Breeding.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE BREEDING DOCUMENT BY ID
 
 // GET ALL DATA FROM HEALTH TABLE
 app.get('/health', (req, res) => {
@@ -137,6 +167,22 @@ app.post('/health', (req, res) => {
 });
 // POST TO HEALTH TABLE
 
+//DELETE HEALTH DOCUMENT BY ID
+app.delete('/health/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
+  Health.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE HEALTH DOCUMENT BY ID
+
 // GET ALL DATA FROM OUTCOMES TABLE
 app.get('/outcomes', (req, res) => {
   Outcome.find()
@@ -167,6 +213,22 @@ app.post('/outcomes', (req, res) => {
 });
 // POST TO OUTCOMES TABLE
 
+//DELETE OUTCOME DOCUMENT BY ID
+app.delete('/outcomes/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
+  Outcome.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE OUTCOME DOCUMENT BY ID
+
 // GET ALL DATA FROM PASTURES TABLE
 app.get('/pastures', (req, res) => {
   Pasture.find()
@@ -193,6 +255,22 @@ app.post('/pastures', (req, res) => {
     });
 });
 // POST TO PASTURES TABLE
+
+//DELETE PASTURE DOCUMENT BY ID
+app.delete('/pastures/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
+  Pasture.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE PASTURE DOCUMENT BY ID
 
 // GET ALL DATA FROM PREG-CHECK TABLE
 app.get('/pregnancy', (req, res) => {
@@ -222,6 +300,22 @@ app.post('/pregnancy', (req, res) => {
     });
 });
 // POST TO PREG-CHECK TABLE
+
+//DELETE PREG-CHECK DOCUMENT BY ID
+app.delete('/pregnancy/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
+  PregCheck.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE PREG-CHECK DOCUMENT BY ID
 
 app.listen(3004, () => {
   console.log('listening on port 3000');
