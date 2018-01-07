@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-
+let ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 //set up the schema/ structure of data
@@ -15,17 +15,14 @@ let healthSchema = mongoose.Schema({
     trim: true
   },
   medication: {
-    type: String,
-    required: true
+    type: String
   },
   dosage: {
     type: String,
-    required: true,
     trim: true
   },
   booster: {
     type: Date,
-    required: true,
     trim: true
   },
   dateCreated: {
@@ -34,12 +31,10 @@ let healthSchema = mongoose.Schema({
     default: Date.now()
   },
   diagnosis: {
-    type: String,
-    required: true
+    type: String
   },
   comments: {
     type: String,
-    required: true,
     trim: true
   }
 });

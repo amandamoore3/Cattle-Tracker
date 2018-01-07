@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-
+let ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 //set up the schema/ structure of data
@@ -16,7 +16,6 @@ let pregCheckSchema = mongoose.Schema({
   },
   method: {
     type: String,
-    required: true,
     trim: true
   },
   result: {
@@ -26,7 +25,6 @@ let pregCheckSchema = mongoose.Schema({
   },
   comments: {
     type: String,
-    required: true,
     trim: true
   },
   dateCreated: {

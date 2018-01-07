@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-
+let ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 //set up the schema/ structure of data
@@ -20,18 +20,15 @@ let outcomeSchema = mongoose.Schema({
     trim: true
   },
   weight: {
-    type: String,
-    required: true,
+    type: Number,
     trim: true
   },
   causeOfDeath: {
     type: String,
-    required: true,
     trim: true
   },
   comments: {
     type: String,
-    required: true,
     trim: true
   },
   dateCreated: {
@@ -41,9 +38,9 @@ let outcomeSchema = mongoose.Schema({
   }
 });
 
-let Outcomes = mongoose.model('Outcomes', outcomeSchema);
+let Outcome = mongoose.model('Outcome', outcomeSchema);
 
 
 module.exports = {
-  Outcomes
+  Outcome
 };

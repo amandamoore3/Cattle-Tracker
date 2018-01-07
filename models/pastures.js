@@ -1,7 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
-
+let ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 //set up the schema/ structure of data
@@ -13,7 +13,6 @@ let pastureSchema = mongoose.Schema({
   },
   comments: {
     type: String,
-    required: true,
     trim: true
   },
   dateCreated: {
@@ -23,9 +22,9 @@ let pastureSchema = mongoose.Schema({
   }
 });
 
-let Pastures = mongoose.model('Pastures', pastureSchema);
+let Pasture = mongoose.model('Pasture', pastureSchema);
 
 
 module.exports = {
-  Pastures
+  Pasture
 };
