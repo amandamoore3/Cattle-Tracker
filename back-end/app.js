@@ -54,6 +54,17 @@ app.get('/cattle', (req, res) => {
 });
 // GET ALL DATA FROM CATTLE TABLE
 
+// GET INDIVIDUAL FROM CATTLE TABLE
+app.get('/cattle/:id', (req, res) => {
+  Cow.find()
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+// GET INDIVIDUAL FROM CATTLE TABLE
 
 // POST TO CATTLE TABLE
 app.post('/cattle', (req, res) => {

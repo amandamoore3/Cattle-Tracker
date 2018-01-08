@@ -1,6 +1,6 @@
 <template>
 <div>
-  <router-link to="/cows">Herd data</router-link>
+  <router-link to="/cattle">Herd data</router-link>
   <h1>Logged in!</h1>
   <button @click='logOut'>Log out</button><br />
 

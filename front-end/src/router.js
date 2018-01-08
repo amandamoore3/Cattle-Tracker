@@ -1,4 +1,5 @@
 import vueRouter from 'vue-router'
+import Animal from './components/Animal.vue'
 import Cows from './components/Cows'
 import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
@@ -17,6 +18,10 @@ const router = new vueRouter({
     {
       path: '/cattle',
       component: Cows
+    },
+    {
+      path: '/cattle/:id',
+      component: Animal
     }
   ]
 })
