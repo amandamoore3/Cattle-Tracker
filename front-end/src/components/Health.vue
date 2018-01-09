@@ -2,43 +2,47 @@
 <div>
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
-
-    <table class="cattleTable table is-striped is-hoverable">
+    <table class="breedingTable table is-striped is-hoverable">
     <thead>
       <tr>
         <th>Ear Tag</th>
-        <th>Type</th>
-        <th>Pasture</th>
-        <th>Birth Date</th>
+        <th>Treatment Date</th>
+        <th>Medication</th>
+        <th>Dosage</th>
+        <th>Diagnosis</th>
+        <th>Booster Date</th>
         <!-- <th>Edit</th> -->
       </tr>
     </thead>
     <tbody>
 
-      <tr  v-for="cow in cows" v-if="cow.status =='Active'" >
-        <td>{{cow.tag}}</td>
-        <td>{{cow.type}}</td>
-        <td>{{cow.pasture}}</td>
-        <td>{{cow.dob}}</td>
-        <!-- <td><a class="button" @click="openModal(cow)">Edit this cow</a></td> -->
+      <tr  v-for="healthEvent in healthEvents" >
+        <!-- ear tag data to come from cattle table -->
+        <td>TBD</td>
+        <td>{{healthEvent.treatmentDate}}</td>
+        <td>{{healthEvent.medication}}</td>
+        <td>{{healthEvent.dosage}}</td>
+        <td>{{healthEvent.diagnosis}}</td>
+        <td>{{healthEvent.booster}}</td>
+
       </tr>
 
     </tbody>
   </table>
+
 
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-import 'bulma/css/bulma.css';
 import firebase from 'firebase';
 
 export default {
   data() {
     return {
-      msg: 'Active cattle',
-      cows: []
+      msg: 'All Health Info',
+      healthEvents: []
     }
   },
   methods: {
@@ -55,11 +59,10 @@ export default {
     })
   },
   created() {
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/health')
       .then((response) => {
-        // console.log("response:" + response);
-        this.cows = response.data
-      })
+        this.healthEvents = response.data
+      });
   }
 
 
@@ -67,8 +70,8 @@ export default {
 </script>
 
 <style lang="css">
-
-.cattleTable {
+.breedingTable {
   margin: 0 auto;
 }
+
 </style>

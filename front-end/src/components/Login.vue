@@ -13,7 +13,7 @@ export default {
   name: 'login',
   mounted() {
     let uiConfig = {
-      signInSuccessUrl: '/loggedin',
+      signInSuccessUrl: '/cattle',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID

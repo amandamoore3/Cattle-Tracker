@@ -1,11 +1,18 @@
 <template lang="html">
   <div id="app">
     <h1>{{msg}}</h1>
-    <router-link :to="{path: '/'}">Back to list</router-link>
+    <router-link :to="{path: '/'}">Back to herd information</router-link>
     {{cow.tag}}
     {{cow.type}}
     {{cow.pasture}}
-    {{cow.dob}}
+
+    {{breeding.date}}
+    {{breeding.method}}
+    {{breeding.bull}}
+    {{health.diagnosis}}
+    {{pregnancy.result}}
+
+
 
   </div>
 </template>
@@ -19,7 +26,10 @@ export default {
   data() {
     return {
       msg: 'Individual animal view',
-      cow: []
+      cow: [],
+      breeding: [],
+      health: [],
+      pregnancy: []
     }
   },
   beforeCreate() {
@@ -30,11 +40,23 @@ export default {
     })
   },
   created() {
+    // let thisApp = this;
     axios.get('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
       .then((response) => {
-        // console.log("response:" + response);
         this.cow = response.data
-      })
+      });
+    axios.get('http://127.0.0.1:3000/breeding/' + this.$route.params.id)
+      .then((response) => {
+        this.breeding = response.data[0]
+      });
+    axios.get('http://127.0.0.1:3000/health/' + this.$route.params.id)
+      .then((response) => {
+        this.health = response.data[0]
+      });
+    axios.get('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id)
+      .then((response) => {
+        this.pregnancy = response.data[0]
+      });
   }
 }
 </script>

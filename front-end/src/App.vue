@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div id="app" class="appDiv">
   <h1>{{ msg }}</h1>
   <router-view></router-view>
 
@@ -24,7 +24,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+
 }
 
 h1,

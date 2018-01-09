@@ -8,7 +8,8 @@ let ObjectId = mongoose.Schema.Types.ObjectId;
 //set up the schema/ structure of data
 let breedingSchema = mongoose.Schema({
   cow_id: {
-    type: ObjectId
+    type: ObjectId,
+    required: true
   },
   date: {
     type: Date,

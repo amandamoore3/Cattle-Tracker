@@ -7,7 +7,8 @@ let ObjectId = mongoose.Schema.Types.ObjectId;
 //set up the schema/ structure of data
 let healthSchema = mongoose.Schema({
   cow_id: {
-    type: ObjectId
+    type: ObjectId,
+    required: true
   },
   treatmentDate: {
     type: Date,

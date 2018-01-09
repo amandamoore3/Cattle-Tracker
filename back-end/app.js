@@ -56,7 +56,7 @@ app.get('/cattle', (req, res) => {
 
 // GET INDIVIDUAL FROM CATTLE TABLE
 app.get('/cattle/:id', (req, res) => {
-  Cow.find()
+  Cow.findById(req.params.id)
     .then((docs) => {
       res.send(docs)
 
@@ -134,9 +134,24 @@ app.get('/breeding', (req, res) => {
 });
 // GET ALL DATA FROM BREEDING TABLE
 
+// GET INDIVIDUAL COW BREEDING DATA
+app.get('/breeding/:id', (req, res) => {
+  Breeding.find({
+      cow_id: req.params.id
+    })
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+// GET INDIVIDUAL COW BREEDING DATA
+
 // POST TO BREEDING TABLE
 app.post('/breeding', (req, res) => {
   let newBreeding = new Breeding({
+    cow_id: req.body.cow_id,
     date: req.body.date,
     method: req.body.method,
     bull: req.body.bull,
@@ -201,9 +216,24 @@ app.get('/health', (req, res) => {
 });
 // GET ALL DATA FROM HEALTH TABLE
 
+// GET INDIVIDUAL COW HEALTH DATA
+app.get('/health/:id', (req, res) => {
+  Health.find({
+      cow_id: req.params.id
+    })
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+// GET INDIVIDUAL COW HEALTH DATA
+
 // POST TO HEALTH TABLE
 app.post('/health', (req, res) => {
   let newHealth = new Health({
+    cow_id: req.body.cow_id,
     treatmentDate: req.body.treatmentDate,
     medication: req.body.medication,
     dosage: req.body.dosage,
@@ -272,6 +302,7 @@ app.get('/outcomes', (req, res) => {
 // POST TO OUTCOMES TABLE
 app.post('/outcomes', (req, res) => {
   let newOutcome = new Outcome({
+    cow_id: req.body.cow_id,
     date: req.body.date,
     status: req.body.status,
     weight: req.body.weight,
@@ -400,9 +431,24 @@ app.get('/pregnancy', (req, res) => {
 });
 // GET ALL DATA FROM PREG-CHECK TABLE
 
+// GET INDIVIDUAL COW PREG-CHECK DATA
+app.get('/pregnancy/:id', (req, res) => {
+  PregCheck.find({
+      cow_id: req.params.id
+    })
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+// GET INDIVIDUAL COW PREG-CHECK DATA
+
 // POST TO PREG-CHECK TABLE
 app.post('/pregnancy', (req, res) => {
   let newPregCheck = new PregCheck({
+    cow_id: req.body.cow_id,
     date: req.body.date,
     method: req.body.method,
     result: req.body.result,
@@ -454,6 +500,6 @@ app.patch('/pregnancy/:id', (req, res) => {
 });
 //UPDATE PREG-CHECK DOCUMENT BY ID
 
-app.listen(3004, () => {
+app.listen(3000, () => {
   console.log('listening on port 3000');
 });
