@@ -19,7 +19,7 @@
         <td>{{pregCheck.date}}</td>
         <td>{{pregCheck.method}}</td>
         <td>{{pregCheck.result}}</td>
-      
+
       </tr>
 
     </tbody>

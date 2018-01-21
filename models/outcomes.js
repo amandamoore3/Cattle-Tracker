@@ -6,8 +6,8 @@ let ObjectId = mongoose.Schema.Types.ObjectId;
 
 //set up the schema/ structure of data
 let outcomeSchema = mongoose.Schema({
-  cow_id: {
-    type: ObjectId,
+  tag_id: {
+    type: String,
     required: true
   },
   date: {

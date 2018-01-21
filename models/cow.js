@@ -6,8 +6,10 @@ const mongoose = require('mongoose');
 
 //set up the schema/ structure of data
 let cowSchema = mongoose.Schema({
-  tag: {
+  tag_id: {
     type: String,
+    unique: true,
+    dropDups: true,
     required: true,
     minLength: 1,
     trim: true

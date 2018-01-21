@@ -54,9 +54,24 @@ app.get('/cattle', (req, res) => {
 });
 // GET ALL DATA FROM CATTLE TABLE
 
+// // GET INDIVIDUAL FROM CATTLE TABLE
+// app.get('/cattle/:id', (req, res) => {
+//   Cow.findById(req.params.id)
+//     .then((docs) => {
+//       res.send(docs)
+//
+//     }, (err) => {
+//       res.status(400).send(err);
+//     });
+// });
+// // GET INDIVIDUAL FROM CATTLE TABLE
+
 // GET INDIVIDUAL FROM CATTLE TABLE
 app.get('/cattle/:id', (req, res) => {
-  Cow.findById(req.params.id)
+  // console.log(req);
+  Cow.findOne({
+      tag_id: req.params.id
+    })
     .then((docs) => {
       res.send(docs)
 
@@ -69,7 +84,7 @@ app.get('/cattle/:id', (req, res) => {
 // POST TO CATTLE TABLE
 app.post('/cattle', (req, res) => {
   let newCow = new Cow({
-    tag: req.body.tag,
+    tag_id: req.body.tag_id,
     type: req.body.type,
     dob: req.body.dob,
     pasture: req.body.pasture,
@@ -101,10 +116,11 @@ app.delete('/cattle/:id', (req, res) => {
 });
 ////DELETE ANIMAL BY ID
 
-//UPDATE ANIMAL BY ID
+//UPDATE ANIMAL BY TAG ID
 app.patch('/cattle/:id', (req, res) => {
   Cow.findOneAndUpdate({
-      _id: req.params.id
+      tag_id: req.params.id
+
     }, {
       $set: req.body
     }, {
@@ -120,7 +136,7 @@ app.patch('/cattle/:id', (req, res) => {
       res.status(400).send(err.message);
     });
 });
-//UPDATE ANIMAL BY ID
+//UPDATE ANIMAL BY TAG ID
 
 // GET ALL DATA FROM BREEDING TABLE
 app.get('/breeding', (req, res) => {
@@ -137,7 +153,7 @@ app.get('/breeding', (req, res) => {
 // GET INDIVIDUAL COW BREEDING DATA
 app.get('/breeding/:id', (req, res) => {
   Breeding.find({
-      cow_id: req.params.id
+      tag_id: req.params.id
     })
     .then((docs) => {
       res.send(docs)
@@ -151,7 +167,7 @@ app.get('/breeding/:id', (req, res) => {
 // POST TO BREEDING TABLE
 app.post('/breeding', (req, res) => {
   let newBreeding = new Breeding({
-    cow_id: req.body.cow_id,
+    tag_id: req.body.tag_id,
     date: req.body.date,
     method: req.body.method,
     bull: req.body.bull,
@@ -219,7 +235,7 @@ app.get('/health', (req, res) => {
 // GET INDIVIDUAL COW HEALTH DATA
 app.get('/health/:id', (req, res) => {
   Health.find({
-      cow_id: req.params.id
+      tag_id: req.params.id
     })
     .then((docs) => {
       res.send(docs)
@@ -233,7 +249,7 @@ app.get('/health/:id', (req, res) => {
 // POST TO HEALTH TABLE
 app.post('/health', (req, res) => {
   let newHealth = new Health({
-    cow_id: req.body.cow_id,
+    tag_id: req.body.tag_id,
     treatmentDate: req.body.treatmentDate,
     medication: req.body.medication,
     dosage: req.body.dosage,
@@ -302,7 +318,7 @@ app.get('/outcomes', (req, res) => {
 // POST TO OUTCOMES TABLE
 app.post('/outcomes', (req, res) => {
   let newOutcome = new Outcome({
-    cow_id: req.body.cow_id,
+    tag_id: req.body.tag_id,
     date: req.body.date,
     status: req.body.status,
     weight: req.body.weight,
@@ -434,7 +450,7 @@ app.get('/pregnancy', (req, res) => {
 // GET INDIVIDUAL COW PREG-CHECK DATA
 app.get('/pregnancy/:id', (req, res) => {
   PregCheck.find({
-      cow_id: req.params.id
+      tag_id: req.params.id
     })
     .then((docs) => {
       res.send(docs)
@@ -448,7 +464,7 @@ app.get('/pregnancy/:id', (req, res) => {
 // POST TO PREG-CHECK TABLE
 app.post('/pregnancy', (req, res) => {
   let newPregCheck = new PregCheck({
-    cow_id: req.body.cow_id,
+    tag_id: req.body.tag_id,
     date: req.body.date,
     method: req.body.method,
     result: req.body.result,

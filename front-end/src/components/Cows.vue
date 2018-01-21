@@ -2,7 +2,7 @@
 <div>
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
-
+    <button @click=''>Add</button>
     <table class="cattleTable table is-striped is-hoverable">
     <thead>
       <tr>
@@ -16,7 +16,7 @@
     <tbody>
 
       <tr  v-for="cow in cows" v-if="cow.status =='Active'" >
-        <td>{{cow.tag}}</td>
+        <td>{{cow.tag_id}}</td>
         <td>{{cow.type}}</td>
         <td>{{cow.pasture}}</td>
         <td>{{cow.dob}}</td>
@@ -50,7 +50,7 @@ export default {
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {} else {
-        this.$router.push('/');
+        this.$router.push('/cattle');
       }
     })
   },
