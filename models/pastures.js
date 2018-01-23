@@ -1,7 +1,6 @@
 'use strict'
 
 const mongoose = require('mongoose');
-let ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 //set up the schema/ structure of data

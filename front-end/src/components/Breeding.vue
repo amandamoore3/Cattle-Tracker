@@ -15,12 +15,11 @@
     <tbody>
 
       <tr  v-for="breeding in breedings" >
-        <!-- ear tag data to come from cattle table -->
-        <td>TBD</td>
+        <td>{{breeding.tag_id}}</td>
         <td>{{breeding.date}}</td>
         <td>{{breeding.method}}</td>
         <td>{{breeding.bull}}</td>
-      
+
       </tr>
 
     </tbody>

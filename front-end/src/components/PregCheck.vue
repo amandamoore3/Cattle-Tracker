@@ -15,7 +15,7 @@
     <tbody>
 
       <tr  v-for="pregCheck in pregChecks" >
-        <td>TBD</td>
+        <td>{{breeding.tag_id}}</td>
         <td>{{pregCheck.date}}</td>
         <td>{{pregCheck.method}}</td>
         <td>{{pregCheck.result}}</td>
@@ -40,12 +40,6 @@ export default {
       pregChecks: []
     }
   },
-  methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    }
-  },
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {} else {
@@ -58,6 +52,12 @@ export default {
       .then((response) => {
         this.pregChecks = response.data
       });
+  },
+  methods: {
+    logOut() {
+      firebase.auth().signOut();
+      window.location.href = '/';
+    }
   }
 
 

@@ -127,7 +127,6 @@ export default {
       });
     axios.get('http://127.0.0.1:3000/breeding/' + this.$route.params.id)
       .then((response) => {
-        console.log(response.data);
         this.breedings = response.data
       });
     axios.get('http://127.0.0.1:3000/health/' + this.$route.params.id)

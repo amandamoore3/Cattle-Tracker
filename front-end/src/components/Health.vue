@@ -11,14 +11,12 @@
         <th>Dosage</th>
         <th>Diagnosis</th>
         <th>Booster Date</th>
-        <!-- <th>Edit</th> -->
       </tr>
     </thead>
     <tbody>
 
       <tr  v-for="healthEvent in healthEvents" >
-        <!-- ear tag data to come from cattle table -->
-        <td>TBD</td>
+        <td>{{breeding.tag_id}}</td>
         <td>{{healthEvent.treatmentDate}}</td>
         <td>{{healthEvent.medication}}</td>
         <td>{{healthEvent.dosage}}</td>

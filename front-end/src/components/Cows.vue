@@ -41,25 +41,24 @@ export default {
       cows: []
     }
   },
-  methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    }
-  },
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {} else {
-        this.$router.push('/cattle');
+        this.$router.push('/');
       }
     })
   },
   created() {
     axios.get('http://127.0.0.1:3000/cattle')
       .then((response) => {
-        // console.log("response:" + response);
         this.cows = response.data
       })
+  },
+  methods: {
+    logOut() {
+      firebase.auth().signOut();
+      window.location.href = '/';
+    }
   }
 
 

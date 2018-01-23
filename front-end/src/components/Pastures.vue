@@ -2,7 +2,22 @@
 <div>
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
+    <table class="cattleTable table is-striped is-hoverable">
+    <thead>
+      <tr>
+        <th>Pasture</th>
+        <th>Total #</th>
+      </tr>
+    </thead>
+    <tbody>
 
+      <tr  v-for="pasture in pastures">
+        <td>{{pasture.name}}</td>
+        <td>Sum of animals on pasture</td>
+      </tr>
+
+    </tbody>
+  </table>
 
 
 </div>
@@ -16,13 +31,7 @@ export default {
   data() {
     return {
       msg: 'Pastures',
-      cows: []
-    }
-  },
-  methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
+      pastures: []
     }
   },
   beforeCreate() {
@@ -31,6 +40,18 @@ export default {
         this.$router.push('/');
       }
     })
+  },
+  created() {
+    axios.get('http://127.0.0.1:3000/pastures')
+      .then((response) => {
+        this.pastures = response.data
+      })
+  },
+  methods: {
+    logOut() {
+      firebase.auth().signOut();
+      window.location.href = '/';
+    }
   }
 
 
@@ -39,5 +60,7 @@ export default {
 
 <style lang="css">
 
-
+.cattleTable {
+  margin: 0 auto;
+}
 </style>

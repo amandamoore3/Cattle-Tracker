@@ -5,6 +5,8 @@ import Cows from './components/Cows'
 import Health from './components/Health'
 import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
+import Outcomes from './components/Outcomes.vue'
+import Pastures from './components/Pastures.vue'
 import PregCheck from './components/PregCheck.vue'
 
 
@@ -33,10 +35,18 @@ const router = new vueRouter({
     {
       path: '/pregnancy',
       component: PregCheck
-    }, ,
+    },
     {
       path: '/health',
       component: Health
+    },
+    {
+      path: '/outcomes',
+      component: Outcomes
+    },
+    {
+      path: '/pastures',
+      component: Pastures
     }
   ]
 })
