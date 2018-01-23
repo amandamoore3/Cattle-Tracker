@@ -151,7 +151,7 @@ app.get('/breeding', (req, res) => {
 
 //CHECKED GET INDIVIDUAL COW BREEDING DATA
 app.get('/breeding/:id', (req, res) => {
-  Breeding.findOne({
+  Breeding.find({
       tag_id: req.params.id
     })
     .then((docs) => {

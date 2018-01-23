@@ -23,32 +23,28 @@
       </tr>
 
     </tbody>
-  </table>
+    </table>
 
-
-
-
+      </br>
+      <h5> Breeding information</h5>
+      <table class="cattleTable table is-striped is-hoverable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Method</th>
+          <th>Bull</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="breeding in breedings">
+          <td>{{breeding.date}}</td>
+          <td>{{breeding.method}}</td>
+          <td>{{breeding.bull}}</td>
+        </tr>
+      </tbody>
+    </table>
     </br>
-    <h5> Breeding information</h5>
-    <table class="cattleTable table is-striped is-hoverable">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Method</th>
-        <th>Bull</th>
-      </tr>
-    </thead>
-    <tbody>
 
-      <tr v-for="breeding in breedings">
-        <td>{{breeding.date}}</td>
-        <td>{{breeding.method}}</td>
-        <td>{{breeding.bull}}</td>
-      </tr>
-
-    </tbody>
-  </table>
-    </br>
     <h5> Health information</h5>
     <table class="cattleTable table is-striped is-hoverable">
     <thead>
@@ -65,26 +61,31 @@
       </tr>
 
     </tbody>
-  </table>
+    </table>
     </br>
     <h5> Preg-check information</h5>
+    <template v-if="cow.type !=='Cow'">
+      <p>There is no pregnancy data to show</p>
+    </template>
 
-    <table class="cattleTable table is-striped is-hoverable">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Result</th>
-      </tr>
-    </thead>
-    <tbody>
+    <template v-else>
+      <table class="cattleTable table is-striped is-hoverable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="pregnancy in pregnancies"  >
+          <td>{{pregnancy.date}}</td>
+          <td>{{pregnancy.result}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
 
-      <tr v-for="pregnancy in pregnancies">
-        <td>{{pregnancy.date}}</td>
-        <td>{{pregnancy.result}}</td>
-      </tr>
 
-    </tbody>
-  </table>
     <!-- <h5> Health information</h5>
     {{health.date}}
     {{health.diagnosis}}</br>
