@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="app">
     <h1>{{msg}}</h1>
-    <router-link :to="{path: '/'}">Back to herd information</router-link>
+    <router-link :to="{path: '/cattle'}">Back to herd information</router-link>
     <h5> Animal information</h5>
 
     <table class="cattleTable table is-striped is-hoverable">
@@ -93,7 +93,9 @@
     <h5> Preg-check information</h5>
     {{pregnancy.result}}</br>
  -->
-
+ <h5>Delete</h5>
+ <!-- <a class="delete is-large" @click="deleteCow()"></a> -->
+ <button type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
 
   </div>
 </template>
@@ -138,6 +140,20 @@ export default {
       .then((response) => {
         this.pregnancies = response.data
       });
+  },
+  methods: {
+    deleteCow() {
+      // console.log(this.$route.params.id);
+      axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
+        .then((response) => {
+          console.log(response);
+          window.location.href = '/cattle';
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+    }
   }
 }
 </script>

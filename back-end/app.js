@@ -7,6 +7,9 @@ const {
   mongooseConnect
 } = require('../db/mongoose.js');
 
+const {
+  client
+} = require('mongodb');
 
 const {
   Breeding
@@ -102,7 +105,9 @@ app.post('/cattle', (req, res) => {
 //DELETE ANIMAL BY ID
 app.delete('/cattle/:id', (req, res) => {
   console.log("deleterequest" + JSON.stringify(req.params));
-  Cow.findByIdAndRemove(req.params.id)
+  Cow.findOneAndRemove({
+      tag_id: req.params.id
+    })
     .then((docs) => {
       if (!docs) {
         res.send('Nothing found');
