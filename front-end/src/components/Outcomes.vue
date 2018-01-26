@@ -3,7 +3,7 @@
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
     <h1>Sold cattle</h1>
-    <table class="cattleTable table is-striped is-hoverable">
+    <table class="cattleTable table table table-striped table-hover">
     <thead>
       <tr>
         <th>Ear tag</th>
@@ -25,7 +25,7 @@
   </table>
 
   <h1>Deaths</h1>
-  <table class="cattleTable table is-striped is-hoverable">
+  <table class="cattleTable table table table-striped table-hover">
   <thead>
     <tr>
       <th>Ear tag</th>

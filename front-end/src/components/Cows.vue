@@ -3,7 +3,7 @@
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
     <button @click=''>Add</button>
-    <table class="cattleTable table is-striped is-hoverable">
+    <table class="cattleTable table table-striped table-hover">
     <thead>
       <tr>
         <th>Ear Tag</th>
@@ -11,7 +11,7 @@
         <th>Pasture</th>
         <th>Birth Date</th>
         <!-- <th>Edit</th> -->
-        <th>Edit</th>
+        <th>More Information</th>
       </tr>
     </thead>
     <tbody>
@@ -23,8 +23,8 @@
         <td>{{cow.dob}}</td>
         <!-- <td><a class="button" @click="openModal(cow)">Edit this cow</a></td> -->
         <!-- <td><a class="delete is-large" @click="deleteCow(cow)"></a></td> -->
-        <td><router-link :to="{path: '/cattle/' + cow.tag_id}">Edit this cow</router-link></td>
-
+        <td><router-link :to="{path: '/cattle/' + cow.tag_id}"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td>
+<!--  -->
       </tr>
 
     </tbody>
@@ -35,7 +35,6 @@
 
 <script>
 import axios from 'axios';
-import 'bulma/css/bulma.css';
 import firebase from 'firebase';
 
 

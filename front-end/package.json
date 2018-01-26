@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "bulma": "^0.6.1",
+    "bootstrap": "^4.0.0",
     "firebase": "^4.8.1",
     "firebaseui": "^2.5.1",
+    "font-awesome": "github:FortAwesome/Font-Awesome",
     "vue": "^2.5.11",
     "vue-router": "^3.0.1"
   },

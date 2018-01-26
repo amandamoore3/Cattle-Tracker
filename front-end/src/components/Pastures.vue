@@ -2,7 +2,7 @@
 <div>
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
-    <table class="cattleTable table is-striped is-hoverable">
+    <table class="cattleTable table table table-striped table-hover">
     <thead>
       <tr>
         <th>Pasture</th>

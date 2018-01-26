@@ -2,7 +2,7 @@
 <div>
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
-    <table class="breedingTable table is-striped is-hoverable">
+    <table class="breedingTable table table table-striped table-hover">
     <thead>
       <tr>
         <th>Ear Tag</th>

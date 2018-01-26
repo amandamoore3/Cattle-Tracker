@@ -2,9 +2,9 @@
   <div id="app">
     <h1>{{msg}}</h1>
     <router-link :to="{path: '/cattle'}">Back to herd information</router-link>
-    <h5> Animal information</h5>
 
-    <table class="cattleTable table is-striped is-hoverable">
+
+    <table class="cattleTable table table table-striped table-hover">
     <thead>
       <tr>
         <th>Ear Tag</th>
@@ -24,78 +24,86 @@
 
     </tbody>
     </table>
-
-      </br>
-      <h5> Breeding information</h5>
-      <table class="cattleTable table is-striped is-hoverable">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Method</th>
-          <th>Bull</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="breeding in breedings">
-          <td>{{breeding.date}}</td>
-          <td>{{breeding.method}}</td>
-          <td>{{breeding.bull}}</td>
-        </tr>
-      </tbody>
-    </table>
-    </br>
-
-    <h5> Health information</h5>
-    <table class="cattleTable table is-striped is-hoverable">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Diagnosis</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      <tr v-for="healthEvent in healthEvents">
-        <td>{{healthEvent.treatmentDate}}</td>
-        <td>{{healthEvent.diagnosis}}</td>
-      </tr>
-
-    </tbody>
-    </table>
-    </br>
-    <h5> Preg-check information</h5>
-    <template v-if="cow.type !=='Cow'">
-      <p>There is no pregnancy data to show</p>
-    </template>
-
-    <template v-else>
-      <table class="cattleTable table is-striped is-hoverable">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Result</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="pregnancy in pregnancies"  >
-          <td>{{pregnancy.date}}</td>
-          <td>{{pregnancy.result}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </template>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Breeding</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Health</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Pregnancy</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <h5> Breeding information</h5>
+        <table class="cattleTable table table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Method</th>
+            <th>Bull</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="breeding in breedings">
+            <td>{{breeding.date}}</td>
+            <td>{{breeding.method}}</td>
+            <td>{{breeding.bull}}</td>
+          </tr>
+        </tbody>
+      </table>
 
 
-    <!-- <h5> Health information</h5>
-    {{health.date}}
-    {{health.diagnosis}}</br>
-    </br>
-    <h5> Preg-check information</h5>
-    {{pregnancy.result}}</br>
- -->
+      </div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <h5> Health information</h5>
+        <table class="cattleTable table table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr v-for="healthEvent in healthEvents">
+            <td>{{healthEvent.treatmentDate}}</td>
+            <td>{{healthEvent.diagnosis}}</td>
+          </tr>
+
+        </tbody>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <h5> Preg-check information</h5>
+        <template v-if="cow.type !=='Cow'">
+          <p>There is no pregnancy data to show</p>
+        </template>
+
+        <template v-else>
+          <table class="cattleTable table table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="pregnancy in pregnancies"  >
+              <td>{{pregnancy.date}}</td>
+              <td>{{pregnancy.result}}</td>
+            </tr>
+          </tbody>
+        </table>
+        </template>
+
+      </div>
+    </div>
+
  <h5>Delete</h5>
- <!-- <a class="delete is-large" @click="deleteCow()"></a> -->
- <button type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
+ <button class="btn btn-danger" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
 
   </div>
 </template>
@@ -108,7 +116,7 @@ export default {
   name: 'app',
   data() {
     return {
-      msg: 'Individual animal view',
+      msg: 'Animal Information',
       cow: [],
       breedings: [],
       healthEvents: [],
