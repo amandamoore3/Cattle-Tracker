@@ -44,7 +44,7 @@ let cowSchema = mongoose.Schema({
   dateCreated: {
     type: Date,
     required: true,
-    default: formattedDate
+    default: Date.now()
   },
   status: {
     type: String,
@@ -56,6 +56,23 @@ let cowSchema = mongoose.Schema({
     trim: true
   },
   dam: {
+    type: String,
+    trim: true
+  },
+  status_date: {
+    type: Date,
+    required: true,
+    trim: true
+  },
+  weight: {
+    type: Number,
+    trim: true
+  },
+  causeOfDeath: {
+    type: String,
+    trim: true
+  },
+  status_comments: {
     type: String,
     trim: true
   }

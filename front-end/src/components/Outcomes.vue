@@ -14,12 +14,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr  v-for="outcome in outcomes" v-if="outcome.status =='Sold'">
-        <td>{{outcome.tag_id}}</td>
-        <td>{{outcome.date}}</td>
-        <td>{{outcome.status}}</td>
-        <td>{{outcome.weight}}</td>
-        <td>{{outcome.comments}}</td>
+      <tr  v-for="cow in cows" v-if="cow.status =='Sold'">
+        <td>{{cow.tag_id}}</td>
+        <td>{{cow.status_date}}</td>
+        <td>{{cow.status}}</td>
+        <td>{{cow.weight}}</td>
+        <td>{{cow.status_comments}}</td>
       </tr>
     </tbody>
   </table>
@@ -36,12 +36,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr  v-for="outcome in outcomes" v-if="outcome.status =='Deceased'">
-      <td>{{outcome.tag_id}}</td>
-      <td>{{outcome.date}}</td>
-      <td>{{outcome.status}}</td>
-      <td>{{outcome.causeOfDeath}}</td>
-      <td>{{outcome.comments}}</td>
+    <tr  v-for="cow in cows" v-if="cow.status =='Deceased'">
+      <td>{{cow.tag_id}}</td>
+      <td>{{cow.status_date}}</td>
+      <td>{{cow.status}}</td>
+      <td>{{cow.causeOfDeath}}</td>
+      <td>{{cow.status_comments}}</td>
     </tr>
   </tbody>
 </table>
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       msg: 'Outcomes',
-      outcomes: []
+      cows: []
     }
   },
   beforeCreate() {
@@ -69,10 +69,10 @@ export default {
     })
   },
   created() {
-    axios.get('http://127.0.0.1:3000/outcomes')
+    axios.get('http://127.0.0.1:3000/cattle')
       .then((response) => {
-        this.outcomes = response.data
-      })
+        this.cows = response.data
+      });
   },
   methods: {
     logOut() {

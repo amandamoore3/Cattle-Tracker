@@ -166,6 +166,22 @@
                   <option>Deceased</option>
                 </select>
               </div>
+              <div class="form-group">
+                <label for="editAnimalStatusChangeDate">Status Change Date</label>
+                <input v-model:value="cow.status_date" type="date" class="form-control" id="editAnimalStatusChangeDate">
+              </div>
+              <div class="form-group">
+                <label for="editAnimalWeight">Weight</label>
+                <input v-model:value="cow.weight" type="text" class="form-control" id="editAnimalWeight">
+              </div>
+              <div class="form-group">
+                <label for="editAnimalCauseOfDeath">Cause of Death</label>
+                <input v-model:value="cow.causeOfDeath" type="text" class="form-control" id="editAnimalCauseOfDeath">
+              </div>
+              <div class="form-group">
+                <label for="editAnimalStatusComments">Status change comments</label>
+                <input v-model:value="cow.status_comments" type="text" class="form-control" id="editAnimalStatusComments">
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -244,7 +260,12 @@ export default {
           dob: this.cow.dob,
           pasture: this.cow.pasture,
           sire: this.cow.sire,
-          dam: this.cow.dam
+          dam: this.cow.dam,
+          status: this.cow.status,
+          status_date: this.cow.status_date,
+          weight: this.cow.weight,
+          causeOfDeath: this.cow.causeOfDeath,
+          status_comments: this.cow.status_comments
         })
         .then(function(response) {
           console.log(response);
