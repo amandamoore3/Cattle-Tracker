@@ -2,7 +2,7 @@
 <div>
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
-    <table class="breedingTable table table table-striped table-hover">
+    <table class="table table table-striped table-hover">
     <thead>
       <tr>
         <th>Ear Tag</th>
@@ -65,8 +65,6 @@ export default {
 </script>
 
 <style lang="css">
-.breedingTable {
-  margin: 0 auto;
-}
+
 
 </style>

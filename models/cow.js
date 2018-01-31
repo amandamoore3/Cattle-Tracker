@@ -2,6 +2,18 @@
 
 const mongoose = require('mongoose');
 
+let today = new Date();
+let dd = today.getDate();
+let mm = today.getMonth() + 1; //January is 0!
+
+let yyyy = today.getFullYear();
+if (dd < 10) {
+  dd = '0' + dd;
+}
+if (mm < 10) {
+  mm = '0' + mm;
+}
+let formattedDate = dd + '/' + mm + '/' + yyyy;
 
 
 //set up the schema/ structure of data
@@ -32,7 +44,7 @@ let cowSchema = mongoose.Schema({
   dateCreated: {
     type: Date,
     required: true,
-    default: Date.now()
+    default: formattedDate
   },
   status: {
     type: String,

@@ -2,7 +2,7 @@
 <div>
     <h1>{{msg}}</h1>
     <button @click='logOut'>Log out</button><br />
-    <table class="cattleTable table table table-striped table-hover">
+    <table class="table table table-striped table-hover">
     <thead>
       <tr>
         <th>Pasture</th>
@@ -60,7 +60,5 @@ export default {
 
 <style lang="css">
 
-.cattleTable {
-  margin: 0 auto;
-}
+
 </style>

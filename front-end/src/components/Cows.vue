@@ -6,7 +6,7 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAnimalModal">
       Add new animal
     </button>
-    <table class="cattleTable table table-striped table-hover">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
           <th>Ear Tag</th>
@@ -76,7 +76,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="addAnimal">Save changes</button>
+            <button type="button" class="btn btn-primary" @click="addAnimal()">Add to database</button>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@ export default {
     axios.get('http://127.0.0.1:3000/pastures')
       .then((response) => {
         this.pastures = response.data
-      })
+      });
   },
   methods: {
     logOut() {
@@ -144,7 +144,7 @@ export default {
           window.location.href = '/cattle';
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response);
         });
     }
   }
@@ -155,7 +155,5 @@ export default {
 
 <style lang="css">
 
-.cattleTable {
-  margin: 0 auto;
-}
+
 </style>
