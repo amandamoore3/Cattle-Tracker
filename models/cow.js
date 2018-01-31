@@ -41,12 +41,10 @@ let cowSchema = mongoose.Schema({
   },
   sire: {
     type: String,
-    required: true,
     trim: true
   },
   dam: {
     type: String,
-    required: true,
     trim: true
   }
 });

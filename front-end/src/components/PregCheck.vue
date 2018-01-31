@@ -15,7 +15,7 @@
     <tbody>
 
       <tr  v-for="pregCheck in pregChecks" >
-        <td>{{breeding.tag_id}}</td>
+        <td>{{pregCheck.tag_id}}</td>
         <td>{{pregCheck.date}}</td>
         <td>{{pregCheck.method}}</td>
         <td>{{pregCheck.result}}</td>

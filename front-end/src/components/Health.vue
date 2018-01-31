@@ -16,7 +16,7 @@
     <tbody>
 
       <tr  v-for="healthEvent in healthEvents" >
-        <td>{{breeding.tag_id}}</td>
+        <td>{{healthEvent.tag_id}}</td>
         <td>{{healthEvent.treatmentDate}}</td>
         <td>{{healthEvent.medication}}</td>
         <td>{{healthEvent.dosage}}</td>
