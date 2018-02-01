@@ -31,7 +31,6 @@ let breedingSchema = mongoose.Schema({
   },
   comments: {
     type: String,
-    required: true,
     trim: true
   },
   dateCreated: {

@@ -253,7 +253,7 @@ export default {
 
     },
     editAnimal() {
-      console.log("testing");
+
       axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
           tag_id: this.cow.tag_id,
           type: this.cow.type,

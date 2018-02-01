@@ -11,9 +11,9 @@
     </thead>
     <tbody>
 
-      <tr  v-for="pasture in pastures">
+      <tr  v-for="pasture in pastures" >
         <td>{{pasture.name}}</td>
-        <td>Sum of animals on pasture</td>
+        <td  v-for="cow in cows"  v-if="cow.status =='Active' && cow.pasture == pasture.name">{{cows.length}}</td>
       </tr>
 
     </tbody>
@@ -31,7 +31,8 @@ export default {
   data() {
     return {
       msg: 'Pastures',
-      pastures: []
+      pastures: [],
+      cows: []
     }
   },
   beforeCreate() {
@@ -45,7 +46,11 @@ export default {
     axios.get('http://127.0.0.1:3000/pastures')
       .then((response) => {
         this.pastures = response.data
-      })
+      });
+    axios.get('http://127.0.0.1:3000/cattle')
+      .then((response) => {
+        this.cows = response.data
+      });
   },
   methods: {
     logOut() {

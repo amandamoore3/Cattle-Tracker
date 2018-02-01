@@ -24,9 +24,9 @@ const {
   Health
 } = require('../models/health.js');
 
-const {
-  Outcome
-} = require('../models/outcomes.js');
+// const {
+//   Outcome
+// } = require('../models/outcomes.js');
 
 const {
   Pasture
@@ -45,7 +45,7 @@ app.use(express.static(__dirname + '/static'));
 
 
 
-//CHECKED GET ALL DATA FROM CATTLE TABLE
+//  GET ALL DATA FROM CATTLE TABLE
 app.get('/cattle', (req, res) => {
   Cow.find()
     .then((docs) => {
@@ -55,7 +55,7 @@ app.get('/cattle', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET ALL DATA FROM CATTLE TABLE
+//  GET ALL DATA FROM CATTLE TABLE
 
 // // GET INDIVIDUAL FROM CATTLE TABLE
 // app.get('/cattle/:id', (req, res) => {
@@ -69,7 +69,7 @@ app.get('/cattle', (req, res) => {
 // });
 // // GET INDIVIDUAL FROM CATTLE TABLE
 
-//CHECKED GET INDIVIDUAL FROM CATTLE TABLE
+//  GET INDIVIDUAL FROM CATTLE TABLE
 app.get('/cattle/:id', (req, res) => {
   Cow.findOne({
       tag_id: req.params.id
@@ -81,9 +81,9 @@ app.get('/cattle/:id', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET INDIVIDUAL FROM CATTLE TABLE
+//  GET INDIVIDUAL FROM CATTLE TABLE
 
-//CHECKED POST TO CATTLE TABLE
+//  POST TO CATTLE TABLE
 app.post('/cattle', (req, res) => {
   let newCow = new Cow({
     tag_id: req.body.tag_id,
@@ -100,7 +100,7 @@ app.post('/cattle', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED POST TO CATTLE TABLE
+//  POST TO CATTLE TABLE
 
 //DELETE ANIMAL BY ID
 app.delete('/cattle/:id', (req, res) => {
@@ -120,7 +120,7 @@ app.delete('/cattle/:id', (req, res) => {
 });
 ////DELETE ANIMAL BY ID
 
-//CHECKED UPDATE ANIMAL BY TAG ID
+//  UPDATE ANIMAL BY TAG ID
 app.patch('/cattle/:id', (req, res) => {
   Cow.findOneAndUpdate({
       tag_id: req.params.id
@@ -140,9 +140,9 @@ app.patch('/cattle/:id', (req, res) => {
       res.status(400).send(err.message);
     });
 });
-//CHECKED UPDATE ANIMAL BY TAG ID
+//  UPDATE ANIMAL BY TAG ID
 
-//CHECKED GET ALL DATA FROM BREEDING TABLE
+//  GET ALL DATA FROM BREEDING TABLE
 app.get('/breeding', (req, res) => {
   Breeding.find()
     .then((docs) => {
@@ -152,9 +152,9 @@ app.get('/breeding', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET ALL DATA FROM BREEDING TABLE
+//  GET ALL DATA FROM BREEDING TABLE
 
-//CHECKED GET INDIVIDUAL COW BREEDING DATA
+//  GET INDIVIDUAL COW BREEDING DATA
 app.get('/breeding/:id', (req, res) => {
   Breeding.find({
       tag_id: req.params.id
@@ -166,9 +166,9 @@ app.get('/breeding/:id', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET INDIVIDUAL COW BREEDING DATA
+//  GET INDIVIDUAL COW BREEDING DATA
 
-//CHECKED POST TO BREEDING TABLE
+//  POST TO BREEDING TABLE
 app.post('/breeding', (req, res) => {
   let newBreeding = new Breeding({
     tag_id: req.body.tag_id,
@@ -185,7 +185,7 @@ app.post('/breeding', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED POST TO BREEDING TABLE
+//  POST TO BREEDING TABLE
 
 //DELETE BREEDING DOCUMENT BY ID
 app.delete('/breeding/:id', (req, res) => {
@@ -224,7 +224,7 @@ app.patch('/breeding/:id', (req, res) => {
 });
 //UPDATE BREEDING DOCUMENT BY ID
 
-//CHECKED GET ALL DATA FROM HEALTH TABLE
+//  GET ALL DATA FROM HEALTH TABLE
 app.get('/health', (req, res) => {
   Health.find()
     .then((docs) => {
@@ -234,9 +234,9 @@ app.get('/health', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET ALL DATA FROM HEALTH TABLE
+//  GET ALL DATA FROM HEALTH TABLE
 
-//CHECKED GET INDIVIDUAL COW HEALTH DATA
+//  GET INDIVIDUAL COW HEALTH DATA
 app.get('/health/:id', (req, res) => {
   Health.find({
       tag_id: req.params.id
@@ -248,9 +248,9 @@ app.get('/health/:id', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET INDIVIDUAL COW HEALTH DATA
+//  GET INDIVIDUAL COW HEALTH DATA
 
-//CHECKED POST TO HEALTH TABLE
+//  POST TO HEALTH TABLE
 app.post('/health', (req, res) => {
   let newHealth = new Health({
     tag_id: req.body.tag_id,
@@ -268,7 +268,7 @@ app.post('/health', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED POST TO HEALTH TABLE
+//  POST TO HEALTH TABLE
 
 //DELETE HEALTH DOCUMENT BY ID
 app.delete('/health/:id', (req, res) => {
@@ -440,7 +440,7 @@ app.patch('/pastures/:id', (req, res) => {
 });
 //UPDATE PASTURE DOCUMENT BY ID
 
-//CHECKED GET ALL DATA FROM PREG-CHECK TABLE
+//  GET ALL DATA FROM PREG-CHECK TABLE
 app.get('/pregnancy', (req, res) => {
   PregCheck.find()
     .then((docs) => {
@@ -450,9 +450,9 @@ app.get('/pregnancy', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET ALL DATA FROM PREG-CHECK TABLE
+//  GET ALL DATA FROM PREG-CHECK TABLE
 
-//CHECKED GET INDIVIDUAL COW PREG-CHECK DATA
+//  GET INDIVIDUAL COW PREG-CHECK DATA
 app.get('/pregnancy/:id', (req, res) => {
   PregCheck.find({
       tag_id: req.params.id
@@ -464,9 +464,9 @@ app.get('/pregnancy/:id', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED GET INDIVIDUAL COW PREG-CHECK DATA
+//  GET INDIVIDUAL COW PREG-CHECK DATA
 
-//CHECKED POST TO PREG-CHECK TABLE
+//  POST TO PREG-CHECK TABLE
 app.post('/pregnancy', (req, res) => {
   let newPregCheck = new PregCheck({
     tag_id: req.body.tag_id,
@@ -482,7 +482,7 @@ app.post('/pregnancy', (req, res) => {
       res.status(400).send(err);
     });
 });
-//CHECKED POST TO PREG-CHECK TABLE
+//  POST TO PREG-CHECK TABLE
 
 //DELETE PREG-CHECK DOCUMENT BY ID
 app.delete('/pregnancy/:id', (req, res) => {
@@ -522,73 +522,73 @@ app.patch('/pregnancy/:id', (req, res) => {
 //UPDATE PREG-CHECK DOCUMENT BY ID
 
 
-//CHECKED GET ALL DATA FROM OUTCOMES TABLE
-app.get('/outcomes', (req, res) => {
-  Outcomes.find()
-    .then((docs) => {
-      res.send(docs)
+// //  GET ALL DATA FROM OUTCOMES TABLE
+// app.get('/outcomes', (req, res) => {
+//   Outcomes.find()
+//     .then((docs) => {
+//       res.send(docs)
+//
+//     }, (err) => {
+//       res.status(400).send(err);
+//     });
+// });
+// //  GET ALL DATA FROM OUTCOMES TABLE
 
-    }, (err) => {
-      res.status(400).send(err);
-    });
-});
-//CHECKED GET ALL DATA FROM OUTCOMES TABLE
-
-//CHECKED POST TO OUTCOMES TABLE
-app.post('/outcomes', (req, res) => {
-  let newOutcomes = new Outcomes({
-    tag_id: req.body.tag_id,
-    date: req.body.date,
-    status: req.body.status,
-    weight: req.body.weight,
-    causeOfDeath: req.body.causeOfDeath,
-    comments: req.body.comments
-  });
-  newOutcomes.save()
-    .then((doc) => {
-      res.send(doc);
-    }, (err) => {
-      res.status(400).send(err);
-    });
-});
-//CHECKED POST TO OUTCOMES TABLE
-
-//CHECKED DELETE OUTCOMES DOCUMENT BY ID
-app.delete('/outcomes/:id', (req, res) => {
-  console.log("deleterequest" + JSON.stringify(req.params));
-  Outcomes.findByIdAndRemove(req.params.id)
-    .then((docs) => {
-      if (!docs) {
-        res.send('Nothing found');
-        return;
-      }
-      res.send(docs);
-    }, (err) => {
-      res.status(400).send(err.message);
-    });
-});
-////CHECKED DELETE OUTCOMES DOCUMENT BY ID
-
-//CHECKED UPDATE OUTCOMES DOCUMENT BY ID
-app.patch('/outcomes/:id', (req, res) => {
-  Outcomes.findOneAndUpdate({
-      _id: req.params.id
-    }, {
-      $set: req.body
-    }, {
-      new: true
-    })
-    .then((response) => {
-      if (!response) {
-        res.send('Nothing found');
-        return;
-      }
-      res.send(response);
-    }, (err) => {
-      res.status(400).send(err.message);
-    });
-});
-// CHECKED UPDATE OUTCOMES DOCUMENT BY ID
+// //  POST TO OUTCOMES TABLE
+// app.post('/outcomes', (req, res) => {
+//   let newOutcomes = new Outcomes({
+//     tag_id: req.body.tag_id,
+//     date: req.body.date,
+//     status: req.body.status,
+//     weight: req.body.weight,
+//     causeOfDeath: req.body.causeOfDeath,
+//     comments: req.body.comments
+//   });
+//   newOutcomes.save()
+//     .then((doc) => {
+//       res.send(doc);
+//     }, (err) => {
+//       res.status(400).send(err);
+//     });
+// });
+// //  POST TO OUTCOMES TABLE
+//
+// //  DELETE OUTCOMES DOCUMENT BY ID
+// app.delete('/outcomes/:id', (req, res) => {
+//   console.log("deleterequest" + JSON.stringify(req.params));
+//   Outcomes.findByIdAndRemove(req.params.id)
+//     .then((docs) => {
+//       if (!docs) {
+//         res.send('Nothing found');
+//         return;
+//       }
+//       res.send(docs);
+//     }, (err) => {
+//       res.status(400).send(err.message);
+//     });
+// });
+// ////  DELETE OUTCOMES DOCUMENT BY ID
+//
+// //  UPDATE OUTCOMES DOCUMENT BY ID
+// app.patch('/outcomes/:id', (req, res) => {
+//   Outcomes.findOneAndUpdate({
+//       _id: req.params.id
+//     }, {
+//       $set: req.body
+//     }, {
+//       new: true
+//     })
+//     .then((response) => {
+//       if (!response) {
+//         res.send('Nothing found');
+//         return;
+//       }
+//       res.send(response);
+//     }, (err) => {
+//       res.status(400).send(err.message);
+//     });
+// });
+//   UPDATE OUTCOMES DOCUMENT BY ID
 
 app.listen(3000, () => {
   console.log('listening on port 3000');
