@@ -22,7 +22,9 @@
           <td>{{cow.type}}</td>
           <td>{{cow.pasture}}</td>
           <td>{{cow.dob}}</td>
-          <td><router-link :to="{path: '/cattle/' + cow.tag_id}"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td>
+          <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td>
+          <!-- <td><individual-animal><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></individual-animal></td> -->
+
         </tr>
       </tbody>
     </table>

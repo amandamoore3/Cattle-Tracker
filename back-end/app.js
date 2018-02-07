@@ -154,7 +154,7 @@ app.get('/breeding', (req, res) => {
 });
 //  GET ALL DATA FROM BREEDING TABLE
 
-//  GET INDIVIDUAL COW BREEDING DATA
+//  GET INDIVIDUAL COW BREEDING DATA BY TAG-ID
 app.get('/breeding/:id', (req, res) => {
   Breeding.find({
       tag_id: req.params.id
@@ -166,7 +166,19 @@ app.get('/breeding/:id', (req, res) => {
       res.status(400).send(err);
     });
 });
-//  GET INDIVIDUAL COW BREEDING DATA
+//  GET INDIVIDUAL COW BREEDING DATA BY TAG-ID
+
+//  GET INDIVIDUAL COW BREEDING DATA BY OBJECT ID
+app.get('/breedingevent/:id', (req, res) => {
+  Breeding.findById(req.params.id)
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL COW BREEDING DATA BY OBJECT ID
 
 //  POST TO BREEDING TABLE
 app.post('/breeding', (req, res) => {
@@ -188,7 +200,7 @@ app.post('/breeding', (req, res) => {
 //  POST TO BREEDING TABLE
 
 //DELETE BREEDING DOCUMENT BY ID
-app.delete('/breeding/:id', (req, res) => {
+app.delete('/breedingevent/:id', (req, res) => {
   console.log("deleterequest" + JSON.stringify(req.params));
   Breeding.findByIdAndRemove(req.params.id)
     .then((docs) => {
@@ -204,7 +216,7 @@ app.delete('/breeding/:id', (req, res) => {
 ////DELETE BREEDING DOCUMENT BY ID
 
 //UPDATE BREEDING DOCUMENT BY ID
-app.patch('/breeding/:id', (req, res) => {
+app.patch('/breedingevent/:id', (req, res) => {
   Breeding.findOneAndUpdate({
       _id: req.params.id
     }, {

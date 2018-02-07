@@ -1,6 +1,7 @@
 import vueRouter from 'vue-router'
 import Animal from './components/Animal.vue'
 import Breeding from './components/Breeding.vue'
+import BreedingEvent from './components/BreedingEvent.vue'
 import Cows from './components/Cows'
 import Health from './components/Health'
 import Login from './components/Login.vue'
@@ -26,11 +27,16 @@ const router = new vueRouter({
     },
     {
       path: '/cattle/:id',
+      name: 'individual-animal',
       component: Animal
     },
     {
       path: '/breeding',
       component: Breeding
+    },
+    {
+      path: '/breedingevent/:id',
+      component: BreedingEvent
     },
     {
       path: '/pregnancy',
