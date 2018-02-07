@@ -21,7 +21,7 @@
           <td>{{breeding.date}}</td>
           <td>{{breeding.method}}</td>
           <td>{{breeding.bull}}</td>
-          <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><span data-toggle="modal" data-target="#editBreedingModal" class="icon"><i class="fa fa-2x fa-pencil"></i></span></router-link></td>
+          <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
         </tr>
       </tbody>
     </table>

@@ -17,7 +17,10 @@
         <form>
           <div class="form-group">
             <label for="editBreedingTagId">Ear Tag Number</label>
-            <input  v-model:value="breeding.tag_id" type="text" class="form-control" id="editBreedingTagId">
+            <select v-model:value="breeding.tag_id"  class="form-control" id="editBreedingTagId">
+              <option disabled value="">Select an active animal</option>
+              <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="editBreedingMethod">Method</label>
@@ -29,8 +32,8 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="editBreedingDOB">Date of Birth</label>
-            <input v-model:value="breeding.dob"  type="date" class="form-control" id="editBreedingDOB" placeholder="mm/dd/yyyy">
+            <label for="editBreedingDate">Date</label>
+            <input v-model:value="breeding.date"  type="date" class="form-control" id="editBreedingDate" placeholder="mm/dd/yyyy">
           </div>
           <div class="form-group">
             <label for="editBreedingBull">Bull</label>
@@ -62,60 +65,6 @@
       </div>
     </div>
   </div>
-        <!-- EDIT/DELETE FORM -->
-        <!-- <div class="modal fade" id="editBreedingModal" tabindex="-1" role="dialog" aria-labelledby="editBreedingModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="editBreedingModalLabel">Edit Breeding</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="editBreedingTagId">Ear Tag Number</label> -->
-                    <!-- <input  v-model:value="thisBreeding.tag_id" type="text" class="form-control" id="editBreedingTagId"> -->
-                  <!-- </div>
-                  <div class="form-group">
-                    <label for="editBreedingMethod">Method</label> -->
-                    <!-- <select v-model:value="breeding.method"  class="form-control" id="editBreedingMethod">
-                      <option disabled value="">Select breeding method</option>
-                      <option>AI</option>
-                      <option>Embryo</option>
-                      <option>Natural</option>
-                    </select> -->
-                  <!-- </div>
-                  <div class="form-group">
-                    <label for="editBreedingDOB">Date of Birth</label> -->
-                    <!-- <input v-model:value="breeding.dob"  type="date" class="form-control" id="editBreedingDOB" placeholder="mm/dd/yyyy"> -->
-                  <!-- </div>
-                  <div class="form-group">
-                    <label for="editBreedingPasture">Pasture</label> -->
-                    <!-- <select v-model:value="breeding.pasture"  class="form-control" id="editBreedingPasture">
-                      <option disabled value="">Select a pasture</option>
-                      <option v-for="pasture in pastures">{{pasture.name}}</option>
-                    </select> -->
-                  <!-- </div>
-                  <div class="form-group">
-                    <label for="editBreedingSire">Sire</label> -->
-                    <!-- <input v-model:value="breeding.sire"  type="text" class="form-control" id="editBreedingSire" placeholder="Sire"> -->
-                  <!-- </div>
-                  <div class="form-group">
-                    <label for="editBreedingDam">Dam</label> -->
-                    <!-- <input v-model:value="breeding.dam" type="text" class="form-control" id="editBreedingDam" placeholder="Dam"> -->
-                  <!-- </div>
-                </form>
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" @click="editBreeding()">Add to database</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
 
 </template>
 

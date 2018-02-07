@@ -168,7 +168,7 @@ app.get('/breeding/:id', (req, res) => {
 });
 //  GET INDIVIDUAL COW BREEDING DATA BY TAG-ID
 
-//  GET INDIVIDUAL COW BREEDING DATA BY OBJECT ID
+//  GET INDIVIDUAL BREEDING EVENT DATA BY OBJECT ID
 app.get('/breedingevent/:id', (req, res) => {
   Breeding.findById(req.params.id)
     .then((docs) => {
@@ -262,6 +262,18 @@ app.get('/health/:id', (req, res) => {
 });
 //  GET INDIVIDUAL COW HEALTH DATA
 
+//  GET INDIVIDUAL HEALTH EVENT DATA BY OBJECT ID
+app.get('/healthevent/:id', (req, res) => {
+  Health.findById(req.params.id)
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL COW HEALTH DATA BY OBJECT ID
+
 //  POST TO HEALTH TABLE
 app.post('/health', (req, res) => {
   let newHealth = new Health({
@@ -283,7 +295,7 @@ app.post('/health', (req, res) => {
 //  POST TO HEALTH TABLE
 
 //DELETE HEALTH DOCUMENT BY ID
-app.delete('/health/:id', (req, res) => {
+app.delete('/healthevent/:id', (req, res) => {
   console.log("deleterequest" + JSON.stringify(req.params));
   Health.findByIdAndRemove(req.params.id)
     .then((docs) => {
@@ -299,7 +311,7 @@ app.delete('/health/:id', (req, res) => {
 ////DELETE HEALTH DOCUMENT BY ID
 
 //UPDATE HEALTH DOCUMENT BY ID
-app.patch('/health/:id', (req, res) => {
+app.patch('/healthevent/:id', (req, res) => {
   Health.findOneAndUpdate({
       _id: req.params.id
     }, {
