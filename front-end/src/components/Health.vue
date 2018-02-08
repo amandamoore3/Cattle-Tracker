@@ -1,7 +1,6 @@
 <template lang="html">
 <div>
     <h1>{{msg}}</h1>
-    <button @click='logOut'>Log out</button>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addHealthModal">
       Add health event
     </button>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="app">
+  <div>
     <h1>{{msg}}</h1>
     <router-link :to="{path: '/cattle'}">Back to herd information</router-link>
     <table class="table table table-striped table-hover">
@@ -120,74 +120,94 @@
               </button>
             </div>
             <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="editAnimalTagId">Ear Tag Number</label>
-                  <input  v-model:value="cow.tag_id" type="text" class="form-control" id="editAnimalTagId" placeholder="Ear tag number">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="statusUpdate-tab" data-toggle="tab" href="#statusUpdate" role="tab" aria-controls="statusUpdate" aria-selected="false">Status Update</a>
+                    </li>
+
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+                      <form>
+                        <div class="form-group">
+                          <label for="editAnimalTagId">Ear Tag Number</label>
+                          <input  v-model:value="cow.tag_id" type="text" class="form-control" id="editAnimalTagId" placeholder="Ear tag number">
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalType">Type</label>
+                          <select v-model:value="cow.type"  class="form-control" id="editAnimalType">
+                            <option disabled value="">Select type of animal</option>
+                            <option>Cow</option>
+                            <option>Bull</option>
+                            <option>Calf- bull</option>
+                            <option>Calf- heifer</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalDOB">Date of Birth</label>
+                          <input v-model:value="cow.dob"  type="date" class="form-control" id="editAnimalDOB" placeholder="mm/dd/yyyy">
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalPasture">Pasture</label>
+                          <select v-model:value="cow.pasture"  class="form-control" id="editAnimalPasture">
+                            <option disabled value="">Select a pasture</option>
+                            <option v-for="pasture in pastures">{{pasture.name}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalSire">Sire</label>
+                          <input v-model:value="cow.sire"  type="text" class="form-control" id="editAnimalSire" placeholder="Sire">
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalDam">Dam</label>
+                          <input v-model:value="cow.dam" type="text" class="form-control" id="editAnimalDam" placeholder="Dam">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="tab-pane fade" id="statusUpdate" role="tabpanel" aria-labelledby="statusUpdate-tab">
+                      <form>
+                        <div class="form-group">
+                          <label for="editAnimalStatus">Status</label>
+                          <select v-model:value="cow.status"  class="form-control" id="editAnimalStatus">
+                            <option disabled value="">Select animal status</option>
+                            <option>Active</option>
+                            <option>Sold</option>
+                            <option>Deceased</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalStatusChangeDate">Status Change Date</label>
+                          <input v-model:value="cow.status_date" type="date" class="form-control" id="editAnimalStatusChangeDate">
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalWeight">Weight</label>
+                          <input v-model:value="cow.weight" type="text" class="form-control" id="editAnimalWeight">
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalCauseOfDeath">Cause of Death</label>
+                          <input v-model:value="cow.causeOfDeath" type="text" class="form-control" id="editAnimalCauseOfDeath">
+                        </div>
+                        <div class="form-group">
+                          <label for="editAnimalStatusComments">Status change comments</label>
+                          <input v-model:value="cow.status_comments" type="text" class="form-control" id="editAnimalStatusComments">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" @click="editAnimal()">Update</button>
+                    </div>
+
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="editAnimalType">Type</label>
-                  <select v-model:value="cow.type"  class="form-control" id="editAnimalType">
-                    <option disabled value="">Select type of animal</option>
-                    <option>Cow</option>
-                    <option>Bull</option>
-                    <option>Calf- bull</option>
-                    <option>Calf- heifer</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="editAnimalDOB">Date of Birth</label>
-                  <input v-model:value="cow.dob"  type="date" class="form-control" id="editAnimalDOB" placeholder="mm/dd/yyyy">
-                </div>
-                <div class="form-group">
-                  <label for="editAnimalPasture">Pasture</label>
-                  <select v-model:value="cow.pasture"  class="form-control" id="editAnimalPasture">
-                    <option disabled value="">Select a pasture</option>
-                    <option v-for="pasture in pastures">{{pasture.name}}</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="editAnimalSire">Sire</label>
-                  <input v-model:value="cow.sire"  type="text" class="form-control" id="editAnimalSire" placeholder="Sire">
-                </div>
-                <div class="form-group">
-                  <label for="editAnimalDam">Dam</label>
-                  <input v-model:value="cow.dam" type="text" class="form-control" id="editAnimalDam" placeholder="Dam">
-                </div>
-              </form>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="editAnimalStatus">Status</label>
-                <select v-model:value="cow.status"  class="form-control" id="editAnimalStatus">
-                  <option disabled value="">Select animal status</option>
-                  <option>Active</option>
-                  <option>Sold</option>
-                  <option>Deceased</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="editAnimalStatusChangeDate">Status Change Date</label>
-                <input v-model:value="cow.status_date" type="date" class="form-control" id="editAnimalStatusChangeDate">
-              </div>
-              <div class="form-group">
-                <label for="editAnimalWeight">Weight</label>
-                <input v-model:value="cow.weight" type="text" class="form-control" id="editAnimalWeight">
-              </div>
-              <div class="form-group">
-                <label for="editAnimalCauseOfDeath">Cause of Death</label>
-                <input v-model:value="cow.causeOfDeath" type="text" class="form-control" id="editAnimalCauseOfDeath">
-              </div>
-              <div class="form-group">
-                <label for="editAnimalStatusComments">Status change comments</label>
-                <input v-model:value="cow.status_comments" type="text" class="form-control" id="editAnimalStatusComments">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" @click="editAnimal()">Add to database</button>
-            </div>
+
+
+
           </div>
+
         </div>
       </div>
   </div>
@@ -269,6 +289,7 @@ export default {
         })
         .then(function(response) {
           console.log(response);
+          window.location.href = '/cattle';
         })
         .catch(function(error) {
           console.log(error.response);

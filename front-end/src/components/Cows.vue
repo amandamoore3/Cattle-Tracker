@@ -1,7 +1,7 @@
 <template lang="html">
 <div>
     <h1>{{msg}}</h1>
-    <button class="btn" @click='logOut'>Log out</button>
+    <!-- <button class="btn" @click='logOut'>Log out</button> -->
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAnimalModal">
       Add new animal
@@ -126,10 +126,10 @@ export default {
       });
   },
   methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    },
+    // logOut() {
+    //   firebase.auth().signOut();
+    //   window.location.href = '/';
+    // },
     addAnimal() {
       let newCow = {
         tag_id: this.newAnimal.tag_id,

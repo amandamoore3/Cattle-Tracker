@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="app">
+  <div>
     <h1>{{msg}}</h1>
     <router-link :to="{path: '/health'}">Back to herd health information</router-link>
 
