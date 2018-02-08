@@ -502,6 +502,18 @@ app.get('/pregnancy/:id', (req, res) => {
 });
 //  GET INDIVIDUAL COW PREG-CHECK DATA
 
+//  GET INDIVIDUAL COW PREG-CHECK DATA BY OBJECT ID
+app.get('/pregcheck/:id', (req, res) => {
+  PregCheck.findById(req.params.id)
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL COW PREG-CHECK DATA BY OBJECT ID
+
 //  POST TO PREG-CHECK TABLE
 app.post('/pregnancy', (req, res) => {
   let newPregCheck = new PregCheck({

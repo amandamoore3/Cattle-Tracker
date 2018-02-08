@@ -102,11 +102,24 @@ export default {
 
     }
   },
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {} else {
+        this.$router.push('/');
+      }
+    })
+  },
+  created() {
+    axios.get('http://127.0.0.1:3000/health')
+      .then((response) => {
+        this.healthEvents = response.data
+      });
+    axios.get('http://127.0.0.1:3000/cattle')
+      .then((response) => {
+        this.cows = response.data
+      });
+  },
   methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    },
     addHealth() {
       let newHealth = {
         tag_id: this.newHealth.tag_id,
@@ -127,23 +140,6 @@ export default {
           console.log(err.response);
         });
     }
-  },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {} else {
-        this.$router.push('/');
-      }
-    })
-  },
-  created() {
-    axios.get('http://127.0.0.1:3000/health')
-      .then((response) => {
-        this.healthEvents = response.data
-      });
-    axios.get('http://127.0.0.1:3000/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
   }
 
 

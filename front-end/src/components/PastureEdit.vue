@@ -66,10 +66,6 @@ export default {
 
   },
   methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    },
     cancel() {
       window.location.href = '/pastures';
     },

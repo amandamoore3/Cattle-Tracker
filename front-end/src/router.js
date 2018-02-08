@@ -12,6 +12,8 @@ import OutcomesRecords from './components/OutcomesRecords.vue'
 import Pastures from './components/Pastures.vue'
 import PastureEdit from './components/PastureEdit.vue'
 import PregCheck from './components/PregCheck.vue'
+import PregCheckEvent from './components/PregCheckEvent.vue'
+
 
 
 const router = new vueRouter({
@@ -44,6 +46,10 @@ const router = new vueRouter({
     {
       path: '/pregnancy',
       component: PregCheck
+    },
+    {
+      path: '/pregcheck/:id',
+      component: PregCheckEvent
     },
     {
       path: '/health',

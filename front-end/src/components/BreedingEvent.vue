@@ -11,7 +11,7 @@
         <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
       </li>
     </ul>
-    
+
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
         <form>
@@ -98,10 +98,7 @@ export default {
       });
   },
   methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    },
+
     cancel() {
       window.location.href = '/breeding';
     },

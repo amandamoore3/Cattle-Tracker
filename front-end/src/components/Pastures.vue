@@ -127,10 +127,6 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-    },
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
     }
 
   }

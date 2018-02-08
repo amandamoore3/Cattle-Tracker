@@ -119,10 +119,7 @@ export default {
       });
   },
   methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    },
+
     addBreeding() {
       let newBreeding = {
         tag_id: this.newBreeding.tag_id,

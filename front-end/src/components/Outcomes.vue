@@ -76,12 +76,6 @@ export default {
       .then((response) => {
         this.cows = response.data
       });
-  },
-  methods: {
-    logOut() {
-      firebase.auth().signOut();
-      window.location.href = '/';
-    }
   }
 
 
