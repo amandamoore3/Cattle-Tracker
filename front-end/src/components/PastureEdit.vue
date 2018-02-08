@@ -87,8 +87,8 @@ export default {
     },
     editPasture() {
       axios.patch('http://127.0.0.1:3000/pastures/' + this.$route.params.id, {
-          name: this.breeding.name,
-          comments: this.breeding.comments
+          name: this.pasture.name,
+          comments: this.pasture.comments
         })
         .then(function(response) {
           console.log(response);
