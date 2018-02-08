@@ -412,6 +412,18 @@ app.get('/pastures', (req, res) => {
 });
 // GET ALL DATA FROM PASTURES TABLE
 
+//  GET INDIVIDUAL PASTURE DATA BY OBJECT ID
+app.get('/pastures/:id', (req, res) => {
+  Pasture.findById(req.params.id)
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL PASTURE BY OBJECT ID
+
 // POST TO PASTURES TABLE
 app.post('/pastures', (req, res) => {
   let newPasture = new Pasture({

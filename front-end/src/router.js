@@ -10,6 +10,7 @@ import LoggedIn from './components/LoggedIn.vue'
 import Outcomes from './components/Outcomes.vue'
 import OutcomesRecords from './components/OutcomesRecords.vue'
 import Pastures from './components/Pastures.vue'
+import PastureEdit from './components/PastureEdit.vue'
 import PregCheck from './components/PregCheck.vue'
 
 
@@ -63,6 +64,10 @@ const router = new vueRouter({
     {
       path: '/pastures',
       component: Pastures
+    },
+    {
+      path: '/pastures/:id',
+      component: PastureEdit
     }
   ]
 })

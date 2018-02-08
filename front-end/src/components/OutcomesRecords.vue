@@ -41,6 +41,10 @@
             <label for="editAnimalOutcomeStatusComments">Status change comments</label>
             <input v-model:value="cow.status_comments" type="text" class="form-control" id="editAnimalOutcomeStatusComments">
           </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
+            <button type="button" class="btn btn-primary" @click="editOutcome()">Update</button>
+          </div>
         </form>
       </div>
       <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
@@ -79,6 +83,21 @@ export default {
       });
   },
   methods: {
+    cancel() {
+      window.location.href = '/breeding';
+    },
+    deleteOutcome() {
+      // console.log(this.$route.params.id);
+      axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
+        .then((response) => {
+          console.log(response);
+          window.location.href = '/outcomes';
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+
+    },
     editOutcome() {
       axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
           status: this.cow.status,
@@ -94,18 +113,6 @@ export default {
         .catch(function(error) {
           console.log(error.response);
         });
-    },
-    deleteOutcome() {
-      // console.log(this.$route.params.id);
-      axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          window.location.href = '/outcomes';
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-
     }
   }
 }

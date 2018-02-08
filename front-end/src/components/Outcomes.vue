@@ -1,6 +1,6 @@
 <template lang="html">
 <div>
-    <h1>{{msg}}</h1>
+    <h4>{{msg}}</h4>
     <h1>Sold cattle</h1>
     <table class="table table table-striped table-hover">
     <thead>

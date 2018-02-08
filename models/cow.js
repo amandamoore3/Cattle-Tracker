@@ -32,7 +32,6 @@ let cowSchema = mongoose.Schema({
   },
   dob: {
     type: Date,
-    required: true,
     trim: true
   },
   pasture: {
@@ -61,7 +60,6 @@ let cowSchema = mongoose.Schema({
   },
   status_date: {
     type: Date,
-    required: true,
     trim: true
   },
   weight: {
