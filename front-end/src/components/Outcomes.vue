@@ -1,7 +1,6 @@
 <template lang="html">
 <div>
     <h1>{{msg}}</h1>
-    <button @click='logOut'>Log out</button><br />
     <h1>Sold cattle</h1>
     <table class="table table table-striped table-hover">
     <thead>
@@ -11,6 +10,7 @@
         <th>Status</th>
         <th>Weight</th>
         <th>Comments</th>
+        <th>Edit</th>
       </tr>
     </thead>
     <tbody>
@@ -20,31 +20,34 @@
         <td>{{cow.status}}</td>
         <td>{{cow.weight}}</td>
         <td>{{cow.status_comments}}</td>
+        <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
       </tr>
     </tbody>
   </table>
 
   <h1>Deaths</h1>
   <table class="table table table-striped table-hover">
-  <thead>
-    <tr>
-      <th>Ear tag</th>
-      <th>Date</th>
-      <th>Status</th>
-      <th>Cause of Death</th>
-      <th>Comments</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr  v-for="cow in cows" v-if="cow.status =='Deceased'">
-      <td>{{cow.tag_id}}</td>
-      <td>{{cow.status_date}}</td>
-      <td>{{cow.status}}</td>
-      <td>{{cow.causeOfDeath}}</td>
-      <td>{{cow.status_comments}}</td>
-    </tr>
-  </tbody>
-</table>
+    <thead>
+      <tr>
+        <th>Ear tag</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Cause of Death</th>
+        <th>Comments</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  v-for="cow in cows" v-if="cow.status =='Deceased'">
+        <td>{{cow.tag_id}}</td>
+        <td>{{cow.status_date}}</td>
+        <td>{{cow.status}}</td>
+        <td>{{cow.causeOfDeath}}</td>
+        <td>{{cow.status_comments}}</td>
+        <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+      </tr>
+    </tbody>
+  </table>
 
 
 </div>

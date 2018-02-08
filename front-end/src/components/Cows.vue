@@ -126,10 +126,6 @@ export default {
       });
   },
   methods: {
-    // logOut() {
-    //   firebase.auth().signOut();
-    //   window.location.href = '/';
-    // },
     addAnimal() {
       let newCow = {
         tag_id: this.newAnimal.tag_id,

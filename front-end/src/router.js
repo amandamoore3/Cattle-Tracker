@@ -8,6 +8,7 @@ import HealthEvent from './components/HealthEvent'
 import Login from './components/Login.vue'
 import LoggedIn from './components/LoggedIn.vue'
 import Outcomes from './components/Outcomes.vue'
+import OutcomesRecords from './components/OutcomesRecords.vue'
 import Pastures from './components/Pastures.vue'
 import PregCheck from './components/PregCheck.vue'
 
@@ -54,6 +55,10 @@ const router = new vueRouter({
     {
       path: '/outcomes',
       component: Outcomes
+    },
+    {
+      path: '/outcomes/:id',
+      component: OutcomesRecords
     },
     {
       path: '/pastures',

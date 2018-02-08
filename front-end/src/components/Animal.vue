@@ -261,7 +261,6 @@ export default {
   },
   methods: {
     deleteCow() {
-      // console.log(this.$route.params.id);
       axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);

@@ -10,8 +10,8 @@
       <li class="nav-item">
         <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
       </li>
-
     </ul>
+    
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
         <form>
@@ -118,7 +118,6 @@ export default {
 
     },
     editBreeding() {
-      console.log('testing edit breeding method');
       axios.patch('http://127.0.0.1:3000/breedingevent/' + this.$route.params.id, {
           tag_id: this.breeding.tag_id,
           date: this.breeding.date,
