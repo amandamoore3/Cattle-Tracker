@@ -10,9 +10,6 @@
         <div class="col-4">
           <!-- Button trigger modal -->
           <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addAnimalModal">New animal</a></h5>
-          <!-- <button type="button" class="btn btn-link btn-primary" data-toggle="modal" data-target="#addAnimalModal">
-            Add new animal
-          </button> -->
         </div>
       </div>
     </div>
@@ -44,7 +41,7 @@
     <div class="modal fade" id="addAnimalModal" tabindex="-1" role="dialog" aria-labelledby="addAnimalModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header card-header">
             <h5 class="modal-title font-weight-bold" id="addAnimalModalLabel">Add New Animal</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>

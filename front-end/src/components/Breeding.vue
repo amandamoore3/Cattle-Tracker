@@ -1,35 +1,48 @@
 <template lang="html">
 <div>
-    <h1>{{msg}}</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBreedingModal">
-      Add breeding event
-    </button>
-    <table class="table table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Ear Tag</th>
-          <th>Date</th>
-          <th>Method</th>
-          <th>Sire</th>
-          <th>Edit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr  v-for="breeding in breedings" >
-          <td>{{breeding.tag_id}}</td>
-          <td>{{breeding.date}}</td>
-          <td>{{breeding.method}}</td>
-          <td>{{breeding.sire}}</td>
-          <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="card">
+    <div class="card-header">
+      <div class="row no-gutters">
+        <div class="col-8">
+          <h3 class="font-weight-bold">{{msg}}</h3>
+        </div>
+        <div class="col-4">
+          <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addBreedingModal">New breeding event</a></h5>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Ear Tag</th>
+            <th>Date</th>
+            <th>Method</th>
+            <th>Sire</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  v-for="breeding in breedings" >
+            <td>{{breeding.tag_id}}</td>
+            <td>{{breeding.date}}</td>
+            <td>{{breeding.method}}</td>
+            <td>{{breeding.sire}}</td>
+            <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- ADD Modal -->
     <div class="modal fade" id="addBreedingModal" tabindex="-1" role="dialog" aria-labelledby="addBreedingModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addBreedingModalLabel">Add New Breeding Event</h5>
+          <div class="modal-header card-header">
+            <h5 class="modal-title font-weight-bold" id="addBreedingModalLabel">Add New Breeding Event</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
