@@ -17,6 +17,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <router-link :to="{path: '/breeding'}" class="dropdown-item">Breeding</router-link>
+            <router-link :to="{path: '/calving'}" class="dropdown-item">Calving</router-link>
             <router-link :to="{path: '/health'}" class="dropdown-item">Health</router-link>
             <router-link :to="{path: '/outcomes'}" class="dropdown-item">Outcomes</router-link>
             <router-link :to="{path: '/pastures'}" class="dropdown-item">Pastures</router-link>

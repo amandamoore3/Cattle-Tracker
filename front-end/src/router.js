@@ -2,6 +2,8 @@ import vueRouter from 'vue-router'
 import Animal from './components/Animal.vue'
 import Breeding from './components/Breeding.vue'
 import BreedingEvent from './components/BreedingEvent.vue'
+import Calving from './components/Calving'
+import CalvingRecord from './components/CalvingRecord'
 import Cows from './components/Cows'
 import Health from './components/Health'
 import HealthEvent from './components/HealthEvent'
@@ -42,6 +44,14 @@ const router = new vueRouter({
     {
       path: '/breedingevent/:id',
       component: BreedingEvent
+    },
+    {
+      path: '/calving',
+      component: Calving
+    },
+    {
+      path: '/calvingevent/:id',
+      component: CalvingRecord
     },
     {
       path: '/pregnancy',
