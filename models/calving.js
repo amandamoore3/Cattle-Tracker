@@ -3,25 +3,35 @@
 const mongoose = require('mongoose');
 
 
+
 //set up the schema/ structure of data
-let pregCheckSchema = mongoose.Schema({
+let calvingSchema = mongoose.Schema({
   tag_id: {
     type: String,
     required: true,
     trim: true
   },
-  date: {
+  calf_id: {
+    type: String,
+    trim: true
+  },
+  season: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  dob: {
     type: Date,
     required: true,
     trim: true
   },
-  method: {
-    type: String,
-    trim: true
-  },
-  result: {
+  sex: {
     type: String,
     required: true,
+    trim: true
+  },
+  sire: {
+    type: String,
     trim: true
   },
   comments: {
@@ -35,9 +45,9 @@ let pregCheckSchema = mongoose.Schema({
   }
 });
 
-let PregCheck = mongoose.model('PregCheck', pregCheckSchema);
+let Calving = mongoose.model('Calving', calvingSchema);
 
 
 module.exports = {
-  PregCheck
+  Calving
 };

@@ -16,6 +16,10 @@ const {
 } = require('../models/breeding.js');
 
 const {
+  Calving
+} = require('../models/calving.js');
+
+const {
   Cow
 } = require('../models/cow.js');
 
@@ -24,9 +28,6 @@ const {
   Health
 } = require('../models/health.js');
 
-// const {
-//   Outcome
-// } = require('../models/outcomes.js');
 
 const {
   Pasture
@@ -55,19 +56,7 @@ app.get('/cattle', (req, res) => {
       res.status(400).send(err);
     });
 });
-//  GET ALL DATA FROM CATTLE TABLE
 
-// // GET INDIVIDUAL FROM CATTLE TABLE
-// app.get('/cattle/:id', (req, res) => {
-//   Cow.findById(req.params.id)
-//     .then((docs) => {
-//       res.send(docs)
-//
-//     }, (err) => {
-//       res.status(400).send(err);
-//     });
-// });
-// // GET INDIVIDUAL FROM CATTLE TABLE
 
 //  GET INDIVIDUAL FROM CATTLE TABLE
 app.get('/cattle/:id', (req, res) => {
@@ -236,6 +225,101 @@ app.patch('/breedingevent/:id', (req, res) => {
 });
 //UPDATE BREEDING DOCUMENT BY ID
 
+//  GET ALL DATA FROM CALVING TABLE
+app.get('/calving', (req, res) => {
+  Calving.find()
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET ALL DATA FROM CALVING TABLE
+
+//  GET INDIVIDUAL COW CALVING DATA BY TAG-ID
+app.get('/calving/:id', (req, res) => {
+  Calving.find({
+      tag_id: req.params.id
+    })
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL COW CALVING DATA BY TAG-ID
+
+//  GET INDIVIDUAL CALVING EVENT DATA BY OBJECT ID
+app.get('/calvingevent/:id', (req, res) => {
+  Calving.findById(req.params.id)
+    .then((docs) => {
+      res.send(docs)
+
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL COW CALVING DATA BY OBJECT ID
+
+//  POST TO CALVING TABLE
+app.post('/calving', (req, res) => {
+  let newCalving = new Calving({
+    tag_id: req.body.tag_id,
+    calf_id: req.body.calf_id,
+    season: req.body.season,
+    dob: req.body.dob,
+    sex: req.body.sex,
+    sire: req.body.sire,
+    comments: req.body.comments
+  });
+  newCalving.save()
+    .then((doc) => {
+      res.send(doc);
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  POST TO CALVING TABLE
+
+//DELETE CALVING DOCUMENT BY ID
+app.delete('/calvingevent/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
+  Calving.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE CALVING DOCUMENT BY ID
+
+//UPDATE CALVING DOCUMENT BY ID
+app.patch('/calvingevent/:id', (req, res) => {
+  Calving.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE CALVING DOCUMENT BY ID
+
 //  GET ALL DATA FROM HEALTH TABLE
 app.get('/health', (req, res) => {
   Health.find()
@@ -331,74 +415,74 @@ app.patch('/healthevent/:id', (req, res) => {
 });
 //UPDATE HEALTH DOCUMENT BY ID
 
-// GET ALL DATA FROM OUTCOMES TABLE
-app.get('/outcomes', (req, res) => {
-  Outcome.find()
-    .then((docs) => {
-      res.send(docs)
-
-    }, (err) => {
-      res.status(400).send(err);
-    });
-});
-// GET ALL DATA FROM OUTCOMES TABLE
-
-// POST TO OUTCOMES TABLE
-app.post('/outcomes', (req, res) => {
-  let newOutcome = new Outcome({
-    tag_id: req.body.tag_id,
-    date: req.body.date,
-    status: req.body.status,
-    weight: req.body.weight,
-    causeOfDeath: req.body.causeOfDeath,
-    comments: req.body.comments,
-    dateCreated: req.body.dateCreated
-  });
-  newOutcome.save()
-    .then((doc) => {
-      res.send(doc);
-    }, (err) => {
-      res.status(400).send(err);
-    });
-});
-// POST TO OUTCOMES TABLE
-
-//DELETE OUTCOME DOCUMENT BY ID
-app.delete('/outcomes/:id', (req, res) => {
-  console.log("deleterequest" + JSON.stringify(req.params));
-  Outcome.findByIdAndRemove(req.params.id)
-    .then((docs) => {
-      if (!docs) {
-        res.send('Nothing found');
-        return;
-      }
-      res.send(docs);
-    }, (err) => {
-      res.status(400).send(err.message);
-    });
-});
-////DELETE OUTCOME DOCUMENT BY ID
-
-//UPDATE OUTCOME DOCUMENT BY ID
-app.patch('/outcomes/:id', (req, res) => {
-  Outcome.findOneAndUpdate({
-      _id: req.params.id
-    }, {
-      $set: req.body
-    }, {
-      new: true
-    })
-    .then((response) => {
-      if (!response) {
-        res.send('Nothing found');
-        return;
-      }
-      res.send(response);
-    }, (err) => {
-      res.status(400).send(err.message);
-    });
-});
-//UPDATE OUTCOME DOCUMENT BY ID
+// // GET ALL DATA FROM OUTCOMES TABLE
+// app.get('/outcomes', (req, res) => {
+//   Outcome.find()
+//     .then((docs) => {
+//       res.send(docs)
+//
+//     }, (err) => {
+//       res.status(400).send(err);
+//     });
+// });
+// // GET ALL DATA FROM OUTCOMES TABLE
+//
+// // POST TO OUTCOMES TABLE
+// app.post('/outcomes', (req, res) => {
+//   let newOutcome = new Outcome({
+//     tag_id: req.body.tag_id,
+//     date: req.body.date,
+//     status: req.body.status,
+//     weight: req.body.weight,
+//     causeOfDeath: req.body.causeOfDeath,
+//     comments: req.body.comments,
+//     dateCreated: req.body.dateCreated
+//   });
+//   newOutcome.save()
+//     .then((doc) => {
+//       res.send(doc);
+//     }, (err) => {
+//       res.status(400).send(err);
+//     });
+// });
+// // POST TO OUTCOMES TABLE
+//
+// //DELETE OUTCOME DOCUMENT BY ID
+// app.delete('/outcomes/:id', (req, res) => {
+//   console.log("deleterequest" + JSON.stringify(req.params));
+//   Outcome.findByIdAndRemove(req.params.id)
+//     .then((docs) => {
+//       if (!docs) {
+//         res.send('Nothing found');
+//         return;
+//       }
+//       res.send(docs);
+//     }, (err) => {
+//       res.status(400).send(err.message);
+//     });
+// });
+// ////DELETE OUTCOME DOCUMENT BY ID
+//
+// //UPDATE OUTCOME DOCUMENT BY ID
+// app.patch('/outcomes/:id', (req, res) => {
+//   Outcome.findOneAndUpdate({
+//       _id: req.params.id
+//     }, {
+//       $set: req.body
+//     }, {
+//       new: true
+//     })
+//     .then((response) => {
+//       if (!response) {
+//         res.send('Nothing found');
+//         return;
+//       }
+//       res.send(response);
+//     }, (err) => {
+//       res.status(400).send(err.message);
+//     });
+// });
+// //UPDATE OUTCOME DOCUMENT BY ID
 
 // GET ALL DATA FROM PASTURES TABLE
 app.get('/pastures', (req, res) => {
@@ -570,73 +654,6 @@ app.patch('/pregnancy/:id', (req, res) => {
 //UPDATE PREG-CHECK DOCUMENT BY ID
 
 
-// //  GET ALL DATA FROM OUTCOMES TABLE
-// app.get('/outcomes', (req, res) => {
-//   Outcomes.find()
-//     .then((docs) => {
-//       res.send(docs)
-//
-//     }, (err) => {
-//       res.status(400).send(err);
-//     });
-// });
-// //  GET ALL DATA FROM OUTCOMES TABLE
-
-// //  POST TO OUTCOMES TABLE
-// app.post('/outcomes', (req, res) => {
-//   let newOutcomes = new Outcomes({
-//     tag_id: req.body.tag_id,
-//     date: req.body.date,
-//     status: req.body.status,
-//     weight: req.body.weight,
-//     causeOfDeath: req.body.causeOfDeath,
-//     comments: req.body.comments
-//   });
-//   newOutcomes.save()
-//     .then((doc) => {
-//       res.send(doc);
-//     }, (err) => {
-//       res.status(400).send(err);
-//     });
-// });
-// //  POST TO OUTCOMES TABLE
-//
-// //  DELETE OUTCOMES DOCUMENT BY ID
-// app.delete('/outcomes/:id', (req, res) => {
-//   console.log("deleterequest" + JSON.stringify(req.params));
-//   Outcomes.findByIdAndRemove(req.params.id)
-//     .then((docs) => {
-//       if (!docs) {
-//         res.send('Nothing found');
-//         return;
-//       }
-//       res.send(docs);
-//     }, (err) => {
-//       res.status(400).send(err.message);
-//     });
-// });
-// ////  DELETE OUTCOMES DOCUMENT BY ID
-//
-// //  UPDATE OUTCOMES DOCUMENT BY ID
-// app.patch('/outcomes/:id', (req, res) => {
-//   Outcomes.findOneAndUpdate({
-//       _id: req.params.id
-//     }, {
-//       $set: req.body
-//     }, {
-//       new: true
-//     })
-//     .then((response) => {
-//       if (!response) {
-//         res.send('Nothing found');
-//         return;
-//       }
-//       res.send(response);
-//     }, (err) => {
-//       res.status(400).send(err.message);
-//     });
-// });
-//   UPDATE OUTCOMES DOCUMENT BY ID
 
 app.listen(3000, () => {
   console.log('listening on port 3000');

@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 let healthSchema = mongoose.Schema({
   tag_id: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   treatmentDate: {
     type: Date,
