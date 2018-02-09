@@ -43,69 +43,77 @@
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="breeding" role="tabpanel" aria-labelledby="breeding-tab">
         <h5> Breeding information</h5>
-        <table class="table table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Method</th>
-            <th>Bull</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="breeding in breedings">
-            <td>{{breeding.date}}</td>
-            <td>{{breeding.method}}</td>
-            <td>{{breeding.bull}}</td>
-          </tr>
-        </tbody>
-      </table>
+        <template v-if="breedings.length === 0">
+          <p>There is no breeding data for this animal.</p>
+        </template>
+        <template v-else>
+          <table class="table table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Method</th>
+                <th>Bull</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="breeding in breedings">
+                <td>{{breeding.date}}</td>
+                <td>{{breeding.method}}</td>
+                <td>{{breeding.bull}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
       </div>
       <div class="tab-pane fade" id="health" role="tabpanel" aria-labelledby="health-tab">
         <h5> Health information</h5>
-        <table class="table table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Diagnosis</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr v-for="healthEvent in healthEvents">
-            <td>{{healthEvent.treatmentDate}}</td>
-            <td>{{healthEvent.diagnosis}}</td>
-          </tr>
-
-        </tbody>
-        </table>
+        <template v-if="healthEvents.length === 0">
+          <p>There is no health data for this animal.</p>
+        </template>
+        <template v-else>
+          <table class="table table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Diagnosis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="healthEvent in healthEvents">
+                <td>{{healthEvent.treatmentDate}}</td>
+                <td>{{healthEvent.diagnosis}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
       </div>
       <div class="tab-pane fade" id="pregnancy" role="tabpanel" aria-labelledby="pregnancy-tab">
         <h5> Preg-check information</h5>
-        <template v-if="cow.type !=='Cow'">
-          <p>There is no pregnancy data to show</p>
+        <template v-if="cow.type !=='Cow' || pregnancies.length === 0">
+          <p>There is no pregnancy data for this animal.</p>
         </template>
 
         <template v-else>
           <table class="table table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Result</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="pregnancy in pregnancies"  >
-              <td>{{pregnancy.date}}</td>
-              <td>{{pregnancy.result}}</td>
-            </tr>
-          </tbody>
-        </table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="pregnancy in pregnancies">
+                <td>{{pregnancy.date}}</td>
+                <td>{{pregnancy.result}}</td>
+              </tr>
+            </tbody>
+          </table>
         </template>
       </div>
       <div class="tab-pane fade" id="calving" role="tabpanel" aria-labelledby="calving-tab">
         <h5>Calving</h5>
-        <template v-if="cow.type !=='Cow'">
-          <p>There is no pregnancy data to show</p>
+        <template v-if="cow.type !=='Cow' || calvings.length === 0">
+          <p>There is no calving data for this animal.</p>
         </template>
 
         <template v-else>
