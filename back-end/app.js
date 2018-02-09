@@ -175,7 +175,7 @@ app.post('/breeding', (req, res) => {
     tag_id: req.body.tag_id,
     date: req.body.date,
     method: req.body.method,
-    bull: req.body.bull,
+    sire: req.body.sire,
     technician: req.body.technician,
     comments: req.body.comments
   });

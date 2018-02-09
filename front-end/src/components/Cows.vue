@@ -1,41 +1,51 @@
 <template lang="html">
 <div>
-    <h1>{{msg}}</h1>
-    <!-- <button class="btn" @click='logOut'>Log out</button> -->
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAnimalModal">
-      Add new animal
-    </button>
-    <table class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Ear Tag</th>
-          <th>Type</th>
-          <th>Pasture</th>
-          <th>Birth Date</th>
-          <th>More Information</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr  v-for="cow in cows" v-if="cow.status =='Active'" >
-          <td>{{cow.tag_id}}</td>
-          <td>{{cow.type}}</td>
-          <td>{{cow.pasture}}</td>
-          <td>{{cow.dob}}</td>
-          <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td>
-          <!-- <td><individual-animal><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></individual-animal></td> -->
+  <div class="card">
+    <div class="card-header">
 
-        </tr>
-      </tbody>
-    </table>
-
+      <div class="row no-gutters">
+        <div class="col-8">
+          <h3 class="font-weight-bold">{{msg}}</h3>
+        </div>
+        <div class="col-4">
+          <!-- Button trigger modal -->
+          <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addAnimalModal">New animal</a></h5>
+          <!-- <button type="button" class="btn btn-link btn-primary" data-toggle="modal" data-target="#addAnimalModal">
+            Add new animal
+          </button> -->
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Ear Tag</th>
+            <th>Type</th>
+            <th>Pasture</th>
+            <th>Birth Date</th>
+            <th>More Information</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  v-for="cow in cows" v-if="cow.status =='Active'" >
+            <td>{{cow.tag_id}}</td>
+            <td>{{cow.type}}</td>
+            <td>{{cow.pasture}}</td>
+            <td>{{cow.dob}}</td>
+            <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
 <!-- Modal -->
     <div class="modal fade" id="addAnimalModal" tabindex="-1" role="dialog" aria-labelledby="addAnimalModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addAnimalModalLabel">Add New Animal</h5>
+            <h5 class="modal-title font-weight-bold" id="addAnimalModalLabel">Add New Animal</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -151,7 +161,6 @@ export default {
 }
 </script>
 
-<style lang="css">
-
+<style lang="scss">
 
 </style>

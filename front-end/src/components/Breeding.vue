@@ -10,7 +10,7 @@
           <th>Ear Tag</th>
           <th>Date</th>
           <th>Method</th>
-          <th>Bull</th>
+          <th>Sire</th>
           <th>Edit</th>
         </tr>
       </thead>
@@ -19,7 +19,7 @@
           <td>{{breeding.tag_id}}</td>
           <td>{{breeding.date}}</td>
           <td>{{breeding.method}}</td>
-          <td>{{breeding.bull}}</td>
+          <td>{{breeding.sire}}</td>
           <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
         </tr>
       </tbody>
@@ -57,8 +57,8 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="addBreedingBull">Bull</label>
-                <input v-model="newBreeding.bull" type="text" class="form-control" id="addBreedingBull" placeholder="Bull">
+                <label for="addBreedingSire">Sire</label>
+                <input v-model="newBreeding.sire" type="text" class="form-control" id="addBreedingSire" placeholder="Sire">
               </div>
               <div class="form-group">
                 <label for="addBreedingTechnician">Technician</label>
@@ -95,7 +95,7 @@ export default {
         tag_id: "",
         date: "",
         method: "",
-        bull: "",
+        sire: "",
         technician: "",
         comments: ""
       }
@@ -125,7 +125,7 @@ export default {
         tag_id: this.newBreeding.tag_id,
         date: this.newBreeding.date,
         method: this.newBreeding.method,
-        bull: this.newBreeding.bull,
+        sire: this.newBreeding.sire,
         technician: this.newBreeding.technician,
         comments: this.newBreeding.comments
       }

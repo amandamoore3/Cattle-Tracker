@@ -21,7 +21,7 @@ let breedingSchema = mongoose.Schema({
     required: true,
     trim: true
   },
-  bull: {
+  sire: {
     type: String,
     required: true,
     trim: true

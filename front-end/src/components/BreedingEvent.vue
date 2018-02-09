@@ -2,18 +2,46 @@
   <div>
     <h1>{{msg}}</h1>
     <router-link :to="{path: '/breeding'}">Back to herd breeding information</router-link>
+    <div class="card ">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
+          </li>
+        </ul>
+      </div>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
-      </li>
-    </ul>
 
+
+
+    <!-- <div class="card text-center"> -->
+      <!-- <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Active</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+      </div> -->
+      <!-- <div class="card-body">
+        <h5 class="card-title">Special title treatment</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div> -->
+      <div class="card-body">
     <div class="tab-content" id="myTabContent">
       <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+
+
         <form>
           <div class="form-group">
             <label for="editBreedingTagId">Ear Tag Number</label>
@@ -36,11 +64,8 @@
             <input v-model:value="breeding.date"  type="date" class="form-control" id="editBreedingDate" placeholder="mm/dd/yyyy">
           </div>
           <div class="form-group">
-            <label for="editBreedingBull">Bull</label>
-            <select v-model:value="breeding.bull"  class="form-control" id="editBreedingBull">
-              <option disabled value="Select an active Bull">Select an active bull</option>
-              <option v-for="cow in cows" v-if="cow.type == 'Bull'">{{cow.tag_id}}</option>
-            </select>
+            <label for="editBreedingSire">Sire</label>
+            <input v-model:value="breeding.sire"  type="text" class="form-control" id="editBreedingSire" placeholder="No sire found">
           </div>
           <div class="form-group">
             <label for="editBreedingTech">Technician</label>
@@ -56,6 +81,8 @@
           </div>
 
         </form>
+
+
       </div>
       <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
         <div class="form-group">
@@ -63,6 +90,8 @@
           <button class="btn btn-danger" type="button" @click="deleteBreeding()" name="deleteBreedingEvent">Delete this breeding event</button>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   </div>
 
@@ -119,7 +148,7 @@ export default {
           tag_id: this.breeding.tag_id,
           date: this.breeding.date,
           method: this.breeding.method,
-          bull: this.breeding.bull,
+          sire: this.breeding.sire,
           technician: this.breeding.technician,
           comments: this.breeding.comments,
 
