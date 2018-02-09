@@ -34,6 +34,9 @@
         <a class="nav-link" id="pregnancy-tab" data-toggle="tab" href="#pregnancy" role="tab" aria-controls="pregnancy" aria-selected="false">Pregnancy</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" id="calving-tab" data-toggle="tab" href="#calving" role="tab" aria-controls="calving" aria-selected="true">Calving</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
       </li>
     </ul>
@@ -98,12 +101,39 @@
           </tbody>
         </table>
         </template>
+      </div>
+      <div class="tab-pane fade" id="calving" role="tabpanel" aria-labelledby="calving-tab">
+        <h5>Calving</h5>
+        <template v-if="cow.type !=='Cow'">
+          <p>There is no pregnancy data to show</p>
+        </template>
 
+        <template v-else>
+          <table class="table table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Season</th>
+                <th>Ear tag</th>
+                <th>Birthdate</th>
+                <th>Sex</th>
+                <th>Sire</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="calving in calvings"  >
+                <td>{{calving.season}}</td>
+                <td>{{calving.calf_id}}</td>
+                <td>{{calving.dob}}</td>
+                <td>{{calving.sex}}</td>
+                <td>{{calving.sire}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </template>
       </div>
       <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
         <h5> Delete</h5>
         <button class="btn btn-danger" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
-
       </div>
     </div>
 
@@ -200,16 +230,13 @@
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                       <button type="button" class="btn btn-primary" @click="editAnimal()">Update</button>
                     </div>
-
                   </div>
                 </div>
-
-
-
+            </div>
           </div>
-
         </div>
-      </div>
+      <!-- EDIT ANIMAL Modal -->
+
   </div>
 </template>
 
@@ -224,6 +251,7 @@ export default {
       msg: 'Animal Information',
       cow: [],
       breedings: [],
+      calvings: [],
       healthEvents: [],
       pregnancies: [],
       pastures: []
@@ -245,6 +273,10 @@ export default {
     axios.get('http://127.0.0.1:3000/breeding/' + this.$route.params.id)
       .then((response) => {
         this.breedings = response.data
+      });
+    axios.get('http://127.0.0.1:3000/calving/' + this.$route.params.id)
+      .then((response) => {
+        this.calvings = response.data
       });
     axios.get('http://127.0.0.1:3000/health/' + this.$route.params.id)
       .then((response) => {
