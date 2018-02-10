@@ -40,11 +40,11 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col"></div>
-      <div class="col-10">
+      <!-- <div class="col-1 col-offset-3"></div> -->
+      <div class="col-12">
         <router-view class="appContent"></router-view>
       </div>
-      <div class="col"></div>
+      <!-- <div class="col-1 col-offset-3"></div> -->
     </div>
   </div>
 </div>
@@ -68,27 +68,35 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    //     // text-align: center;
-    color: #2c3e50;
-    //     width: 100%;
+@mixin for-phone-only {
+    @media (max-width: 599px) {
+        @content;
+    }
 }
 
+@mixin for-tablet-portrait-up {
+    @media (min-width: 600px) {
+        @content;
+    }
+}
 .appContent {
-    // overflow-x: auto;
-    margin-top: 1em;
+    margin: 1em auto 0;
+    @include for-phone-only {
+        width: 100%;
+    }
+    @include for-tablet-portrait-up {
+        max-width: 75%;
+    }
 }
 
-.card {
-    margin-bottom: 1em;
-}
-
+.card,
 ul.nav-tabs {
     margin-bottom: 1em;
 }
+
+//  {
+//     margin-bottom: 1em;
+// }
 // h1,
 // h2 {
 //     font-weight: normal;

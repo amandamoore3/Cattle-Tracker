@@ -1,29 +1,41 @@
 <template lang="html">
 <div>
-    <h1>{{msg}}</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPregCheckModal">
-      Add preg-check
-    </button>
-    <table class="table table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Ear Tag</th>
-        <th>Date</th>
-        <th>Method</th>
-        <th>Result</th>
-        <th>Edit</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr  v-for="pregCheck in pregChecks" >
-        <td>{{pregCheck.tag_id}}</td>
-        <td>{{pregCheck.date}}</td>
-        <td>{{pregCheck.method}}</td>
-        <td>{{pregCheck.result}}</td>
-        <td><router-link :to="{path: '/pregcheck/' + pregCheck._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="card">
+    <div class="card-header">
+      <div class="row no-gutters">
+        <div class="col-8">
+          <h3 class="font-weight-bold">{{msg}}</h3>
+        </div>
+        <div class="col-4">
+          <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addPregCheckModal">New Preg-check record</a></h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Ear Tag</th>
+            <th>Date</th>
+            <th>Method</th>
+            <th>Result</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  v-for="pregCheck in pregChecks" >
+            <td>{{pregCheck.tag_id}}</td>
+            <td>{{pregCheck.date}}</td>
+            <td>{{pregCheck.method}}</td>
+            <td>{{pregCheck.result}}</td>
+            <td><router-link :to="{path: '/pregcheck/' + pregCheck._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 
   <!-- ADD Modal -->
   <div class="modal fade" id="addPregCheckModal" tabindex="-1" role="dialog" aria-labelledby="addPregCheckModalLabel" aria-hidden="true">

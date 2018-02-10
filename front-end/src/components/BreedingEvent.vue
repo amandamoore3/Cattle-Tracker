@@ -1,17 +1,18 @@
 <template lang="html">
   <div>
+    <h5 class="text-right"><router-link :to="{path: '/breeding'}">Back to breeding records</router-link></h5>
+
     <div class="card">
       <div class="card-header">
         <div class="row no-gutters">
-          <div class="col-8">
+          <!-- <div class="col-8"> -->
             <h3 class="font-weight-bold">{{msg}}</h3>
-          </div>
+          <!-- </div>
           <div class="col-4">
-            <h5 class="text-right"><router-link :to="{path: '/breeding'}">Back to breeding records</router-link></h5>
-          </div>
+          </div> -->
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body custom-form">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
@@ -22,7 +23,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
-            <form>
+            <form class="">
               <div class="form-group">
                 <label for="editBreedingTagId">Ear Tag Number</label>
                 <select v-model:value="breeding.tag_id"  class="form-control" id="editBreedingTagId">
@@ -63,8 +64,7 @@
           </div>
           <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
             <div class="form-group">
-              <h5> Delete</h5>
-              <button class="btn btn-danger" type="button" @click="deleteBreeding()" name="deleteBreedingEvent">Delete this breeding event</button>
+              <button class="btn btn-danger" type="button" @click="deleteBreeding()" name="deleteBreedingEvent">Delete this record</button>
             </div>
           </div>
         </div>
@@ -147,4 +147,8 @@ export default {
 </script>
 
 <style lang="css">
+.custom-form {
+  width: 90%;
+  margin: 0 auto;
+}
 </style>

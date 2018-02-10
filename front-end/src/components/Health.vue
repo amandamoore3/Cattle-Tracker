@@ -1,38 +1,50 @@
 <template lang="html">
 <div>
-    <h1>{{msg}}</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addHealthModal">
-      Add health event
-    </button>
-    <table class="table table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Ear Tag</th>
-        <th>Treatment Date</th>
-        <th>Medication</th>
-        <th>Dosage</th>
-        <th>Diagnosis</th>
-        <th>Booster Date</th>
-        <th>Edit</th>
-      </tr>
-    </thead>
-    <tbody>
 
-      <tr  v-for="healthEvent in healthEvents" >
-        <td>{{healthEvent.tag_id}}</td>
-        <td>{{healthEvent.treatmentDate}}</td>
-        <td>{{healthEvent.medication}}</td>
-        <td>{{healthEvent.dosage}}</td>
-        <td>{{healthEvent.diagnosis}}</td>
-        <td>{{healthEvent.booster}}</td>
-        <td><router-link :to="{path: '/healthevent/' + healthEvent._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+  <div class="card">
+    <div class="card-header">
+      <div class="row no-gutters">
+        <div class="col-8">
+          <h3 class="font-weight-bold">{{msg}}</h3>
+        </div>
+        <div class="col-4">
+          <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addHealthModal">New Health Record</a></h5>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="card-body"> -->
+      <div class="table-responsive">
+        <table class="table table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Ear Tag</th>
+            <th>Treatment Date</th>
+            <th>Medication</th>
+            <!-- <th>Dosage</th> -->
+            <th>Diagnosis</th>
+            <!-- <th>Booster Date</th> -->
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  v-for="healthEvent in healthEvents" >
+            <td>{{healthEvent.tag_id}}</td>
+            <td>{{healthEvent.treatmentDate}}</td>
+            <td>{{healthEvent.medication}}</td>
+            <!-- <td>{{healthEvent.dosage}}</td> -->
+            <td>{{healthEvent.diagnosis}}</td>
+            <!-- <td>{{healthEvent.booster}}</td> -->
+            <td><router-link :to="{path: '/healthevent/' + healthEvent._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    <!-- </div> -->
+  </div>
 
-      </tr>
 
-    </tbody>
-  </table>
 
-  <!-- ADD Modal -->
+    <!-- ADD Modal -->
     <div class="modal fade" id="addHealthModal" tabindex="-1" role="dialog" aria-labelledby="addHealthModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -95,7 +107,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'Herd Health Information',
+      msg: 'Herd Health Records',
       healthEvents: [],
       cows: [],
       newHealth: []

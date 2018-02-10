@@ -33,7 +33,7 @@
         </table>
       </div>
     </div>
-    <router-link :to="{path: '/cattle'}" class="font-weight-bold">Back to herd information</router-link>
+    <h6 class="text-right"><router-link :to="{path: '/cattle'}" class="font-weight-bold ">Back to herd information</router-link></h6>
 
     <div class="card">
       <!-- <div class="card-header"> -->
@@ -165,7 +165,6 @@
             </template>
           </div>
           <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-            <h5> Delete</h5>
             <button class="btn btn-danger" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
           </div>
         </div>

@@ -1,8 +1,7 @@
 <template lang="html">
 <div>
   <div class="card">
-    <div class="card-header">
-
+    <div class="card-header graybg">
       <div class="row no-gutters">
         <div class="col-8">
           <h3 class="font-weight-bold">{{msg}}</h3>
@@ -15,13 +14,13 @@
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-hover">
-        <thead>
+        <thead class="thead-custom">
           <tr>
-            <th>Ear Tag</th>
+            <th >Ear Tag</th>
             <th>Type</th>
             <th>Pasture</th>
             <th>Birth Date</th>
-            <th>More Information</th>
+            <th>View/ Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -159,5 +158,15 @@ export default {
 </script>
 
 <style lang="scss">
-
+.thead-custom {
+    background-color: #5c6166;
+    color: white;
+    // border: solid 1.5px #343a40;
+    // border-radius: 0.25rem;
+}
+//
+// .graybg {
+//     background-color: ;
+//     border-bottom: solid 1px #343a40;
+// }
 </style>

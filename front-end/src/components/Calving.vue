@@ -1,31 +1,44 @@
 <template lang="html">
 <div>
-    <h1>{{msg}}</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCalvingModal">
-      Add calving event
-    </button>
-    <table class="table table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>Ear Tag</th>
-          <th>Calf Ear Tag</th>
-          <th>Season</th>
-          <th>Sex</th>
-          <th>Sire</th>
-          <th>Edit</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr  v-for="calving in calvings" >
-          <td>{{calving.tag_id}}</td>
-          <td>{{calving.calf_id}}</td>
-          <td>{{calving.season}}</td>
-          <td>{{calving.sex}}</td>
-          <td>{{calving.Sire}}</td>
-          <td><router-link :to="{path: '/calvingevent/' + calving._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
-        </tr>
-      </tbody>
-    </table>
+  <div>
+    <div class="card">
+      <div class="card-header">
+        <div class="row no-gutters">
+          <div class="col-8">
+            <h3 class="font-weight-bold">{{msg}}</h3>
+          </div>
+          <div class="col-4">
+            <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addCalvingModal">New Calving</a></h5>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Ear Tag</th>
+              <th>Calf Ear Tag</th>
+              <th>Season</th>
+              <th>Sex</th>
+              <th>Sire</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  v-for="calving in calvings" >
+              <td>{{calving.tag_id}}</td>
+              <td>{{calving.calf_id}}</td>
+              <td>{{calving.season}}</td>
+              <td>{{calving.sex}}</td>
+              <td>{{calving.Sire}}</td>
+              <td><router-link :to="{path: '/calvingevent/' + calving._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
   <!-- ADD Modal -->
     <div class="modal fade" id="addCalvingModal" tabindex="-1" role="dialog" aria-labelledby="addCalvingModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -84,6 +97,7 @@
     </div>
     <!-- ADD Modal -->
 
+</div>
 </div>
 </template>
 
