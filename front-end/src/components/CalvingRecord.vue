@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <h5 class="text-right"><router-link :to="{path: '/calving'}">Herd calving records</router-link></h5>
-    <div class="card">
+    <div class="card shadow">
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
       </div>
@@ -82,7 +82,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'Edit this calving record',
+      msg: 'Edit calving record',
       calving: [],
       cows: []
     }

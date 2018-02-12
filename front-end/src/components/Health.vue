@@ -1,21 +1,21 @@
 <template lang="html">
 <div>
 
-  <div class="card">
-    <div class="card-header">
+  <div class="card shadow">
+  <div class="card-header bg-primary text-white">
       <div class="row no-gutters">
         <div class="col-8">
           <h3 class="font-weight-bold">{{msg}}</h3>
         </div>
         <div class="col-4">
-          <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addHealthModal">New Health Record</a></h5>
+          <h5 class="text-right"><a href="#" class="text-white" data-toggle="modal" data-target="#addHealthModal">New Health Record</a></h5>
         </div>
       </div>
     </div>
     <!-- <div class="card-body"> -->
       <div class="table-responsive">
         <table class="table table table-striped table-hover">
-        <thead>
+        <thead class="thead-custom-darkgray">
           <tr>
             <th>Ear Tag</th>
             <th>Treatment Date</th>
@@ -49,7 +49,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header card-header">
-            <h5 class="modal-title" id="addHealthModalLabel">Add New Health Event</h5>
+            <h5 class="modal-title text-primary font-weight-bold" id="addHealthModalLabel">Add New Health Event</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

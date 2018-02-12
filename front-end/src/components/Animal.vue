@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <div class="card">
-      <div class="row no-gutters card-header">
+    <div class="card shadow">
+      <div class="row no-gutters card-header text-white bg-primary">
         <div class="col-12">
           <h3 class="font-weight-bold">{{cow.type}} #{{cow.tag_id}}</h3>
         </div>
@@ -11,7 +11,7 @@
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-hover">
-          <thead>
+          <thead class="thead-custom-darkgray">
             <tr>
               <!-- <th>Ear Tag</th> -->
               <!-- <th>Type</th> -->
@@ -35,8 +35,9 @@
     </div>
     <h6 class="text-right"><router-link :to="{path: '/cattle'}" class="font-weight-bold ">Back to herd information</router-link></h6>
 
-    <div class="card">
+    <div class="card shadow">
       <!-- <div class="card-header"> -->
+      <div class="card-body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link font-weight-bold active" id="breeding-tab" data-toggle="tab" href="#breeding" role="tab" aria-controls="breeding" aria-selected="true">Breeding</a>
@@ -56,7 +57,7 @@
         </ul>
       <!-- </div> -->
 
-      <div class="card-body">
+
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="breeding" role="tabpanel" aria-labelledby="breeding-tab">
             <!-- <h5> Breeding information</h5> -->
@@ -179,7 +180,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header card-header">
-              <h5 class="modal-title font-weight-bold" id="editAnimalModalLabel">Update Animal</h5>
+              <h5 class="modal-title text-primary font-weight-bold" id="editAnimalModalLabel">Update Animal</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

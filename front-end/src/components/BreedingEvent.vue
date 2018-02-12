@@ -2,7 +2,7 @@
   <div>
     <h5 class="text-right"><router-link :to="{path: '/breeding'}">Back to breeding records</router-link></h5>
 
-    <div class="card">
+    <div class="card shadow">
       <div class="card-header">
         <div class="row no-gutters">
           <!-- <div class="col-8"> -->
@@ -56,7 +56,7 @@
                 <label for="editBreedingComments">Comments</label>
                 <input v-model:value="breeding.comments" type="text" class="form-control" id="editBreedingComments" placeholder="No comments found">
               </div>
-              <div class="form-group">
+              <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
                 <button type="button" class="btn btn-primary" @click="editBreeding()">Update</button>
               </div>
@@ -84,7 +84,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'Edit this breeding record',
+      msg: 'Edit breeding record',
       breeding: [],
       cows: []
     }

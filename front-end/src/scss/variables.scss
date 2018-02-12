@@ -1,0 +1,47 @@
+$theme-colors: (
+  "primary": #011D38,
+  "secondary": #3E4D5B
+);
+
+// "outerspace": $outerspace;
+$dark-blue: #011D38;
+$manatee: #989FA5;
+$outerspace: #3E4D5B;
+$babyblueeyes: #A3C8ED;
+$customwhite : #EAF1F7;
+
+body {
+  padding-top: 65px;
+}
+.thead-custom-darkgray {
+    background-color: $outerspace;
+    color: white;
+    // border: solid 1.5px #343a40;
+    // border-radius: 0.25rem;
+}
+.thead-custom-darkblue {
+    background-color: $dark-blue;
+    color: white;
+    // border: solid 1.5px #343a40;
+    // border-radius: 0.25rem;
+}
+
+.custom-nav {
+  background-color: $outerspace;
+  color: white;
+  // margin-bottom: 2em;
+}
+a.navlink{
+  color: rgba(255,255,255, 0.9);
+}
+
+.shadow {
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+a{
+  color: $babyblueeyes;
+}
+
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/bootstrap';

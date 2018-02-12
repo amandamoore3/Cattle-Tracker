@@ -1,7 +1,7 @@
 <template lang="html">
 <div>
-  <div class="card">
-    <div class="card-header">
+  <div class="card shadow">
+  <div class="card-header bg-primary text-white">
       <h3 class="font-weight-bold">{{msg}}</h3>
     </div>
     <div class="card-body">
@@ -19,7 +19,7 @@
         <div class="table-responsive">
 
           <table class="table table table-striped table-hover">
-            <thead>
+            <thead class="thead-custom-darkgray">
               <tr>
                 <th>Ear tag</th>
                 <th>Date</th>
@@ -45,7 +45,7 @@
       <div class="tab-pane fade" id="deaths" role="tabpanel" aria-labelledby="deaths-tab">
         <div class="table-responsive">
           <table class="table table table-striped table-hover">
-            <thead>
+            <thead class="thead-custom-darkgray">
               <tr>
                 <th>Ear tag</th>
                 <th>Date</th>
@@ -81,7 +81,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'Outcomes',
+      msg: 'Herd Outcomes',
       cows: []
     }
   },

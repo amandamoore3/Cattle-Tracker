@@ -1,13 +1,13 @@
 <template lang="html">
 <div>
-  <div class="card">
-    <div class="card-header">
+  <div class="card shadow">
+    <div class="card-header text-white bg-primary">
       <div class="row no-gutters">
         <div class="col-8">
           <h3 class="font-weight-bold">{{msg}}</h3>
         </div>
         <div class="col-4">
-          <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addBreedingModal">New breeding event</a></h5>
+          <h5 class="text-right"><a href="#"  class="text-white" data-toggle="modal" data-target="#addBreedingModal">New Breeding Record</a></h5>
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
 
     <div class="table-responsive">
       <table class="table table-striped table-hover">
-        <thead>
+        <thead class="thead-custom-darkgray">
           <tr>
             <th>Ear Tag</th>
             <th>Date</th>
@@ -42,7 +42,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header card-header">
-            <h5 class="modal-title font-weight-bold" id="addBreedingModalLabel">Add New Breeding Event</h5>
+            <h5 class="modal-title text-primary font-weight-bold" id="addBreedingModalLabel">Add new breeding record</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -101,7 +101,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'All Breeding Info',
+      msg: 'Herd Breeding',
       breedings: [],
       cows: [],
       newBreeding: {

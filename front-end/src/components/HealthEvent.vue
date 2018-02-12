@@ -2,7 +2,7 @@
   <div>
     <h5 class="text-right"><router-link :to="{path: '/health'}">Herd health records</router-link></h5>
 
-    <div class="card">
+    <div class="card shadow">
       <div class="card-header">
         <div class="row no-gutters">
           <!-- <div class="col-8"> -->
@@ -82,7 +82,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'Edit this health record',
+      msg: 'Edit health record',
       health: [],
       cows: []
     }

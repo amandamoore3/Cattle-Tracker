@@ -1,47 +1,47 @@
 <template lang="html">
 <div>
-  <div class="card">
-    <div class="card-header graybg">
-      <div class="row no-gutters">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <div class="row no-gutters ">
         <div class="col-8">
           <h3 class="font-weight-bold">{{msg}}</h3>
         </div>
         <div class="col-4">
           <!-- Button trigger modal -->
-          <h5 class="text-right"><a href="#"  data-toggle="modal" data-target="#addAnimalModal">New animal</a></h5>
+          <h5 class="text-right"><a href="#" class="text-white" data-toggle="modal" data-target="#addAnimalModal">New animal</a></h5>
         </div>
       </div>
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-hover">
-        <thead class="thead-custom">
+        <thead class="thead-custom-darkgray">
           <tr>
-            <th >Ear Tag</th>
+            <th>Ear Tag</th>
             <th>Type</th>
             <th>Pasture</th>
             <th>Birth Date</th>
-            <th>View/ Edit</th>
+            <!-- <th>View/ Edit</th> -->
           </tr>
         </thead>
         <tbody>
-          <tr  v-for="cow in cows" v-if="cow.status =='Active'" >
-            <td>{{cow.tag_id}}</td>
+          <tr v-for="cow in cows" v-if="cow.status =='Active'">
+            <td class="font-weight-bold text-md"><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }">{{cow.tag_id}}</router-link></td>
             <td>{{cow.type}}</td>
             <td>{{cow.pasture}}</td>
             <td>{{cow.dob}}</td>
-            <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td>
-          </tr>
+            <!-- <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td> -->
+        </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-<!-- Modal -->
+<!-- ADD Modal -->
     <div class="modal fade" id="addAnimalModal" tabindex="-1" role="dialog" aria-labelledby="addAnimalModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header card-header">
-            <h5 class="modal-title font-weight-bold" id="addAnimalModalLabel">Add New Animal</h5>
+            <h5 class="modal-title text-primary font-weight-bold" id="addAnimalModalLabel">Add new herd animal</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -100,7 +100,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'Active cattle',
+      msg: 'Active Cattle',
       cows: [],
       pastures: [],
       newAnimal: {
@@ -158,15 +158,6 @@ export default {
 </script>
 
 <style lang="scss">
-.thead-custom {
-    background-color: #5c6166;
-    color: white;
-    // border: solid 1.5px #343a40;
-    // border-radius: 0.25rem;
-}
-//
-// .graybg {
-//     background-color: ;
-//     border-bottom: solid 1px #343a40;
-// }
+
+
 </style>

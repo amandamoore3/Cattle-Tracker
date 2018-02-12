@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import vueRouter from 'vue-router';
 import route from './router';
+// import "bootstrap/scss/bootstrap.scss";
+import "./scss/variables.scss";
+// import "./scss/style.scss";
+
 
 Vue.use(vueRouter);
 

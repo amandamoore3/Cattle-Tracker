@@ -3,9 +3,9 @@
   <!-- <div class="container-fluid"> -->
   <div class="row no-gutters">
     <div class="col-12">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-dark fixed-top navbar-expand-lg custom-nav shadow">
         <a class="navbar-brand" href="#">Cowculator</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">

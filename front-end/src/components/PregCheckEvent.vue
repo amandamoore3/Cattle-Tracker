@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <h5 class="text-right"><router-link :to="{path: '/pregnancy'}">All Preg-Check Records</router-link></h5>
-    <div class="card">
+    <div class="card shadow">
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
       </div>
@@ -69,7 +69,7 @@ import firebase from 'firebase';
 export default {
   data() {
     return {
-      msg: 'Edit this preg-check event',
+      msg: 'Edit preg-check record',
       pregCheck: [],
       cows: []
     }
