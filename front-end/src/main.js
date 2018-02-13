@@ -1,13 +1,10 @@
-import firebase from 'firebase'
-import firebaseui from 'firebaseui'
-import Vue from 'vue'
-import App from './App.vue'
-import vueRouter from 'vue-router';
+import App from './App.vue';
+import firebase from 'firebase';
+import firebaseui from 'firebaseui';
 import route from './router';
-// import "bootstrap/scss/bootstrap.scss";
-import "./scss/variables.scss";
-// import "./scss/style.scss";
-
+import Vue from 'vue';
+import vueRouter from 'vue-router';
+import "./scss/style.scss";
 
 Vue.use(vueRouter);
 

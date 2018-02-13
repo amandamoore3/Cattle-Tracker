@@ -31,7 +31,7 @@
               <td>{{calving.season}}</td>
               <td>{{calving.sex}}</td>
               <td>{{calving.Sire}}</td>
-              <td><router-link :to="{path: '/calvingevent/' + calving._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+              <td><router-link :to="{path: '/calvingevent/' + calving._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
             </tr>
           </tbody>
         </table>

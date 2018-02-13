@@ -25,7 +25,8 @@
         </thead>
         <tbody>
           <tr v-for="cow in cows" v-if="cow.status =='Active'">
-            <td class="font-weight-bold text-md"><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }">{{cow.tag_id}}</router-link></td>
+                                                 <!-- <router-link :to="{name: 'itemModal', params: {id: item.id}}">See item 1</router-link> -->
+            <td class="font-weight-bold text-md"><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id}}">{{cow.tag_id}}</router-link></td>
             <td>{{cow.type}}</td>
             <td>{{cow.pasture}}</td>
             <td>{{cow.dob}}</td>
@@ -89,6 +90,7 @@
         </div>
       </div>
     </div>
+    <!-- <router-view></router-view> -->
 </div>
 </template>
 

@@ -25,7 +25,7 @@
             <tr  v-for="pasture in pastures" >
               <td>{{pasture.name}}</td>
               <td>{{addAnimals}}</td>
-              <td><router-link :to="{path: '/pastures/' + pasture._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+              <td><router-link :to="{path: '/pastures/' + pasture._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
             </tr>
           </tbody>
         </table>

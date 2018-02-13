@@ -29,7 +29,7 @@
             <td>{{pregCheck.date}}</td>
             <td>{{pregCheck.method}}</td>
             <td>{{pregCheck.result}}</td>
-            <td><router-link :to="{path: '/pregcheck/' + pregCheck._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+            <td><router-link :to="{path: '/pregcheck/' + pregCheck._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
           </tr>
         </tbody>
       </table>

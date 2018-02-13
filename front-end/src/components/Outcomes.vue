@@ -36,7 +36,7 @@
                 <td>{{cow.status}}</td>
                 <td>{{cow.weight}}</td>
                 <td>{{cow.status_comments}}</td>
-                <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+                <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
               </tr>
             </tbody>
           </table>
@@ -62,7 +62,7 @@
                 <td>{{cow.status}}</td>
                 <td>{{cow.causeOfDeath}}</td>
                 <td>{{cow.status_comments}}</td>
-                <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+                <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
               </tr>
             </tbody>
           </table>

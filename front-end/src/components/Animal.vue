@@ -27,7 +27,7 @@
               <td>{{cow.pasture}}</td>
               <td>{{cow.dob}}</td>
               <!-- Button trigger modal -->
-              <td><span data-toggle="modal" data-target="#editAnimalModal" class="icon"><i class="fa fa-2x fa-pencil"></i></span></td>
+              <td><span data-toggle="modal" data-target="#editAnimalModal" class="icon nav-link"><i class="fa fa-2x fa-chevron-circle-right"></i></span></td>
             </tr>
           </tbody>
         </table>
@@ -146,7 +146,7 @@
                   <thead>
                     <tr>
                       <th>Season</th>
-                      <th>Ear tag</th>
+                      <th>Calf ear tag</th>
                       <th>Birthdate</th>
                       <th>Sex</th>
                       <th>Sire</th>
@@ -279,9 +279,12 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+// import bTable from 'bootstrap-vue/es/components/modal/modal'
+// import bTableDirective from 'bootstrap-vue/es/directives/modal/modal'
 
 export default {
-  name: 'app',
+  name: 'individual-animal',
+
   data() {
     return {
       msg: 'Animal Information',
@@ -293,6 +296,12 @@ export default {
       pastures: []
     }
   },
+  // components: {
+  //   'b-table': bTable
+  // },
+  // directives: {
+  //   'b-table': bTableDirective
+  // },
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {} else {

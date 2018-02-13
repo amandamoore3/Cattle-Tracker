@@ -30,7 +30,7 @@
             <td>{{breeding.date}}</td>
             <td>{{breeding.method}}</td>
             <td>{{breeding.sire}}</td>
-            <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><i class="fa fa-2x fa-pencil"></i></router-link></td>
+            <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
           </tr>
         </tbody>
       </table>

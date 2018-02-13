@@ -49,6 +49,9 @@ app.use(express.static(__dirname + '/static'));
 //  GET ALL DATA FROM CATTLE TABLE
 app.get('/cattle', (req, res) => {
   Cow.find()
+    // .sort({
+    //     tag_id: 1
+    //   }).exec()
     .then((docs) => {
       res.send(docs)
 
@@ -133,7 +136,9 @@ app.patch('/cattle/:id', (req, res) => {
 
 //  GET ALL DATA FROM BREEDING TABLE
 app.get('/breeding', (req, res) => {
-  Breeding.find()
+  Breeding.find().sort({
+      date: -1
+    }).exec()
     .then((docs) => {
       res.send(docs)
 
@@ -228,6 +233,9 @@ app.patch('/breedingevent/:id', (req, res) => {
 //  GET ALL DATA FROM CALVING TABLE
 app.get('/calving', (req, res) => {
   Calving.find()
+    // .sort({
+    //     season: -1
+    //   }).exec()
     .then((docs) => {
       res.send(docs)
 
@@ -322,7 +330,9 @@ app.patch('/calvingevent/:id', (req, res) => {
 
 //  GET ALL DATA FROM HEALTH TABLE
 app.get('/health', (req, res) => {
-  Health.find()
+  Health.find().sort({
+      date: -1
+    }).exec()
     .then((docs) => {
       res.send(docs)
 
@@ -415,78 +425,12 @@ app.patch('/healthevent/:id', (req, res) => {
 });
 //UPDATE HEALTH DOCUMENT BY ID
 
-// // GET ALL DATA FROM OUTCOMES TABLE
-// app.get('/outcomes', (req, res) => {
-//   Outcome.find()
-//     .then((docs) => {
-//       res.send(docs)
-//
-//     }, (err) => {
-//       res.status(400).send(err);
-//     });
-// });
-// // GET ALL DATA FROM OUTCOMES TABLE
-//
-// // POST TO OUTCOMES TABLE
-// app.post('/outcomes', (req, res) => {
-//   let newOutcome = new Outcome({
-//     tag_id: req.body.tag_id,
-//     date: req.body.date,
-//     status: req.body.status,
-//     weight: req.body.weight,
-//     causeOfDeath: req.body.causeOfDeath,
-//     comments: req.body.comments,
-//     dateCreated: req.body.dateCreated
-//   });
-//   newOutcome.save()
-//     .then((doc) => {
-//       res.send(doc);
-//     }, (err) => {
-//       res.status(400).send(err);
-//     });
-// });
-// // POST TO OUTCOMES TABLE
-//
-// //DELETE OUTCOME DOCUMENT BY ID
-// app.delete('/outcomes/:id', (req, res) => {
-//   console.log("deleterequest" + JSON.stringify(req.params));
-//   Outcome.findByIdAndRemove(req.params.id)
-//     .then((docs) => {
-//       if (!docs) {
-//         res.send('Nothing found');
-//         return;
-//       }
-//       res.send(docs);
-//     }, (err) => {
-//       res.status(400).send(err.message);
-//     });
-// });
-// ////DELETE OUTCOME DOCUMENT BY ID
-//
-// //UPDATE OUTCOME DOCUMENT BY ID
-// app.patch('/outcomes/:id', (req, res) => {
-//   Outcome.findOneAndUpdate({
-//       _id: req.params.id
-//     }, {
-//       $set: req.body
-//     }, {
-//       new: true
-//     })
-//     .then((response) => {
-//       if (!response) {
-//         res.send('Nothing found');
-//         return;
-//       }
-//       res.send(response);
-//     }, (err) => {
-//       res.status(400).send(err.message);
-//     });
-// });
-// //UPDATE OUTCOME DOCUMENT BY ID
 
 // GET ALL DATA FROM PASTURES TABLE
 app.get('/pastures', (req, res) => {
-  Pasture.find()
+  Pasture.find().sort({
+      name: 1
+    }).exec()
     .then((docs) => {
       res.send(docs)
 
@@ -562,7 +506,9 @@ app.patch('/pastures/:id', (req, res) => {
 
 //  GET ALL DATA FROM PREG-CHECK TABLE
 app.get('/pregnancy', (req, res) => {
-  PregCheck.find()
+  PregCheck.find().sort({
+      date: -1
+    }).exec()
     .then((docs) => {
       res.send(docs)
 
