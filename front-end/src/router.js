@@ -31,11 +31,6 @@ const router = new vueRouter({
     {
       path: '/cattle',
       component: Cows
-      // children: [{
-      //   path: ':id',
-      //   component: Animal,
-      //   name: 'individual-animal'
-      // }]
     },
     {
       path: '/cattle/:id',
