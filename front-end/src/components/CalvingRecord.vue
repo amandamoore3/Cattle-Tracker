@@ -89,7 +89,9 @@ export default {
   },
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {} else {
+      if (user) {
+
+      } else {
         this.$router.push('/');
       }
     })
@@ -105,7 +107,6 @@ export default {
       });
   },
   methods: {
-
     cancel() {
       this.$router.push("/calving");
     },

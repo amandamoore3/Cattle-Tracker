@@ -69,9 +69,7 @@ module.exports = {
     ]
   },
   resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
+    alias: { 'vue$': 'vue/dist/vue.esm.js' },
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
@@ -79,9 +77,7 @@ module.exports = {
     noInfo: true,
     overlay: true
   },
-  performance: {
-    hints: false
-  },
+  performance: { hints: false },
   devtool: '#eval-source-map'
 }
 
@@ -90,15 +86,11 @@ if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
+      'process.env': { NODE_ENV: '"production"' }
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
-      compress: {
-        warnings: false
-      }
+      compress: { warnings: false }
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true

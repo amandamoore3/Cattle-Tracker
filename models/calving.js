@@ -48,6 +48,4 @@ let calvingSchema = mongoose.Schema({
 let Calving = mongoose.model('Calving', calvingSchema);
 
 
-module.exports = {
-  Calving
-};
+module.exports = { Calving };

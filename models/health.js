@@ -43,6 +43,4 @@ let healthSchema = mongoose.Schema({
 let Health = mongoose.model('Health', healthSchema);
 
 
-module.exports = {
-  Health
-};
+module.exports = { Health };

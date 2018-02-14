@@ -38,6 +38,4 @@ let pregCheckSchema = mongoose.Schema({
 let PregCheck = mongoose.model('PregCheck', pregCheckSchema);
 
 
-module.exports = {
-  PregCheck
-};
+module.exports = { PregCheck };

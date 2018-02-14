@@ -104,6 +104,8 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import { clearModal } from './mixins/clearModal';
+import { hideModal } from './mixins/hideModal';
 
 export default {
   data() {
@@ -124,7 +126,9 @@ export default {
   },
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {} else {
+      if (user) {
+
+      } else {
         this.$router.push('/');
       }
     })

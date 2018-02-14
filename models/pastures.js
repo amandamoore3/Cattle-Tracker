@@ -24,6 +24,4 @@ let pastureSchema = mongoose.Schema({
 let Pasture = mongoose.model('Pasture', pastureSchema);
 
 
-module.exports = {
-  Pasture
-};
+module.exports = { Pasture };

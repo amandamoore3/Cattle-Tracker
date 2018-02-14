@@ -96,12 +96,8 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
-import {
-  clearModal
-} from './mixins/clearModal';
-import {
-  hideModal
-} from './mixins/hideModal';
+import { clearModal } from './mixins/clearModal';
+import { hideModal } from './mixins/hideModal';
 
 export default {
   data() {
@@ -122,7 +118,9 @@ export default {
   beforeCreate() {
     let self = this;
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {} else {
+      if (user) {
+
+      } else {
         self.$router.push('/');
       }
     })
@@ -140,7 +138,6 @@ export default {
   mixins: [hideModal, clearModal],
   methods: {
     addBreeding() {
-
       let newBreeding = {
         tag_id: this.newBreeding.tag_id,
         date: this.newBreeding.date,
@@ -162,8 +159,6 @@ export default {
         });
     }
   }
-
-
 }
 </script>
 

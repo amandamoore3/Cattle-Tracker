@@ -3,39 +3,21 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 
-const {
-  mongooseConnect
-} = require('../db/mongoose.js');
+const { mongooseConnect } = require('../db/mongoose.js');
 
-const {
-  client
-} = require('mongodb');
+const { client } = require('mongodb');
 
-const {
-  Breeding
-} = require('../models/breeding.js');
+const { Breeding } = require('../models/breeding.js');
 
-const {
-  Calving
-} = require('../models/calving.js');
+const { Calving } = require('../models/calving.js');
 
-const {
-  Cow
-} = require('../models/cow.js');
+const { Cow } = require('../models/cow.js');
 
+const { Health } = require('../models/health.js');
 
-const {
-  Health
-} = require('../models/health.js');
+const { Pasture } = require('../models/pastures.js');
 
-
-const {
-  Pasture
-} = require('../models/pastures.js');
-
-const {
-  PregCheck
-} = require('../models/preg-check.js');
+const { PregCheck } = require('../models/preg-check.js');
 
 
 

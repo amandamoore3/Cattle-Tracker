@@ -44,6 +44,4 @@ let breedingSchema = mongoose.Schema({
 let Breeding = mongoose.model('Breeding', breedingSchema);
 
 
-module.exports = {
-  Breeding
-};
+module.exports = { Breeding };

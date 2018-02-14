@@ -42,6 +42,4 @@ let outcomeSchema = mongoose.Schema({
 let Outcome = mongoose.model('Outcome', outcomeSchema);
 
 
-module.exports = {
-  Outcome
-};
+module.exports = { Outcome };

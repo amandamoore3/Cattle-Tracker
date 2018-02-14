@@ -265,6 +265,7 @@
 import axios from 'axios';
 import firebase from 'firebase';
 
+
 export default {
   name: 'individual-animal',
   data() {
@@ -281,7 +282,9 @@ export default {
   beforeCreate() {
     let self = this;
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {} else {
+      if (user) {
+
+      } else {
         self.$router.push('/');
       }
     })
@@ -323,7 +326,6 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-
     },
     editAnimal() {
       let self = this;

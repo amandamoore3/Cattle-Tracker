@@ -3,7 +3,6 @@ $theme-colors: (
   "secondary": #3E4D5B
 );
 
-// "outerspace": $outerspace;
 $dark-blue: #011D38;
 $manatee: #989FA5;
 $outerspace: #3E4D5B;
@@ -11,24 +10,16 @@ $babyblueeyes: #A3C8ED;
 $customwhite : #EAF1F7;
 
 @mixin for-phone-only {
-    @media (max-width: 599px) {
-        @content;
-    }
+    @media (max-width: 599px) {@content;}
 }
 
 @mixin for-tablet-portrait-up {
-    @media (min-width: 600px) {
-        @content;
-    }
+    @media (min-width: 600px) { @content;}
 }
 .appContent {
     margin: 1em auto 0;
-    @include for-phone-only {
-        width: 100%;
-    }
-    @include for-tablet-portrait-up {
-        max-width: 75%;
-    }
+    @include for-phone-only { width: 100%; }
+    @include for-tablet-portrait-up {max-width: 75%;}
 }
 
 .card,
@@ -43,17 +34,15 @@ body {
 .table {
   margin-bottom: 0 !important;
 }
+
 .thead-custom-darkgray {
     background-color: $outerspace;
     color: white;
-    // border: solid 1.5px #343a40;
-    // border-radius: 0.25rem;
 }
+
 .thead-custom-darkblue {
     background-color: $dark-blue;
     color: white;
-    // border: solid 1.5px #343a40;
-    // border-radius: 0.25rem;
 }
 
 .custom-form {
@@ -61,12 +50,11 @@ body {
   margin: 0 auto;
 }
 
-
 .custom-nav {
   background-color: $outerspace;
   color: white;
-  // margin-bottom: 2em;
 }
+
 a.navlink{
   color: rgba(255,255,255, 0.9);
 }
@@ -79,5 +67,7 @@ a{
   color: $babyblueeyes;
 }
 
+
+//The below import statements are required after the over-riding styles above.
 @import '../../node_modules/bootstrap/scss/functions';
 @import '../../node_modules/bootstrap/scss/bootstrap';

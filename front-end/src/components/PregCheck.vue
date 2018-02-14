@@ -111,7 +111,9 @@ export default {
   },
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {} else {
+      if (user) {
+
+      } else {
         this.$router.push('/');
       }
     })

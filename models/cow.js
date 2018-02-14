@@ -79,6 +79,4 @@ let cowSchema = mongoose.Schema({
 let Cow = mongoose.model('Cow', cowSchema);
 
 
-module.exports = {
-  Cow
-};
+module.exports = { Cow };
