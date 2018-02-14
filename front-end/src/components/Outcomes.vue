@@ -4,8 +4,8 @@
   <div class="card-header bg-primary text-white">
       <h3 class="font-weight-bold">{{msg}}</h3>
     </div>
-    <div class="card-body">
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <div class="card-body p-0 pt-1">
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
         <li class="nav-item">
           <a class="nav-link font-weight-bold active" id="sold-tab" data-toggle="tab" href="#sold" role="tab" aria-controls="sold" aria-selected="true">Sold</a>
         </li>

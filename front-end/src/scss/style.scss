@@ -10,11 +10,39 @@ $outerspace: #3E4D5B;
 $babyblueeyes: #A3C8ED;
 $customwhite : #EAF1F7;
 
+@mixin for-phone-only {
+    @media (max-width: 599px) {
+        @content;
+    }
+}
+
+@mixin for-tablet-portrait-up {
+    @media (min-width: 600px) {
+        @content;
+    }
+}
+.appContent {
+    margin: 1em auto 0;
+    @include for-phone-only {
+        width: 100%;
+    }
+    @include for-tablet-portrait-up {
+        max-width: 75%;
+    }
+}
+
+.card,
+ul.nav-tabs {
+    margin-bottom: 1em;
+}
+
 body {
   padding-top: 65px;
 }
 
-
+.table {
+  margin-bottom: 0 !important;
+}
 .thead-custom-darkgray {
     background-color: $outerspace;
     color: white;
@@ -27,6 +55,12 @@ body {
     // border: solid 1.5px #343a40;
     // border-radius: 0.25rem;
 }
+
+.custom-form {
+  width: 90%;
+  margin: 0 auto;
+}
+
 
 .custom-nav {
   background-color: $outerspace;

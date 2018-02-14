@@ -12,7 +12,6 @@
       </div>
     </div>
 
-
     <div class="table-responsive">
       <table class="table table-striped table-hover">
         <thead class="thead-custom-darkgray">
@@ -85,18 +84,24 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="addBreeding()">Add to database</button>
+            <button type="button" class="btn btn-primary addBtn" @click="addBreeding()">Add to database</button>
           </div>
         </div>
       </div>
     </div>
-
+    <!-- ADD Modal -->
 </div>
 </template>
 
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import {
+  clearModal
+} from './mixins/clearModal';
+import {
+  hideModal
+} from './mixins/hideModal';
 
 export default {
   data() {
@@ -115,9 +120,10 @@ export default {
     }
   },
   beforeCreate() {
+    let self = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {} else {
-        this.$router.push('/');
+        self.$router.push('/');
       }
     })
   },
@@ -131,9 +137,10 @@ export default {
         this.cows = response.data
       });
   },
+  mixins: [hideModal, clearModal],
   methods: {
-
     addBreeding() {
+
       let newBreeding = {
         tag_id: this.newBreeding.tag_id,
         date: this.newBreeding.date,
@@ -146,10 +153,12 @@ export default {
       axios.post('http://127.0.0.1:3000/breeding', newBreeding)
         .then((response) => {
           console.log(response);
-          window.location.href = '/breeding';
+          // this.$router.push("/breeding");
+          this.hideModal();
+          this.clearModal();
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     }
   }

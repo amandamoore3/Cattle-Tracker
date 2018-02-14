@@ -5,8 +5,8 @@
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
       </div>
-      <div class="card-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <div class="card-body p-0 pt-1 ">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
           </li>
@@ -17,7 +17,7 @@
 
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
-            <form>
+            <form class=" custom-form">
               <div class="form-group">
                 <label for="addCalvingTagId">Ear Tag #</label>
                 <select v-model="calving.tag_id"  class="form-control" id="addCalvingTagId">
@@ -63,7 +63,7 @@
           <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
             <div class="form-group">
               <h5> Delete</h5>
-              <button class="btn btn-danger" type="button" @click="deleteCalving()" name="deleteCalvingEvent">Delete this Record</button>
+              <button class="btn btn-danger mr-5 mb-3 float-right" type="button" @click="deleteCalving()" name="deleteCalvingEvent">Delete this Record</button>
             </div>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default {
   methods: {
 
     cancel() {
-      window.location.href = '/calving';
+      this.$router.push("/calving");
     },
     deleteCalving() {
       // console.log(this.$route.params.id);

@@ -13,8 +13,8 @@
           </div> -->
         </div>
       </div>
-      <div class="card-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <div class="card-body p-0 pt-1">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
           </li>
@@ -25,7 +25,7 @@
 
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
-            <form>
+            <form class="custom-form">
               <div class="form-group">
                 <label for="editHealthTagId">Ear Tag Number</label>
                 <select v-model="health.tag_id"  class="form-control" id="editHealthTagId">
@@ -66,7 +66,7 @@
           </div>
           <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
             <div class="form-group">
-              <button class="btn btn-danger" type="button" @click="deleteHealth()" name="deleteHealthEvent">Delete this record</button>
+              <button class="btn btn-danger mr-5 mb-3 float-right" type="button" @click="deleteHealth()" name="deleteHealthEvent">Delete this record</button>
             </div>
           </div>
         </div>
@@ -106,14 +106,14 @@ export default {
   },
   methods: {
     cancel() {
-      window.location.href = '/health';
+      this.$router.push("/health");
     },
     deleteHealth() {
-      // console.log(this.$route.params.id);
+      let self = this;
       axios.delete('http://127.0.0.1:3000/healthevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          window.location.href = '/health';
+          self.$router.push("/health");
         })
         .catch((err) => {
           console.log(err.response);
@@ -121,7 +121,7 @@ export default {
 
     },
     editHealth() {
-      console.log('testing edit health method');
+      let self = this;
       axios.patch('http://127.0.0.1:3000/healthevent/' + this.$route.params.id, {
           tag_id: this.health.tag_id,
           treatmentDate: this.health.treatmentDate,
@@ -129,15 +129,14 @@ export default {
           dosage: this.health.dosage,
           booster: this.health.booster,
           diagnosis: this.health.diagnosis,
-          comments: this.health.comments,
-
+          comments: this.health.comments
         })
         .then(function(response) {
           console.log(response);
-          window.location.href = '/health';
+          self.$router.push("/health");
         })
         .catch(function(error) {
-          console.log(error.response);
+          console.log(error);
         });
     }
   }

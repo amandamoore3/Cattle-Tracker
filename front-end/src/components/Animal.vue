@@ -5,25 +5,18 @@
         <div class="col-12">
           <h3 class="font-weight-bold">{{cow.type}} #{{cow.tag_id}}</h3>
         </div>
-        <!-- <div class="col-3"> -->
-
-        <!-- </div> -->
       </div>
       <div class="table-responsive">
         <table class="table table-striped table-hover">
           <thead class="thead-custom-darkgray">
             <tr>
-              <!-- <th>Ear Tag</th> -->
-              <!-- <th>Type</th> -->
               <th>Pasture</th>
               <th>Birth Date</th>
               <th>Edit</th>
             </tr>
           </thead>
           <tbody>
-            <tr >
-              <!-- <td>{{cow.tag_id}}</td> -->
-              <!-- <td>{{cow.type}}</td> -->
+            <tr>
               <td>{{cow.pasture}}</td>
               <td>{{cow.dob}}</td>
               <!-- Button trigger modal -->
@@ -35,10 +28,9 @@
     </div>
     <h6 class="text-right"><router-link :to="{path: '/cattle'}" class="font-weight-bold ">Back to herd information</router-link></h6>
 
-    <div class="card shadow">
-      <!-- <div class="card-header"> -->
-      <div class="card-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <div class="card  shadow">
+      <div class="card-body p-0 pt-1">
+        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link font-weight-bold active" id="breeding-tab" data-toggle="tab" href="#breeding" role="tab" aria-controls="breeding" aria-selected="true">Breeding</a>
           </li>
@@ -55,124 +47,117 @@
             <a class="nav-link font-weight-bold" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
           </li>
         </ul>
-      <!-- </div> -->
+      </div>
 
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="breeding" role="tabpanel" aria-labelledby="breeding-tab">
+          <template v-if="breedings.length === 0">
+            <p>There is no breeding data for this animal.</p>
+          </template>
+          <template v-else>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Method</th>
+                    <th>Sire</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="breeding in breedings">
+                    <td>{{breeding.date}}</td>
+                    <td>{{breeding.method}}</td>
+                    <td>{{breeding.sire}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </template>
+        </div>
 
-        <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="breeding" role="tabpanel" aria-labelledby="breeding-tab">
-            <!-- <h5> Breeding information</h5> -->
-            <template v-if="breedings.length === 0">
-              <p>There is no breeding data for this animal.</p>
-            </template>
-            <template v-else>
-              <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Method</th>
-                      <th>Sire</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="breeding in breedings">
-                      <td>{{breeding.date}}</td>
-                      <td>{{breeding.method}}</td>
-                      <td>{{breeding.sire}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </template>
-          </div>
-          <div class="tab-pane fade" id="health" role="tabpanel" aria-labelledby="health-tab">
-            <!-- <h5> Health information</h5> -->
-            <template v-if="healthEvents.length === 0">
-              <p>There is no health data for this animal.</p>
-            </template>
-            <template v-else>
-              <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Diagnosis</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="healthEvent in healthEvents">
-                      <td>{{healthEvent.treatmentDate}}</td>
-                      <td>{{healthEvent.diagnosis}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </template>
-          </div>
-          <div class="tab-pane fade" id="pregnancy" role="tabpanel" aria-labelledby="pregnancy-tab">
-            <!-- <h5> Preg-check information</h5> -->
-            <template v-if="cow.type !=='Cow' || pregnancies.length === 0">
-              <p>There is no pregnancy data for this animal.</p>
-            </template>
+        <div class="tab-pane fade" id="health" role="tabpanel" aria-labelledby="health-tab">
+          <template v-if="healthEvents.length === 0">
+            <p>There is no health data for this animal.</p>
+          </template>
+          <template v-else>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Diagnosis</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="healthEvent in healthEvents">
+                    <td>{{healthEvent.treatmentDate}}</td>
+                    <td>{{healthEvent.diagnosis}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </template>
+        </div>
+        <div class="tab-pane fade" id="pregnancy" role="tabpanel" aria-labelledby="pregnancy-tab">
+          <template v-if="cow.type !=='Cow' || pregnancies.length === 0">
+            <p>There is no pregnancy data for this animal.</p>
+          </template>
 
-            <template v-else>
-              <div class="table-responsive">
-                <table class="table  table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Result</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="pregnancy in pregnancies">
-                      <td>{{pregnancy.date}}</td>
-                      <td>{{pregnancy.result}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </template>
-          </div>
-          <div class="tab-pane fade" id="calving" role="tabpanel" aria-labelledby="calving-tab">
-            <!-- <h5>Calving</h5> -->
-            <template v-if="cow.type !=='Cow' || calvings.length === 0">
-              <p>There is no calving data for this animal.</p>
-            </template>
+          <template v-else>
+            <div class="table-responsive">
+              <table class="table  table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="pregnancy in pregnancies">
+                    <td>{{pregnancy.date}}</td>
+                    <td>{{pregnancy.result}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </template>
+        </div>
+        <div class="tab-pane fade" id="calving" role="tabpanel" aria-labelledby="calving-tab">
+          <template v-if="cow.type !=='Cow' || calvings.length === 0">
+            <p>There is no calving data for this animal.</p>
+          </template>
 
-            <template v-else>
-              <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>Season</th>
-                      <th>Calf ear tag</th>
-                      <th>Birthdate</th>
-                      <th>Sex</th>
-                      <th>Sire</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="calving in calvings"  >
-                      <td>{{calving.season}}</td>
-                      <td>{{calving.calf_id}}</td>
-                      <td>{{calving.dob}}</td>
-                      <td>{{calving.sex}}</td>
-                      <td>{{calving.sire}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </template>
-          </div>
-          <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-            <button class="btn btn-danger" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
-          </div>
+          <template v-else>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Season</th>
+                    <th>Calf ear tag</th>
+                    <th>Birthdate</th>
+                    <th>Sex</th>
+                    <th>Sire</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="calving in calvings"  >
+                    <td>{{calving.season}}</td>
+                    <td>{{calving.calf_id}}</td>
+                    <td>{{calving.dob}}</td>
+                    <td>{{calving.sex}}</td>
+                    <td>{{calving.sire}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </template>
+        </div>
+        <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+          <button class="btn btn-danger mr-5 mb-3 float-right" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
         </div>
     </div>
   </div>
-
-
 
 
   <!-- EDIT ANIMAL Modal -->
@@ -279,12 +264,9 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
-// import bTable from 'bootstrap-vue/es/components/modal/modal'
-// import bTableDirective from 'bootstrap-vue/es/directives/modal/modal'
 
 export default {
   name: 'individual-animal',
-
   data() {
     return {
       msg: 'Animal Information',
@@ -296,21 +278,15 @@ export default {
       pastures: []
     }
   },
-  // components: {
-  //   'b-table': bTable
-  // },
-  // directives: {
-  //   'b-table': bTableDirective
-  // },
   beforeCreate() {
+    let self = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {} else {
-        this.$router.push('/');
+        self.$router.push('/');
       }
     })
   },
   created() {
-
     axios.get('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
       .then((response) => {
         this.cow = response.data
@@ -338,10 +314,11 @@ export default {
   },
   methods: {
     deleteCow() {
+      let self = this;
       axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          window.location.href = '/cattle';
+          self.$router.push("/cattle");
         })
         .catch((err) => {
           console.log(err.response);
@@ -349,7 +326,7 @@ export default {
 
     },
     editAnimal() {
-
+      let self = this;
       axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
           tag_id: this.cow.tag_id,
           type: this.cow.type,
@@ -365,7 +342,7 @@ export default {
         })
         .then(function(response) {
           console.log(response);
-          window.location.href = '/cattle';
+          self.$router.push("/cattle");
         })
         .catch(function(error) {
           console.log(error.response);
@@ -376,9 +353,6 @@ export default {
 </script>
 
 <style lang="css">
-/*div.table-responsive{
-    padding-left: 1em;
-    padding-right: 1em;
-}*/
+
 
 </style>

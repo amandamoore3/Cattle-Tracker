@@ -6,6 +6,7 @@ import Vue from 'vue';
 import vueRouter from 'vue-router';
 import "./scss/style.scss";
 
+
 Vue.use(vueRouter);
 
 new Vue({
