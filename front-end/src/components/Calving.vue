@@ -125,6 +125,7 @@ export default {
     }
   },
   beforeCreate() {
+    // let self = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
 
@@ -143,8 +144,8 @@ export default {
         this.cows = response.data
       });
   },
+  mixins: [hideModal, clearModal],
   methods: {
-
     addCalving() {
       let newCalving = {
         tag_id: this.newCalving.tag_id,
@@ -159,10 +160,11 @@ export default {
       axios.post('http://127.0.0.1:3000/calving', newCalving)
         .then((response) => {
           console.log(response);
-          window.location.href = '/calving';
+          this.hideModal();
+          this.clearModal();
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     }
   }

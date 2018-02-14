@@ -12,14 +12,14 @@ Vue.use(vueRouter);
 new Vue({
   el: '#app',
   router: route,
-  created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // this.$router.push('/loggedin');
-      } else {
-        // this.$router.push('/');
-      }
-    });
-  },
+  // created() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       // this.$router.push('/loggedin');
+  //     } else {
+  //       // this.$router.push('/');
+  //     }
+  //   });
+  // },
   render: h => h(App)
 })

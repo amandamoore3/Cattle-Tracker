@@ -19,8 +19,14 @@ export default {
         firebase.auth.EmailAuthProvider.PROVIDER_ID
       ]
     };
-    let ui = new firebaseui.auth.AuthUI(firebase.auth());
+    let ui = firebaseui.auth.AuthUI.getInstance();
+    if (!ui) {
+      ui = new firebaseui.auth.AuthUI(firebase.auth());
+    }
     ui.start('#firebaseui-container', uiConfig);
+
+    // let ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // ui.start('#firebaseui-container', uiConfig);
   }
 }
 </script>
