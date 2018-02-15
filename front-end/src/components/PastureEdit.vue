@@ -68,32 +68,31 @@ export default {
       .then((response) => {
         this.pasture = response.data
       });
-
   },
   methods: {
     cancel() {
       this.$router.push("/pastures");
     },
     deletePasture() {
-      // console.log(this.$route.params.id);
+      let self = this;
       axios.delete('http://127.0.0.1:3000/pastures/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          window.location.href = '/pastures';
+          self.$router.push("/pastures");
         })
         .catch((err) => {
           console.log(err.response);
         });
-
     },
     editPasture() {
+      let self = this;
       axios.patch('http://127.0.0.1:3000/pastures/' + this.$route.params.id, {
           name: this.pasture.name,
           comments: this.pasture.comments
         })
         .then(function(response) {
           console.log(response);
-          window.location.href = '/pastures';
+          self.$router.push("/pastures");
         })
         .catch(function(error) {
           console.log(error.response);

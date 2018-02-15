@@ -94,16 +94,15 @@ export default {
       });
   },
   methods: {
-
     cancel() {
       this.$router.push("/pregnancy");
     },
     deletePregCheck() {
-      // console.log(this.$route.params.id);
+      let self = this;
       axios.delete('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          window.location.href = '/pregnancy';
+          self.$router.push("/pregnancy");
         })
         .catch((err) => {
           console.log(err.response);
@@ -111,6 +110,7 @@ export default {
 
     },
     editPregCheck() {
+      let self = this;
       axios.patch('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id, {
           tag_id: this.pregCheck.tag_id,
           date: this.pregCheck.date,
@@ -120,14 +120,13 @@ export default {
         })
         .then(function(response) {
           console.log(response);
-          window.location.href = '/pregnancy';
+          self.$router.push("/pregnancy");
         })
         .catch(function(error) {
           console.log(error.response);
         });
     }
   }
-
 }
 </script>
 

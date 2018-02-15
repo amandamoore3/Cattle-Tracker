@@ -116,12 +116,11 @@ export default {
     }
   },
   beforeCreate() {
-    let self = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
 
       } else {
-        self.$router.push('/');
+        this.$router.push('/');
       }
     })
   },
@@ -146,11 +145,10 @@ export default {
         technician: this.newBreeding.technician,
         comments: this.newBreeding.comments
       }
-      console.log(newBreeding);
+      // console.log(newBreeding);
       axios.post('http://127.0.0.1:3000/breeding', newBreeding)
         .then((response) => {
           console.log(response);
-          // this.$router.push("/breeding");
           this.hideModal();
           this.clearModal();
         })

@@ -111,18 +111,18 @@ export default {
       this.$router.push("/calving");
     },
     deleteCalving() {
-      // console.log(this.$route.params.id);
+      let self = this;
       axios.delete('http://127.0.0.1:3000/calvingevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          window.location.href = '/calving';
+          self.$router.push("/calving");
         })
         .catch((err) => {
           console.log(err.response);
         });
-
     },
     editCalving() {
+      let self = this;
       axios.patch('http://127.0.0.1:3000/calvingevent/' + this.$route.params.id, {
           tag_id: this.calving.tag_id,
           calf_id: this.calving.calf_id,
@@ -135,14 +135,13 @@ export default {
         })
         .then(function(response) {
           console.log(response);
-          window.location.href = '/calving';
+          this.$router.push("/calving");
         })
         .catch(function(error) {
           console.log(error.response);
         });
     }
   }
-
 }
 </script>
 

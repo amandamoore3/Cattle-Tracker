@@ -96,7 +96,8 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
-
+import { clearModal } from './mixins/clearModal';
+import { hideModal } from './mixins/hideModal';
 
 export default {
   data() {
@@ -112,7 +113,6 @@ export default {
         sire: "",
         dam: ""
       }
-
     }
   },
   beforeCreate() {
@@ -134,6 +134,7 @@ export default {
         this.pastures = response.data
       });
   },
+  mixins: [hideModal, clearModal],
   methods: {
     addAnimal() {
       let newCow = {
@@ -144,19 +145,18 @@ export default {
         sire: this.newAnimal.sire,
         dam: this.newAnimal.dam
       }
-      console.log(newCow);
+      // console.log(newCow);
       axios.post('http://127.0.0.1:3000/cattle', newCow)
         .then((response) => {
           console.log(response);
-          window.location.href = '/cattle';
+          this.hideModal();
+          this.clearModal();
         })
         .catch((err) => {
           console.log(err.response);
         });
     }
   }
-
-
 }
 </script>
 

@@ -48,7 +48,6 @@
               <div class="form-group">
                 <label for="addPasturename">Pasture name</label>
                 <input v-model="newPasture.name" type="text" class="form-control" id="addPastureName" placeholder="Pasture name">
-
               </div>
               <div class="form-group">
                 <label for="addPastureComments">Comments</label>
@@ -63,13 +62,14 @@
         </div>
       </div>
     </div>
-
 </div>
 </template>
 
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import { clearModal } from './mixins/clearModal';
+import { hideModal } from './mixins/hideModal';
 
 export default {
   data() {
@@ -125,26 +125,25 @@ export default {
       return sum;
     }
   },
+  mixins: [hideModal, clearModal],
   methods: {
     addPasture() {
       let newPasture = {
         name: this.newPasture.name,
         comments: this.newPasture.comments
       }
-      console.log(newPasture);
+      // console.log(newPasture);
       axios.post('http://127.0.0.1:3000/pastures', newPasture)
         .then((response) => {
           console.log(response);
-          window.location.href = '/pastures';
+          this.hideModal();
+          this.clearModal();
         })
         .catch((err) => {
           console.log(err.response);
         });
     }
-
   }
-
-
 }
 </script>
 

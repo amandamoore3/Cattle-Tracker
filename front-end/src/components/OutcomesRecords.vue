@@ -93,18 +93,18 @@ export default {
       this.$router.push("/outcomes");
     },
     deleteOutcome() {
-      // console.log(this.$route.params.id);
+      let self = this;
       axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          window.location.href = '/outcomes';
+          self.$router.push("/outcomes");
         })
         .catch((err) => {
           console.log(err.response);
         });
-
     },
     editOutcome() {
+      let self = this;
       axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
           status: this.cow.status,
           status_date: this.cow.status_date,
@@ -114,7 +114,7 @@ export default {
         })
         .then(function(response) {
           console.log(response);
-          window.location.href = '/outcomes';
+          self.$router.push("/outcomes");
         })
         .catch(function(error) {
           console.log(error.response);

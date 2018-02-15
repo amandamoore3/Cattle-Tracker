@@ -5,12 +5,7 @@
     <div class="card shadow">
       <div class="card-header">
         <div class="row no-gutters">
-          <!-- <div class="col-8"> -->
-            <h3 class="font-weight-bold">{{msg}}</h3>
-          <!-- </div> -->
-          <!-- <div class="col-4">
-            <h5 class="text-right"><router-link :to="{path: '/health'}">Herd health records</router-link></h5>
-          </div> -->
+          <h3 class="font-weight-bold">{{msg}}</h3>
         </div>
       </div>
       <div class="card-body p-0 pt-1">
@@ -120,7 +115,6 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-
     },
     editHealth() {
       let self = this;
@@ -142,7 +136,6 @@ export default {
         });
     }
   }
-
 }
 </script>
 

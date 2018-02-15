@@ -86,13 +86,14 @@
       </div>
     </div>
   </div>
-
 </div>
 </template>
 
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import { clearModal } from './mixins/clearModal';
+import { hideModal } from './mixins/hideModal';
 
 export default {
   data() {
@@ -128,6 +129,7 @@ export default {
         this.cows = response.data
       });
   },
+  mixins: [hideModal, clearModal],
   methods: {
     addPregCheck() {
       let newPregCheck = {
@@ -137,20 +139,18 @@ export default {
         result: this.newPregCheck.result,
         comments: this.newPregCheck.comments
       }
-      console.log(newPregCheck);
+      // console.log(newPregCheck);
       axios.post('http://127.0.0.1:3000/pregnancy', newPregCheck)
         .then((response) => {
           console.log(response);
-          window.location.href = '/pregnancy';
+          this.hideModal();
+          this.clearModal();
         })
         .catch((err) => {
           console.log(err.response);
         });
     }
-
   }
-
-
 }
 </script>
 

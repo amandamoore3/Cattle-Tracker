@@ -2,7 +2,7 @@
 <div>
 
   <div class="card shadow">
-  <div class="card-header bg-primary text-white">
+    <div class="card-header bg-primary text-white">
       <div class="row no-gutters">
         <div class="col-8">
           <h3 class="font-weight-bold">{{msg}}</h3>
@@ -40,9 +40,7 @@
       </table>
       </div>
     <!-- </div> -->
-  </div>
-
-
+    </div>
 
     <!-- ADD Modal -->
     <div class="modal fade" id="addHealthModal" tabindex="-1" role="dialog" aria-labelledby="addHealthModalLabel" aria-hidden="true">
@@ -103,6 +101,8 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import { clearModal } from './mixins/clearModal';
+import { hideModal } from './mixins/hideModal';
 
 export default {
   data() {
@@ -111,7 +111,6 @@ export default {
       healthEvents: [],
       cows: [],
       newHealth: []
-
     }
   },
   beforeCreate() {
@@ -133,6 +132,7 @@ export default {
         this.cows = response.data
       });
   },
+  mixins: [hideModal, clearModal],
   methods: {
     addHealth() {
       let newHealth = {
@@ -148,10 +148,11 @@ export default {
       axios.post('http://127.0.0.1:3000/health', newHealth)
         .then((response) => {
           console.log(response);
-          window.location.href = '/health';
+          this.hideModal();
+          this.clearModal();
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     }
   }

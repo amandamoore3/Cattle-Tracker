@@ -104,13 +104,11 @@ export default {
       });
   },
   methods: {
-
     cancel() {
       this.$router.push("/breeding");
     },
     deleteBreeding() {
       let self = this;
-      // console.log(this.$route.params.id);
       axios.delete('http://127.0.0.1:3000/breedingevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
@@ -119,7 +117,6 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-
     },
     editBreeding() {
       let self = this;

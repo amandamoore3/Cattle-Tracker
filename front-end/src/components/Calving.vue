@@ -125,7 +125,6 @@ export default {
     }
   },
   beforeCreate() {
-    // let self = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
 

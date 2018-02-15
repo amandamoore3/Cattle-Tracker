@@ -280,12 +280,11 @@ export default {
     }
   },
   beforeCreate() {
-    let self = this;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
 
       } else {
-        self.$router.push('/');
+        this.$router.push('/');
       }
     })
   },
