@@ -52,7 +52,7 @@
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="breeding" role="tabpanel" aria-labelledby="breeding-tab">
           <template v-if="breedings.length === 0">
-            <p>There is no breeding data for this animal.</p>
+            <p class="pl-3">There is no breeding data for this animal.</p>
           </template>
           <template v-else>
             <div class="table-responsive">
@@ -78,7 +78,7 @@
 
         <div class="tab-pane fade" id="health" role="tabpanel" aria-labelledby="health-tab">
           <template v-if="healthEvents.length === 0">
-            <p>There is no health data for this animal.</p>
+            <p class="pl-3">There is no health data for this animal.</p>
           </template>
           <template v-else>
             <div class="table-responsive">
@@ -101,7 +101,7 @@
         </div>
         <div class="tab-pane fade" id="pregnancy" role="tabpanel" aria-labelledby="pregnancy-tab">
           <template v-if="cow.type !=='Cow' || pregnancies.length === 0">
-            <p>There is no pregnancy data for this animal.</p>
+            <p class="pl-3">There is no pregnancy data for this animal.</p>
           </template>
 
           <template v-else>
@@ -125,7 +125,7 @@
         </div>
         <div class="tab-pane fade" id="calving" role="tabpanel" aria-labelledby="calving-tab">
           <template v-if="cow.type !=='Cow' || calvings.length === 0">
-            <p>There is no calving data for this animal.</p>
+            <p class="pl-3">There is no calving data for this animal.</p>
           </template>
 
           <template v-else>
