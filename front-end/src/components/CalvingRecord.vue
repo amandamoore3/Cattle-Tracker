@@ -5,7 +5,7 @@
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
       </div>
-      <div class="card-body p-0 pt-1 ">
+      <div>
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
@@ -57,22 +57,17 @@
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
                 <button type="button" class="btn btn-primary" @click="editCalving()">Update</button>
               </div>
-
             </form>
           </div>
-          <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-            <div class="form-group">
-              <h5> Delete</h5>
-              <button class="btn btn-danger mr-5 mb-3 float-right" type="button" @click="deleteCalving()" name="deleteCalvingEvent">Delete this Record</button>
-            </div>
+          <div class="tab-pane fade text-center" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+            <!-- <div class="form-group "> -->
+              <button class="btn btn-danger" type="button" @click="deleteCalving()" name="deleteCalvingEvent">Delete this Record</button>
+            <!-- </div> -->
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
-
 </template>
 
 <script>

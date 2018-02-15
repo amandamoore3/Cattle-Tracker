@@ -29,7 +29,7 @@
     <h6 class="text-right"><router-link :to="{path: '/cattle'}" class="font-weight-bold ">Back to herd information</router-link></h6>
 
     <div class="card  shadow">
-      <div class="card-body p-0 pt-1">
+      <div>
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link font-weight-bold active" id="breeding-tab" data-toggle="tab" href="#breeding" role="tab" aria-controls="breeding" aria-selected="true">Breeding</a>
@@ -153,8 +153,8 @@
             </div>
           </template>
         </div>
-        <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-          <button class="btn btn-danger mr-5 mb-3 float-right" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
+        <div class="tab-pane fade text-center" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+          <button class="btn btn-danger" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
         </div>
     </div>
   </div>
@@ -170,19 +170,18 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
-                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <!-- <div class="modal-body"> -->
+                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link font-weight-bold active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Information</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link font-weight-bold" id="statusUpdate-tab" data-toggle="tab" href="#statusUpdate" role="tab" aria-controls="statusUpdate" aria-selected="false">Status</a>
                     </li>
-
                   </ul>
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
-                      <form>
+                      <form class="custom-form">
                         <div class="form-group">
                           <label for="editAnimalTagId">Ear Tag Number</label>
                           <input  v-model:value="cow.tag_id" type="text" class="form-control" id="editAnimalTagId" placeholder="Ear tag number">
@@ -219,7 +218,7 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="statusUpdate" role="tabpanel" aria-labelledby="statusUpdate-tab">
-                      <form>
+                      <form class="custom-form">
                         <div class="form-group">
                           <label for="editAnimalStatus">Status</label>
                           <select v-model:value="cow.status"  class="form-control" id="editAnimalStatus">
@@ -252,7 +251,7 @@
                       <button type="button" class="btn btn-primary" @click="editAnimal()">Update</button>
                     </div>
                   </div>
-                </div>
+                <!-- </div> -->
             </div>
           </div>
         </div>

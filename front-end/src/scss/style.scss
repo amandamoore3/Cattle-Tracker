@@ -8,7 +8,7 @@ $dark-blue: #011D38;
 $manatee: #989FA5;
 $outerspace: #3E4D5B;
 $babyblueeyes: #A3C8ED;
-$customwhite : #EAF1F7;
+$customwhite : #F5F6F6;
 //CHANGES THEME COLORS OF BOOTSTRAP
 
 //CUSTOM MEDIA MIXINS FOR BETTER MOBILE DISPLAY
@@ -59,6 +59,30 @@ body {
   margin-bottom: 0 !important;
 }
 //AVOIDS BOTTOM MARGIN ON CARDS WITH TABLES
+
+//REMOVES PADDING ON MODALS- CENTERS VIEW ON MOBILE
+.modal {
+  padding-left: 0 !important;
+}
+//REMOVES PADDING ON MODALS- CENTERS VIEW ON MOBILE
+
+
+.nav-tabs {
+  background-color: rgba(0, 0, 0, 0.03);
+  padding-left: 2em !important;
+  padding-right: 2em !important;
+  padding-top: 1em !important;
+}
+
+div.tab-pane > button.btn-danger {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.card-header {
+  background-color: #e9ecef !important;
+  border-bottom: solid 1px #D4D7DA !important;
+}
 
 //CUSTOM FORMATTING
 .thead-custom-darkgray {

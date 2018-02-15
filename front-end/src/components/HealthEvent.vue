@@ -8,7 +8,7 @@
           <h3 class="font-weight-bold">{{msg}}</h3>
         </div>
       </div>
-      <div class="card-body p-0 pt-1">
+      <div>
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Update</a>
@@ -59,10 +59,8 @@
 
             </form>
           </div>
-          <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-            <div class="form-group">
-              <button class="btn btn-danger mr-5 mb-3 float-right" type="button" @click="deleteHealth()" name="deleteHealthEvent">Delete this record</button>
-            </div>
+          <div class="tab-pane fade text-center" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+              <button class="btn btn-danger" type="button" @click="deleteHealth()" name="deleteHealthEvent">Delete this record</button>
           </div>
         </div>
       </div>
