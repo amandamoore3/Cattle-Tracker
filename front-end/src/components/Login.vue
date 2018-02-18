@@ -1,5 +1,15 @@
 <template>
-<div id="firebaseui-container"></div>
+<div>
+  <div class="card login">
+    <div class="card-header">
+      Register and sign in below
+    </div>
+    <div class="card-block">
+      <div id="firebaseui-container"></div>
+    </div>
+  </div>
+
+</div>
 </template>
 
 <script>
