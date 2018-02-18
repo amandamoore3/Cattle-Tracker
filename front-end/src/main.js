@@ -4,7 +4,8 @@ import firebaseui from 'firebaseui';
 import route from './router';
 import Vue from 'vue';
 import vueRouter from 'vue-router';
-import "./scss/style.scss";
+import "./stylesheets/style.scss";
+
 
 
 Vue.use(vueRouter);
