@@ -1,8 +1,9 @@
 <template>
 <div>
-  <router-link to="/cattle">Herd data</router-link>
-  <h1>Logged in!</h1>
-  <button @click='logOut'>Log out</button><br />
+  <div v-bind:style="{ backgroundImage: 'url(' + '/static/IMG_3283.jpg' + ')' }" class="fullScreenImage">
+
+  </div>
+
 
 </div>
 </template>

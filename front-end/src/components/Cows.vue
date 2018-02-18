@@ -42,7 +42,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header card-header">
-            <h5 class="modal-title text-primary font-weight-bold" id="addAnimalModalLabel">Add new herd animal</h5>
+            <h5 class="modal-title text-primary font-weight-bold" id="addAnimalModalLabel">Add new animal</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -84,7 +84,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-primary" @click="addAnimal()">Add to database</button>
           </div>
         </div>

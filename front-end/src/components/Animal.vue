@@ -38,7 +38,7 @@
             <a class="nav-link font-weight-bold" id="health-tab" data-toggle="tab" href="#health" role="tab" aria-controls="health" aria-selected="false">Health</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link font-weight-bold" id="pregnancy-tab" data-toggle="tab" href="#pregnancy" role="tab" aria-controls="pregnancy" aria-selected="false">Pregnancy</a>
+            <a class="nav-link font-weight-bold" id="pregnancy-tab" data-toggle="tab" href="#pregnancy" role="tab" aria-controls="pregnancy" aria-selected="false">Preg-checks</a>
           </li>
           <li class="nav-item">
             <a class="nav-link font-weight-bold" id="calving-tab" data-toggle="tab" href="#calving" role="tab" aria-controls="calving" aria-selected="true">Calving</a>
