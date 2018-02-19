@@ -1,5 +1,5 @@
 <template lang="html">
-<div>
+<div class="appContent">
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
         <h3 class="font-weight-bold">{{msg}}</h3>
@@ -90,7 +90,7 @@ export default {
       if (user) {
 
       } else {
-        this.$router.push('/');
+        this.$router.push('/login');
       }
     })
   },

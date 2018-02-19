@@ -1,6 +1,6 @@
 <template>
-<div>
-  <div class="card login">
+<div class="appContent">
+  <div class="card">
     <div class="card-header">
       Register and sign in below
     </div>
@@ -15,15 +15,13 @@
 <script>
 import firebase from 'firebase'
 import firebaseui from 'firebaseui'
-import {
-  config
-} from '../utils/firebaseConfig.js'
+import { config } from '../utils/firebaseConfig.js'
 
 export default {
   name: 'login',
   mounted() {
     let uiConfig = {
-      signInSuccessUrl: '/cattle',
+      signInSuccessUrl: '/',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.EmailAuthProvider.PROVIDER_ID

@@ -7,8 +7,8 @@ import CalvingRecord from './components/CalvingRecord'
 import Cows from './components/Cows'
 import Health from './components/Health'
 import HealthEvent from './components/HealthEvent'
+import Home from './components/Home.vue'
 import Login from './components/Login.vue'
-import LoggedIn from './components/LoggedIn.vue'
 import Outcomes from './components/Outcomes.vue'
 import OutcomesRecords from './components/OutcomesRecords.vue'
 import Pastures from './components/Pastures.vue'
@@ -21,12 +21,12 @@ import PregCheckEvent from './components/PregCheckEvent.vue'
 const router = new vueRouter({
   mode: 'history',
   routes: [{
-      path: '/',
+      path: '/login',
       component: Login
     },
     {
-      path: '/loggedin',
-      component: LoggedIn
+      path: '/',
+      component: Home
     },
     {
       path: '/cattle',

@@ -1,5 +1,5 @@
 <template lang="html">
-<div>
+<div class="appContent">
   <div class="card shadow">
     <div class="card-header text-white bg-primary">
       <div class="row no-gutters">
@@ -120,7 +120,7 @@ export default {
       if (user) {
 
       } else {
-        this.$router.push('/');
+        this.$router.push('/login');
       }
     })
   },

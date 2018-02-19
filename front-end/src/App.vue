@@ -4,7 +4,8 @@
     <div class="row no-gutters">
       <div class="col-12">
         <nav class="navbar navbar-dark fixed-top navbar-expand-lg custom-nav shadow">
-          <a class="navbar-brand" href="#">Cowculator</a>
+          <router-link :to="{ path: '/'}" class="navbar-brand">Cattle-Tracks</router-link>
+
           <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,7 +41,7 @@
     <div class="row">
       <div class="col-12">
         <transition name="fade" mode="out-in">
-          <router-view class="appContent"></router-view>
+          <router-view class="paddingContent"></router-view>
         </transition>
       </div>
     </div>

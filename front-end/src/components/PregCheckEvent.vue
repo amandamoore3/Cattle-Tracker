@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="appContent">
     <h5 class="text-right"><router-link :to="{path: '/pregnancy'}">All Preg-Check Records</router-link></h5>
     <div class="card shadow">
       <div class="card-header">
@@ -77,7 +77,7 @@ export default {
       if (user) {
 
       } else {
-        this.$router.push('/');
+        this.$router.push('/login');
       }
     })
   },

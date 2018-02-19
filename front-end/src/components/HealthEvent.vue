@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="appContent">
     <h5 class="text-right"><router-link :to="{path: '/health'}">Herd health records</router-link></h5>
 
     <div class="card shadow">
@@ -85,7 +85,7 @@ export default {
       if (user) {
 
       } else {
-        this.$router.push('/');
+        this.$router.push('/login');
       }
     })
   },

@@ -22,6 +22,7 @@ $customwhite : #F5F6F6;
 
 .appContent {
     margin: 1em auto 0;
+    padding-top: 3em;
     transition: width 0.5s ease-in-out;
     @include for-phone-only {
       width: 100%;
@@ -49,40 +50,56 @@ ul.nav-tabs {
 }
 //TO ADD MORE WHITESPACE
 
-//STYLE LOGIN PAGE
-.login {
-  max-width: 50%;
+//
+// .fullScreenImageContainer {
+//
+//   margin: 0 ;
+//   /* to remove the default white margin of body */
+//   padding: 0;
+//   /* to remove the default white margin of body */
+//   z-index: 1;
+// }
+.home-header {
+  padding-top: 3em;
+  padding-bottom: 0.5em;
+  width: 65%;
   margin: 0 auto;
 }
-//STYLE LOGIN PAGE
 
+.home-text {
+  width: 65%;
+  margin: 0 auto;
+}
 .fullScreenImage {
-  margin: 0 auto !important;
+  height: 80vh;
+  width: 100%;
+  background: url('/static/IMG_3283.jpg') no-repeat center;
   background-size: 100% auto;
   /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
-  -webkit-background-size: cover;
+  -webkit-background-size: 100% auto;
   /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
-  -moz-background-size: cover;
+  -moz-background-size: 100% auto;
   /* optional for Firefox 3.6 */
-  -o-background-size: cover;
+  -o-background-size: 100% auto;
   /* for Opera 9.5 */
-  margin: 0;
-  /* to remove the default white margin of body */
-  padding: 0;
-  /* to remove the default white margin of body */
+  opacity: 0.4;
+  top: 5em;
+  bottom: 0;
+  right: 0;
+  left: 0;
   overflow: hidden;
-  height: 100vh !important;
-  max-width: 100vw !important;
-  // background: transparentize(black, 1);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  position: fixed;
+  z-index: -1;
 }
 
+// .noScroll {
+//   overflow-y: hidden;
+// }
+
 //NEEDED SINCE NAVBAR IS STICKY, OTHERWISE PAGE CONTENT COVERED
-body {
-  padding-top: 65px;
-}
+// .paddingContent {
+//   padding-top: 3em;
+// }
 //NEEDED SINCE NAVBAR IS STICKY, OTHERWISE PAGE CONTENT COVERED
 
 //AVOIDS BOTTOM MARGIN ON CARDS WITH TABLES
