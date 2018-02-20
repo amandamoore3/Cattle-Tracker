@@ -46,6 +46,18 @@
       </div>
     </div>
   </div>
+  <!-- <div class="container">
+    <div class="row ">
+      <div class="col-12 pl-0 pr-0"> -->
+  <!-- <div class=""> -->
+  <footer class="fixed-bottom custom-footer">
+    <p class="text-center">Made by Amanda Moore, 2018</p>
+  </footer>
+  <!-- </div> -->
+
+  <!-- </div>
+    </div>
+  </div> -->
 
 </div>
 </template>

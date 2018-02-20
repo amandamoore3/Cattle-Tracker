@@ -22,7 +22,8 @@ $customwhite : #F5F6F6;
 
 .appContent {
     margin: 1em auto 0;
-    padding-top: 3em;
+    padding-top: 4em;
+    //NEEDED SINCE NAVBAR IS STICKY, OTHERWISE PAGE CONTENT COVERED
     transition: width 0.5s ease-in-out;
     @include for-phone-only {
       width: 100%;
@@ -32,6 +33,11 @@ $customwhite : #F5F6F6;
     }
 }
 //CUSTOM MEDIA MIXINS FOR BETTER MOBILE DISPLAY
+
+.paddingContent {
+  padding-bottom: 5em;
+}
+
 
 //FADING BETWEEN COMPONENTS
 .fade-enter-active, .fade-leave-active {
@@ -50,15 +56,7 @@ ul.nav-tabs {
 }
 //TO ADD MORE WHITESPACE
 
-//
-// .fullScreenImageContainer {
-//
-//   margin: 0 ;
-//   /* to remove the default white margin of body */
-//   padding: 0;
-//   /* to remove the default white margin of body */
-//   z-index: 1;
-// }
+//HOME PAGE FORMATTING
 .home-header {
   padding-top: 3em;
   padding-bottom: 0.5em;
@@ -91,16 +89,8 @@ ul.nav-tabs {
   position: fixed;
   z-index: -1;
 }
+//HOME PAGE FORMATTING
 
-// .noScroll {
-//   overflow-y: hidden;
-// }
-
-//NEEDED SINCE NAVBAR IS STICKY, OTHERWISE PAGE CONTENT COVERED
-// .paddingContent {
-//   padding-top: 3em;
-// }
-//NEEDED SINCE NAVBAR IS STICKY, OTHERWISE PAGE CONTENT COVERED
 
 //AVOIDS BOTTOM MARGIN ON CARDS WITH TABLES
 .table {
@@ -114,7 +104,7 @@ ul.nav-tabs {
 }
 //REMOVES PADDING ON MODALS- CENTERS VIEW ON MOBILE
 
-
+//FORMATTING FOR CARDS WITH TABS
 .nav-tabs {
   background-color: rgba(0, 0, 0, 0.03);
   padding-left: 2em !important;
@@ -131,7 +121,7 @@ div.tab-pane > button.btn-danger {
   background-color: #e9ecef !important;
   border-bottom: solid 1px #D4D7DA !important;
 }
-
+//FORMATTING FOR CARDS WITH TABS
 
 //CUSTOM FORMATTING
 .thead-custom-darkgray {
@@ -152,6 +142,19 @@ div.tab-pane > button.btn-danger {
 .custom-nav {
   background-color: $outerspace;
   color: white;
+}
+
+.custom-footer {
+  background-color: $customwhite;
+  line-height: 2.5em ;
+  color: $babyblueeyes;
+  border-top: solid 1px #DCDDDD;
+  padding-bottom: 0.5em;
+  font-size: smaller;
+  width: 100%;
+  height: 3em;
+  display: inline-block;
+  float: none;
 }
 
 a.navlink{
