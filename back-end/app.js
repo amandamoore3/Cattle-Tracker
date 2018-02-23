@@ -102,7 +102,8 @@ app.patch('/cattle/:id', (req, res) => {
     }, {
       $set: req.body
     }, {
-      new: true
+      new: true,
+      runValidators: true
     })
     .then((response) => {
       if (!response) {
@@ -198,7 +199,8 @@ app.patch('/breedingevent/:id', (req, res) => {
     }, {
       $set: req.body
     }, {
-      new: true
+      new: true,
+      runValidators: true
     })
     .then((response) => {
       if (!response) {
@@ -296,7 +298,8 @@ app.patch('/calvingevent/:id', (req, res) => {
     }, {
       $set: req.body
     }, {
-      new: true
+      new: true,
+      runValidators: true
     })
     .then((response) => {
       if (!response) {
@@ -393,7 +396,8 @@ app.patch('/healthevent/:id', (req, res) => {
     }, {
       $set: req.body
     }, {
-      new: true
+      new: true,
+      runValidators: true
     })
     .then((response) => {
       if (!response) {
@@ -472,7 +476,8 @@ app.patch('/pastures/:id', (req, res) => {
     }, {
       $set: req.body
     }, {
-      new: true
+      new: true,
+      runValidators: true
     })
     .then((response) => {
       if (!response) {
@@ -567,7 +572,8 @@ app.patch('/pregnancy/:id', (req, res) => {
     }, {
       $set: req.body
     }, {
-      new: true
+      new: true,
+      runValidators: true
     })
     .then((response) => {
       if (!response) {
