@@ -178,7 +178,6 @@ app.post('/breeding', (req, res) => {
 
 //DELETE BREEDING DOCUMENT BY ID
 app.delete('/breedingevent/:id', (req, res) => {
-  console.log("deleterequest" + JSON.stringify(req.params));
   Breeding.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -277,7 +276,6 @@ app.post('/calving', (req, res) => {
 
 //DELETE CALVING DOCUMENT BY ID
 app.delete('/calvingevent/:id', (req, res) => {
-  console.log("deleterequest" + JSON.stringify(req.params));
   Calving.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -375,7 +373,6 @@ app.post('/health', (req, res) => {
 
 //DELETE HEALTH DOCUMENT BY ID
 app.delete('/healthevent/:id', (req, res) => {
-  console.log("deleterequest" + JSON.stringify(req.params));
   Health.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -455,7 +452,6 @@ app.post('/pastures', (req, res) => {
 
 //DELETE PASTURE DOCUMENT BY ID
 app.delete('/pastures/:id', (req, res) => {
-  console.log("deleterequest" + JSON.stringify(req.params));
   Pasture.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -551,7 +547,6 @@ app.post('/pregnancy', (req, res) => {
 
 //DELETE PREG-CHECK DOCUMENT BY ID
 app.delete('/pregnancy/:id', (req, res) => {
-  console.log("deleterequest" + JSON.stringify(req.params));
   PregCheck.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
