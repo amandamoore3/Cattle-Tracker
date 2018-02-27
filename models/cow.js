@@ -2,18 +2,19 @@
 
 const mongoose = require('mongoose');
 
-let today = new Date();
-let dd = today.getDate();
-let mm = today.getMonth() + 1; //January is 0!
 
-let yyyy = today.getFullYear();
-if (dd < 10) {
-  dd = '0' + dd;
-}
-if (mm < 10) {
-  mm = '0' + mm;
-}
-let formattedDate = dd + '/' + mm + '/' + yyyy;
+// let today = new Date();
+// let dd = today.getDate();
+// let mm = today.getMonth() + 1; //January is 0!
+//
+// let yyyy = today.getFullYear();
+// if (dd < 10) {
+//   dd = '0' + dd;
+// }
+// if (mm < 10) {
+//   mm = '0' + mm;
+// }
+// let formattedDate = dd + '/' + mm + '/' + yyyy;
 
 
 //set up the schema/ structure of data
@@ -37,7 +38,6 @@ let cowSchema = mongoose.Schema({
   pasture: {
     type: String,
     required: true,
-    minLength: 1,
     trim: true
   },
   dateCreated: {
@@ -60,7 +60,6 @@ let cowSchema = mongoose.Schema({
   },
   status_date: {
     type: Date,
-    // required: true,
     trim: true
   },
   weight: {

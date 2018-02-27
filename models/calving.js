@@ -13,6 +13,7 @@ let calvingSchema = mongoose.Schema({
   },
   calf_id: {
     type: String,
+    required: true,
     trim: true
   },
   season: {

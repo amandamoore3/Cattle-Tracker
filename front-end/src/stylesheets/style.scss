@@ -34,6 +34,22 @@ $customwhite : #F5F6F6;
 }
 //CUSTOM MEDIA MIXINS FOR BETTER MOBILE DISPLAY
 
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 100px; /* bottom = footer height */
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
 .paddingContent {
   padding-bottom: 5em;
 }
@@ -136,7 +152,7 @@ div.tab-pane > button.btn-danger {
 
 .custom-form {
   width: 90%;
-  margin: 0 auto;
+  margin: 1.5em auto;
 }
 
 .custom-nav {
@@ -146,16 +162,23 @@ div.tab-pane > button.btn-danger {
 
 .custom-footer {
   background-color: $customwhite;
-  line-height: 2.5em ;
+  // line-height: 2.5em ;
   color: $babyblueeyes;
   border-top: solid 1px #DCDDDD;
-  padding-bottom: 0.5em;
+  // padding-bottom: 0.5em;
   font-size: smaller;
   width: 100%;
   height: 3em;
-  display: inline-block;
-  float: none;
+  // padding: 1em 0;
+  // display: inline-block;
+  // float: none;
+  // position: fixed;
+
 }
+
+// footer p {
+//   padding-top: 0.5em;
+// }
 
 a.navlink{
   color: rgba(255,255,255, 0.9);

@@ -52,8 +52,16 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form>
+          <form>
+            <div class="modal-body">
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
               <div class="form-group">
                 <label for="addHealthTagId">Ear Tag #</label>
                 <select v-model="newHealth.tag_id"  class="form-control" id="addHealthTagId">
@@ -85,12 +93,12 @@
                 <label for="addHealthComments">Comments</label>
                 <input v-model="newHealth.comments" type="text" class="form-control" id="addHealthComments" placeholder="Comments">
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" @click="addHealth()">Add to database</button>
-          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear()">Cancel</button>
+              <button type="button" class="btn btn-primary" @click="checkForm($event); addHealth();">Add to database</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -109,7 +117,8 @@ export default {
       msg: 'Herd Health Records',
       healthEvents: [],
       cows: [],
-      newHealth: []
+      newHealth: [],
+      errors: []
     }
   },
   beforeCreate() {
@@ -141,7 +150,7 @@ export default {
         dosage: this.newHealth.dosage,
         booster: this.newHealth.booster,
         diagnosis: this.newHealth.diagnosis,
-        comments: this.newHealth.comments,
+        comments: this.newHealth.comments
       }
       console.log(newHealth);
       axios.post('http://127.0.0.1:3000/health', newHealth)
@@ -149,10 +158,37 @@ export default {
           console.log(response);
           this.hideModal();
           this.clearModal();
+          this.newHealth.tag_id = "";
+          this.newHealth.treatmentDate = "";
+          this.newHealth.medication = "";
+          this.newHealth.dosage = "";
+          this.newHealth.booster = "";
+          this.newHealth.diagnosis = "";
+          this.newHealth.comments = "";
+          this.errors = [];
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    checkForm: function(e) {
+      if (this.newHealth.tag_id && this.newHealth.treatmentDate && this.newHealth.diagnosis) return true;
+      this.errors = [];
+      if (!this.newHealth.tag_id) this.errors.push("Ear tag is required.");
+      if (!this.newHealth.treatmentDate) this.errors.push("Treatment date is required.");
+      if (!this.newHealth.diagnosis) this.errors.push("Diagnosis is required.");
+      e.preventDefault();
+    },
+    clear() {
+      this.clearModal();
+      this.newHealth.tag_id = "";
+      this.newHealth.treatmentDate = "";
+      this.newHealth.medication = "";
+      this.newHealth.dosage = "";
+      this.newHealth.booster = "";
+      this.newHealth.diagnosis = "";
+      this.newHealth.comments = "";
+      this.errors = [];
     }
   }
 

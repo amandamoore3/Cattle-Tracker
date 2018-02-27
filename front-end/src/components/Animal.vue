@@ -141,7 +141,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="calving in calvings"  >
+                  <tr v-for="calving in calvings">
                     <td>{{calving.season}}</td>
                     <td>{{calving.calf_id}}</td>
                     <td>{{calving.dob}}</td>
@@ -179,15 +179,24 @@
                       <a class="nav-link font-weight-bold" id="statusUpdate-tab" data-toggle="tab" href="#statusUpdate" role="tab" aria-controls="statusUpdate" aria-selected="false">Status</a>
                     </li>
                   </ul>
+                  <small class="text-right pr-4 text-secondary m-1">Fields marked with (*) are required.</small class="text-center m-1">
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+                      <div class="errorContainer custom-form text-danger">
+                        <p v-if="errors.length">
+                          <b>Please correct the following error(s):</b>
+                          <ul>
+                            <li v-for="error in errors">{{ error }}</li>
+                          </ul>
+                        </p>
+                      </div>
                       <form class="custom-form">
                         <div class="form-group">
-                          <label for="editAnimalTagId">Ear Tag Number</label>
+                          <label for="editAnimalTagId">Ear Tag Number*</label>
                           <input  v-model:value="cow.tag_id" type="text" class="form-control" id="editAnimalTagId" placeholder="Ear tag number">
                         </div>
                         <div class="form-group">
-                          <label for="editAnimalType">Type</label>
+                          <label for="editAnimalType">Type*</label>
                           <select v-model:value="cow.type"  class="form-control" id="editAnimalType">
                             <option disabled value="">Select type of animal</option>
                             <option>Cow</option>
@@ -201,7 +210,7 @@
                           <input v-model:value="cow.dob"  type="date" class="form-control" id="editAnimalDOB" placeholder="mm/dd/yyyy">
                         </div>
                         <div class="form-group">
-                          <label for="editAnimalPasture">Pasture</label>
+                          <label for="editAnimalPasture">Pasture*</label>
                           <select v-model:value="cow.pasture"  class="form-control" id="editAnimalPasture">
                             <option disabled value="">Select a pasture</option>
                             <option v-for="pasture in pastures">{{pasture.name}}</option>
@@ -220,7 +229,7 @@
                     <div class="tab-pane fade" id="statusUpdate" role="tabpanel" aria-labelledby="statusUpdate-tab">
                       <form class="custom-form">
                         <div class="form-group">
-                          <label for="editAnimalStatus">Status</label>
+                          <label for="editAnimalStatus">Status*</label>
                           <select v-model:value="cow.status"  class="form-control" id="editAnimalStatus">
                             <option disabled value="">Select animal status</option>
                             <option>Active</option>
@@ -229,7 +238,7 @@
                           </select>
                         </div>
                         <div class="form-group">
-                          <label for="editAnimalStatusChangeDate">Status Change Date</label>
+                          <label for="editAnimalStatusChangeDate">Status Change Date*</label>
                           <input v-model:value="cow.status_date" type="date" class="form-control" id="editAnimalStatusChangeDate">
                         </div>
                         <div class="form-group">
@@ -246,9 +255,20 @@
                         </div>
                       </form>
                     </div>
+                    <!-- <div class="form-group">
+                      <label v-for="err in errs" class="danger"></label>
+                    </div> -->
+                    <div class="errorContainer text-danger custom-form">
+                      <p v-if="errors.length">
+                        <b>Please correct the following error(s):</b>
+                        <ul>
+                          <li v-for="error in errors">{{ error }}</li>
+                        </ul>
+                      </p>
+                    </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary" @click="editAnimal()">Update</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear()">Cancel</button>
+                      <button type="submit" class="btn btn-primary" @click="checkForm($event); editAnimal();">Update</button>
                     </div>
                   </div>
                 <!-- </div> -->
@@ -263,7 +283,8 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
-
+import { clearModal } from './mixins/clearModal';
+import { hideModal } from './mixins/hideModal';
 
 export default {
   name: 'individual-animal',
@@ -275,7 +296,8 @@ export default {
       calvings: [],
       healthEvents: [],
       pregnancies: [],
-      pastures: []
+      pastures: [],
+      errors: []
     }
   },
   beforeCreate() {
@@ -313,20 +335,30 @@ export default {
         this.pastures = response.data
       });
   },
+  mixins: [hideModal, clearModal],
   methods: {
+    checkForm: function(e) {
+      if (this.cow.tag_id && this.cow.type && this.cow.pasture) return true;
+      this.errors = [];
+      if (!this.cow.tag_id) this.errors.push("Ear tag is required.");
+      if (!this.cow.type) this.errors.push("Animal type is required.");
+      if (!this.cow.pasture) this.errors.push("Pasture is required.");
+      e.preventDefault();
+    },
+    clear() {
+      this.errors = [];
+    },
     deleteCow() {
-      let self = this;
       axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          self.$router.push("/cattle");
+          this.$router.push("/cattle");
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     },
     editAnimal() {
-      let self = this;
       axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
           tag_id: this.cow.tag_id,
           type: this.cow.type,
@@ -340,12 +372,12 @@ export default {
           causeOfDeath: this.cow.causeOfDeath,
           status_comments: this.cow.status_comments
         })
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
-          self.$router.push("/cattle");
+          this.hideModal();
         })
-        .catch(function(error) {
-          console.log(error.response);
+        .catch((error) => {
+          console.log(error);
         });
     }
   }

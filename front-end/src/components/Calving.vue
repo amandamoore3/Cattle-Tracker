@@ -49,8 +49,16 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form>
+          <form>
+            <div class="modal-body">
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
               <div class="form-group">
                 <label for="addCalvingTagId">Ear Tag #</label>
                 <select v-model="newCalving.tag_id"  class="form-control" id="addCalvingTagId">
@@ -86,18 +94,25 @@
                 <label for="addCalvingComments">Comments</label>
                 <input v-model="newCalving.comments" type="text" class="form-control" id="addCalvingComments" placeholder="Comments">
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" @click="addCalving()">Add to database</button>
-          </div>
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear()">Cancel</button>
+              <button type="button" class="btn btn-primary" @click="checkForm($event); addCalving();">Add to database</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
     <!-- ADD Modal -->
-
-</div>
+  </div>
 </div>
 </template>
 
@@ -113,6 +128,7 @@ export default {
       msg: 'Calving Records',
       calvings: [],
       cows: [],
+      errors: [],
       newCalving: {
         tag_id: "",
         dob: "",
@@ -161,14 +177,42 @@ export default {
           console.log(response);
           this.hideModal();
           this.clearModal();
+          this.newCalving.tag_id = "";
+          this.newCalving.calf_id = "";
+          this.newCalving.season = "";
+          this.newCalving.dob = "";
+          this.newCalving.sex = "";
+          this.newCalving.sire = "";
+          this.newCalving.comments = "";
+          this.errors = [];
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    checkForm: function(e) {
+      if (this.newCalving.tag_id && this.newCalving.calf_id && this.newCalving.season && this.newCalving.sex && this.newCalving.dob && this.newCalving.sire) return true;
+      this.errors = [];
+      if (!this.newCalving.tag_id) this.errors.push("Cow ear tag is required.");
+      if (!this.newCalving.calf_id) this.errors.push("Calf ear tag is required.");
+      if (!this.newCalving.season) this.errors.push("Calving Season is required.");
+      if (!this.newCalving.dob) this.errors.push("Calf birth date is required.");
+      if (!this.newCalving.sex) this.errors.push("Calf sex is required.");
+      if (!this.newCalving.sire) this.errors.push("Sire is required.");
+      e.preventDefault();
+    },
+    clear() {
+      this.clearModal();
+      this.newCalving.tag_id = "";
+      this.newCalving.calf_id = "";
+      this.newCalving.season = "";
+      this.newCalving.dob = "";
+      this.newCalving.sex = "";
+      this.newCalving.sire = "";
+      this.newCalving.comments = "";
+      this.errors = [];
     }
   }
-
-
 }
 </script>
 

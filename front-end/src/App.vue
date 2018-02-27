@@ -50,8 +50,8 @@
     <div class="row ">
       <div class="col-12 pl-0 pr-0"> -->
   <!-- <div class=""> -->
-  <footer class="fixed-bottom custom-footer">
-    <p class="text-center">Made by Amanda Moore, 2018</p>
+  <footer class="custom-footer">
+    <p class="text-center pt-1">Made by Amanda Moore, 2018</p>
   </footer>
   <!-- </div> -->
 

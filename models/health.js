@@ -16,7 +16,8 @@ let healthSchema = mongoose.Schema({
     trim: true
   },
   medication: {
-    type: String
+    type: String,
+    trim: true
   },
   dosage: {
     type: String,
@@ -32,7 +33,9 @@ let healthSchema = mongoose.Schema({
     default: Date.now()
   },
   diagnosis: {
-    type: String
+    type: String,
+    required: true,
+    trim: true
   },
   comments: {
     type: String,

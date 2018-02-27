@@ -47,8 +47,16 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <form>
+        <form>
+          <div class="modal-body">
+            <div class="errorContainer text-danger">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+            </div>
             <div class="form-group">
               <label for="addPregCheckTagId">Ear Tag #</label>
               <select v-model="newPregCheck.tag_id"  class="form-control" id="addPregCheckTagId">
@@ -77,12 +85,20 @@
               <label for="addPregCheckComments">Comments</label>
               <input v-model="newPregCheck.comments" type="text" class="form-control" id="addPregCheckComments" placeholder="Comments">
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" @click="addPregCheck()">Add to database</button>
-        </div>
+            <div class="errorContainer text-danger">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear()">Cancel</button>
+            <button type="button" class="btn btn-primary" @click="checkForm($event); addPregCheck();">Add to database</button>
+          </div>
+      </form>
       </div>
     </div>
   </div>
@@ -101,6 +117,7 @@ export default {
       msg: 'Herd Preg-checks',
       pregChecks: [],
       cows: [],
+      errors: [],
       newPregCheck: {
         tag_id: "",
         date: "",
@@ -145,10 +162,33 @@ export default {
           console.log(response);
           this.hideModal();
           this.clearModal();
+          this.newPregCheck.tag_id = "";
+          this.newPregCheck.date = "";
+          this.newPregCheck.method = "";
+          this.newPregCheck.result = "";
+          this.newPregCheck.comments = "";
+          this.errors = [];
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
+    },
+    checkForm: function(e) {
+      if (this.newPregCheck.tag_id && this.newPregCheck.date && this.newPregCheck.result) return true;
+      this.errors = [];
+      if (!this.newPregCheck.tag_id) this.errors.push("Ear tag is required.");
+      if (!this.newPregCheck.date) this.errors.push("Preg-check date is required.");
+      if (!this.newPregCheck.result) this.errors.push("Preg-check result is required.");
+      e.preventDefault();
+    },
+    clear() {
+      this.clearModal();
+      this.newPregCheck.tag_id = "";
+      this.newPregCheck.date = "";
+      this.newPregCheck.method = "";
+      this.newPregCheck.result = "";
+      this.newPregCheck.comments = "";
+      this.errors = [];
     }
   }
 }

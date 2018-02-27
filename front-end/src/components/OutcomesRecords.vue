@@ -45,7 +45,7 @@
               </div>
               <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="editOutcome()">Update</button>
+                <button type="button" class="btn btn-primary" @click="checkForm($event); editOutcome()">Update</button>
               </div>
             </form>
           </div>
@@ -89,19 +89,24 @@ export default {
     cancel() {
       this.$router.push("/outcomes");
     },
+    checkForm: function(e) {
+      if (this.cow.status && this.cow.status_date) return true;
+      this.errors = [];
+      if (!this.cow.status) this.errors.push("Cow ear tag is required.");
+      if (!this.cow.status_date) this.errors.push("Calf ear tag is required.");
+      e.preventDefault();
+    },
     deleteOutcome() {
-      let self = this;
       axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          self.$router.push("/outcomes");
+          this.$router.push("/outcomes");
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     },
     editOutcome() {
-      let self = this;
       axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
           status: this.cow.status,
           status_date: this.cow.status_date,
@@ -109,12 +114,12 @@ export default {
           causeOfDeath: this.cow.causeOfDeath,
           status_comments: this.cow.status_comments
         })
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
-          self.$router.push("/outcomes");
+          this.$router.push("/outcomes");
         })
-        .catch(function(error) {
-          console.log(error.response);
+        .catch((error) => {
+          console.log(error);
         });
     }
   }

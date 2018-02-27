@@ -18,6 +18,14 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="errorContainer text-danger custom-form">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+            </div>
             <form class="custom-form">
               <div class="form-group">
                 <label for="editBreedingTagId">Ear Tag Number</label>
@@ -53,7 +61,7 @@
               </div>
               <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="editBreeding()">Update</button>
+                <button type="button" class="btn btn-primary" @click="checkForm($event); editBreeding()">Update</button>
               </div>
             </form>
           </div>
@@ -79,7 +87,8 @@ export default {
     return {
       msg: 'Edit breeding record',
       breeding: [],
-      cows: []
+      cows: [],
+      errors: []
     }
   },
   beforeCreate() {
@@ -104,35 +113,42 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/breeding");
+      this.errors = [];
+    },
+    checkForm: function(e) {
+      if (this.breeding.tag_id && this.breeding.date && this.breeding.method && this.breeding.sire) return true;
+      this.errors = [];
+      if (!this.breeding.tag_id) this.errors.push("Ear tag is required.");
+      if (!this.breeding.date) this.errors.push("Breeding date is required.");
+      if (!this.breeding.method) this.errors.push("Breeding method is required.");
+      if (!this.breeding.sire) this.errors.push("Sire is required.");
+      e.preventDefault();
     },
     deleteBreeding() {
-      let self = this;
       axios.delete('http://127.0.0.1:3000/breedingevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          self.$router.push("/breeding");
+          this.$router.push("/breeding");
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     },
     editBreeding() {
-      let self = this;
       axios.patch('http://127.0.0.1:3000/breedingevent/' + this.$route.params.id, {
           tag_id: this.breeding.tag_id,
           date: this.breeding.date,
           method: this.breeding.method,
           sire: this.breeding.sire,
           technician: this.breeding.technician,
-          comments: this.breeding.comments,
-
+          comments: this.breeding.comments
         })
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
-          self.$router.push("/breeding");
+          this.$router.push("/breeding");
         })
-        .catch(function(error) {
-          console.log(error.response);
+        .catch((error) => {
+          console.log(error);
         });
     }
   }

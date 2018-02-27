@@ -16,6 +16,14 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="errorContainer text-danger custom-form">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+            </div>
             <form class="custom-form">
               <div class="form-group">
                 <label for="editPregCheckTagId">Ear Tag Number</label>
@@ -45,9 +53,17 @@
                 <label for="editPregCheckComments">Comments</label>
                 <input v-model:value="pregCheck.comments" type="text" class="form-control" id="editPregCheckComments" placeholder="No comments found">
               </div>
+              <div class="errorContainer text-danger custom-form">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
               <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="editPregCheck()">Update</button>
+                <button type="button" class="btn btn-primary" @click="checkForm($event); editPregCheck();">Update</button>
               </div>
             </form>
           </div>
@@ -69,7 +85,8 @@ export default {
     return {
       msg: 'Edit preg-check record',
       pregCheck: [],
-      cows: []
+      cows: [],
+      errors: []
     }
   },
   beforeCreate() {
@@ -94,21 +111,27 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/pregnancy");
+      this.errors = [];
+    },
+    checkForm: function(e) {
+      if (this.pregCheck.tag_id && this.pregCheck.date && this.pregCheck.result) return true;
+      this.errors = [];
+      if (!this.pregCheck.tag_id) this.errors.push("Ear tag is required.");
+      if (!this.pregCheck.date) this.errors.push("Preg-check date is required.");
+      if (!this.pregCheck.result) this.errors.push("Preg-check result is required.");
+      e.preventDefault();
     },
     deletePregCheck() {
-      let self = this;
       axios.delete('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          self.$router.push("/pregnancy");
+          this.$router.push("/pregnancy");
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
-
     },
     editPregCheck() {
-      let self = this;
       axios.patch('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id, {
           tag_id: this.pregCheck.tag_id,
           date: this.pregCheck.date,
@@ -116,12 +139,12 @@ export default {
           result: this.pregCheck.result,
           comments: this.pregCheck.comments
         })
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
-          self.$router.push("/pregnancy");
+          this.$router.push("/pregnancy");
         })
-        .catch(function(error) {
-          console.log(error.response);
+        .catch((error) => {
+          console.log(error);
         });
     }
   }

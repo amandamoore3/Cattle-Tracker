@@ -14,9 +14,16 @@
             <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
           </li>
         </ul>
-
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="errorContainer text-danger custom-form">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+            </div>
             <form class="custom-form">
               <div class="form-group">
                 <label for="editPastureName">Name</label>
@@ -28,14 +35,12 @@
               </div>
               <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="editPasture()">Update</button>
+                <button type="button" class="btn btn-primary" @click="checkForm($event); editPasture();">Update</button>
               </div>
             </form>
           </div>
           <div class="tab-pane fade text-center" id="delete" role="tabpanel" aria-labelledby="delete-tab">
-            <!-- <div class="form-group"> -->
-              <button class="btn btn-danger" type="button" @click="deletePasture()" name="deletePasture">Delete this pasture</button>
-            <!-- </div> -->
+            <button class="btn btn-danger" type="button" @click="deletePasture()" name="deletePasture">Delete this pasture</button>
           </div>
         </div>
       </div>
@@ -51,7 +56,8 @@ export default {
   data() {
     return {
       msg: 'Edit pasture',
-      pasture: []
+      pasture: [],
+      errors: []
     }
   },
   beforeCreate() {
@@ -72,30 +78,35 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/pastures");
+      this.errors = [];
+    },
+    checkForm: function(e) {
+      if (this.pasture.name) return true;
+      this.errors = [];
+      if (!this.pasture.name) this.errors.push("Pasture name required.");
+      e.preventDefault();
     },
     deletePasture() {
-      let self = this;
       axios.delete('http://127.0.0.1:3000/pastures/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          self.$router.push("/pastures");
+          this.$router.push("/pastures");
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     },
     editPasture() {
-      let self = this;
       axios.patch('http://127.0.0.1:3000/pastures/' + this.$route.params.id, {
           name: this.pasture.name,
           comments: this.pasture.comments
         })
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
-          self.$router.push("/pastures");
+          this.$router.push("/pastures");
         })
-        .catch(function(error) {
-          console.log(error.response);
+        .catch((error) => {
+          console.log(error);
         });
     }
   }

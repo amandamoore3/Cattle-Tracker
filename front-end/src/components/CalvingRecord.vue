@@ -17,7 +17,15 @@
 
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
-            <form class=" custom-form">
+            <div class="errorContainer text-danger custom-form">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+            </div>
+            <form class="custom-form">
               <div class="form-group">
                 <label for="addCalvingTagId">Ear Tag #</label>
                 <select v-model="calving.tag_id"  class="form-control" id="addCalvingTagId">
@@ -53,9 +61,17 @@
                 <label for="addCalvingComments">Comments</label>
                 <input v-model="calving.comments" type="text" class="form-control" id="addCalvingComments" placeholder="Comments">
               </div>
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
               <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="editCalving()">Update</button>
+                <button type="button" class="btn btn-primary" @click="checkForm($event); editCalving();">Update</button>
               </div>
             </form>
           </div>
@@ -79,7 +95,8 @@ export default {
     return {
       msg: 'Edit calving record',
       calving: [],
-      cows: []
+      cows: [],
+      errors: []
     }
   },
   beforeCreate() {
@@ -104,20 +121,30 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/calving");
+      this.errors = [];
+    },
+    checkForm: function(e) {
+      if (this.calving.tag_id && this.calving.calf_id && this.calving.season && this.calving.sex && this.calving.dob && this.calving.sire) return true;
+      this.errors = [];
+      if (!this.calving.tag_id) this.errors.push("Cow ear tag is required.");
+      if (!this.calving.calf_id) this.errors.push("Calf ear tag is required.");
+      if (!this.calving.season) this.errors.push("Calving Season is required.");
+      if (!this.calving.dob) this.errors.push("Calf birth date is required.");
+      if (!this.calving.sex) this.errors.push("Calf sex is required.");
+      if (!this.calving.sire) this.errors.push("Sire is required.");
+      e.preventDefault();
     },
     deleteCalving() {
-      let self = this;
       axios.delete('http://127.0.0.1:3000/calvingevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          self.$router.push("/calving");
+          this.$router.push("/calving");
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     },
     editCalving() {
-      let self = this;
       axios.patch('http://127.0.0.1:3000/calvingevent/' + this.$route.params.id, {
           tag_id: this.calving.tag_id,
           calf_id: this.calving.calf_id,
@@ -125,15 +152,14 @@ export default {
           dob: this.calving.dob,
           sex: this.calving.sex,
           sire: this.calving.sire,
-          comments: this.calving.comments,
-
+          comments: this.calving.comments
         })
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
           this.$router.push("/calving");
         })
-        .catch(function(error) {
-          console.log(error.response);
+        .catch((error) => {
+          console.log(error);
         });
     }
   }

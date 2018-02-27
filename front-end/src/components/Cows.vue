@@ -47,8 +47,16 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form>
+          <form>
+            <div class="modal-body">
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
               <div class="form-group">
                 <label for="addAnimalTagId">Ear Tag Number</label>
                 <input v-model="newAnimal.tag_id" type="text" class="form-control" id="addAnimalTagId" placeholder="Ear tag number">
@@ -81,12 +89,20 @@
                 <label for="addAnimalDam">Dam</label>
                 <input v-model="newAnimal.dam" type="text" class="form-control" id="addAnimalDam" placeholder="Dam">
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" @click="addAnimal()">Add to database</button>
-          </div>
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear()">Cancel</button>
+              <button type="button" class="btn btn-primary" @click="checkForm($event); addAnimal();">Add to database</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -105,6 +121,7 @@ export default {
       msg: 'Active Cattle',
       cows: [],
       pastures: [],
+      errors: [],
       newAnimal: {
         tag_id: "",
         type: "",
@@ -151,10 +168,35 @@ export default {
           console.log(response);
           this.hideModal();
           this.clearModal();
+          this.newAnimal.tag_id = "";
+          this.newAnimal.type = "";
+          this.newAnimal.dob = "";
+          this.newAnimal.pasture = "";
+          this.newAnimal.sire = "";
+          this.newAnimal.dam = "";
+          this.errors = [];
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
+    },
+    checkForm: function(e) {
+      if (this.newAnimal.tag_id && this.newAnimal.type && this.newAnimal.pasture) return true;
+      this.errors = [];
+      if (!this.newAnimal.tag_id) this.errors.push("Ear tag is required.");
+      if (!this.newAnimal.type) this.errors.push("Animal type is required.");
+      if (!this.newAnimal.pasture) this.errors.push("Pasture is required.");
+      e.preventDefault();
+    },
+    clear() {
+      this.clearModal();
+      this.newAnimal.tag_id = "";
+      this.newAnimal.type = "";
+      this.newAnimal.dob = "";
+      this.newAnimal.pasture = "";
+      this.newAnimal.sire = "";
+      this.newAnimal.dam = "";
+      this.errors = [];
     }
   }
 }

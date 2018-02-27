@@ -20,6 +20,14 @@
 
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="errorContainer text-danger custom-form">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
+            </div>
             <form class="custom-form">
               <div class="form-group">
                 <label for="editHealthTagId">Ear Tag Number</label>
@@ -53,8 +61,8 @@
                 <input v-model:value="health.comments" type="text" class="form-control" id="editHealthComments" placeholder="No comments found">
               </div>
               <div class="form-group float-right">
-                <button type="button" class="btn btn-secondary " @click= "cancel()">Cancel</button>
-                <button type="button" class="btn btn-primary" @click="editHealth()">Update</button>
+                <button type="button" class="btn btn-secondary " @click="cancel()">Cancel</button>
+                <button type="button" class="btn btn-primary" @click="checkForm($event); editHealth();">Update</button>
               </div>
 
             </form>
@@ -77,7 +85,8 @@ export default {
     return {
       msg: 'Edit health record',
       health: [],
-      cows: []
+      cows: [],
+      errors: []
     }
   },
   beforeCreate() {
@@ -102,20 +111,27 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/health");
+      this.errors = [];
+    },
+    checkForm: function(e) {
+      if (this.health.tag_id && this.health.treatmentDate && this.health.diagnosis) return true;
+      this.errors = [];
+      if (!this.health.tag_id) this.errors.push("Ear tag is required.");
+      if (!this.health.treatmentDate) this.errors.push("Treatment date is required.");
+      if (!this.health.diagnosis) this.errors.push("Diagnosis is required.");
+      e.preventDefault();
     },
     deleteHealth() {
-      let self = this;
       axios.delete('http://127.0.0.1:3000/healthevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          self.$router.push("/health");
+          this.$router.push("/health");
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err);
         });
     },
     editHealth() {
-      let self = this;
       axios.patch('http://127.0.0.1:3000/healthevent/' + this.$route.params.id, {
           tag_id: this.health.tag_id,
           treatmentDate: this.health.treatmentDate,
@@ -125,11 +141,11 @@ export default {
           diagnosis: this.health.diagnosis,
           comments: this.health.comments
         })
-        .then(function(response) {
+        .then((response) => {
           console.log(response);
-          self.$router.push("/health");
+          this.$router.push("/health");
         })
-        .catch(function(error) {
+        .catch((error) => {
           console.log(error);
         });
     }
