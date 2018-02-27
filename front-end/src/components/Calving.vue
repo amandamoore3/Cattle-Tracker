@@ -51,6 +51,15 @@
           </div>
           <form>
             <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4 col-sm-0">
+                  </div>
+                  <div class="col-md-8 col-sm-12 ">
+                    <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                  </div>
+                </div>
+              </div>
               <div class="errorContainer text-danger">
                 <p v-if="errors.length">
                   <b>Please correct the following error(s):</b>
@@ -60,26 +69,26 @@
                 </p>
               </div>
               <div class="form-group">
-                <label for="addCalvingTagId">Ear Tag #</label>
+                <label for="addCalvingTagId">Ear Tag Number*</label>
                 <select v-model="newCalving.tag_id"  class="form-control" id="addCalvingTagId">
                   <option disabled value="">Select an active animal</option>
-                  <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
+                  <option v-for="cow in cows" v-if="cow.status =='Active' && cow.type =='Cow'">{{cow.tag_id}}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="addCalvingCalfId">Calf Ear Tag</label>
+                <label for="addCalvingCalfId">Calf Ear Tag*</label>
                 <input v-model="newCalving.calf_id" type="text" class="form-control" id="addCalvingCalfId" placeholder="Calf ear tag number">
               </div>
               <div class="form-group">
-                <label for="addCalvingSeason">Season</label>
+                <label for="addCalvingSeason">Season*</label>
                 <input v-model="newCalving.season" type="text" class="form-control" id="addCalvingSeason">
               </div>
               <div class="form-group">
-                <label for="addCalvingDob">Birthdate</label>
+                <label for="addCalvingDob">Birth Date*</label>
                 <input v-model="newCalving.dob" type="date" class="form-control" id="addCalvingDob" placeholder="mm/dd/yyyy">
               </div>
               <div class="form-group">
-                <label for="addCalvingSex">Sex</label>
+                <label for="addCalvingSex">Sex*</label>
                 <select v-model="newCalving.sex" class="form-control" id="addCalvingSex">
                   <option disabled value="">Select sex</option>
                   <option>Heifer</option>
@@ -87,7 +96,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="addCalvingSire">Sire</label>
+                <label for="addCalvingSire">Sire*</label>
                 <input v-model="newCalving.sire" type="text" class="form-control" id="addCalvingSire" placeholder="Sire">
               </div>
               <div class="form-group">

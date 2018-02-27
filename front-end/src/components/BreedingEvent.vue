@@ -18,6 +18,15 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-0">
+                </div>
+                <div class="col-md-8 col-sm-12 ">
+                  <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                </div>
+              </div>
+            </div>
             <div class="errorContainer text-danger custom-form">
               <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -28,14 +37,14 @@
             </div>
             <form class="custom-form">
               <div class="form-group">
-                <label for="editBreedingTagId">Ear Tag Number</label>
+                <label for="editBreedingTagId">Ear Tag Number*</label>
                 <select v-model:value="breeding.tag_id"  class="form-control" id="editBreedingTagId">
                   <option disabled value="">Select an active animal</option>
-                  <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
+                  <option v-for="cow in cows" v-if="cow.status =='Active' && cow.type =='Cow'">{{cow.tag_id}}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="editBreedingMethod">Method</label>
+                <label for="editBreedingMethod">Method*</label>
                 <select v-model:value="breeding.method"  class="form-control" id="editBreedingMethod">
                   <option disabled value="">Select breeding method</option>
                   <option>AI</option>
@@ -44,11 +53,11 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="editBreedingDate">Date</label>
+                <label for="editBreedingDate">Date*</label>
                 <input v-model:value="breeding.date"  type="date" class="form-control" id="editBreedingDate" placeholder="mm/dd/yyyy">
               </div>
               <div class="form-group">
-                <label for="editBreedingSire">Sire</label>
+                <label for="editBreedingSire">Sire*</label>
                 <input v-model:value="breeding.sire"  type="text" class="form-control" id="editBreedingSire" placeholder="No sire found">
               </div>
               <div class="form-group">
@@ -58,6 +67,14 @@
               <div class="form-group">
                 <label for="editBreedingComments">Comments</label>
                 <input v-model:value="breeding.comments" type="text" class="form-control" id="editBreedingComments" placeholder="No comments found">
+              </div>
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
               </div>
               <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary" @click= "cancel()">Cancel</button>
@@ -71,8 +88,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
     <!-- </div>
   </div> -->

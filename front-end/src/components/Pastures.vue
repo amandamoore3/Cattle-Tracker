@@ -21,7 +21,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr  v-for="pasture in pastures" :key="pasture._id">
+            <tr  v-for="pasture in pastures">
               <td>{{pasture.name}}</td>
               <td>{{addAnimals}}</td>
               <td><router-link :to="{path: '/pastures/' + pasture._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
@@ -42,6 +42,15 @@
           </div>
           <form>
             <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4 col-sm-0">
+                  </div>
+                  <div class="col-md-8 col-sm-12 ">
+                    <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                  </div>
+                </div>
+              </div>
               <div class="errorContainer text-danger">
                 <p v-if="errors.length">
                   <b>Please correct the following error(s):</b>
@@ -51,7 +60,7 @@
                 </p>
               </div>
                 <div class="form-group">
-                  <label for="addPasturename">Pasture name</label>
+                  <label for="addPasturename">Pasture name*</label>
                   <input v-model="newPasture.name" type="text" class="form-control" id="addPastureName" placeholder="Pasture name">
                 </div>
                 <div class="form-group">
@@ -140,30 +149,17 @@ export default {
       axios.post('http://127.0.0.1:3000/pastures', newPasture)
         .then((response) => {
           console.log(response);
+          this.pastures.push(newPasture); //this is needed to force vue to update the DOM
           this.hideModal();
           this.clearModal();
-          // Vue.set(this.$data.newPasture, name, "");
-
-          // Object.assign(this.$data.newPasture, this.$options.data.newPasture.call(this));
-          // console.log(this.pastures);
           this.newPasture.name = "";
           this.newPasture.comments = "";
           this.errors = [];
-
-          // this.$forceUpdate();
-          // console.log(this.$data.newPasture.name);
         })
-
         .catch((err) => {
           console.log(err);
         });
     },
-    //ERASE
-    test() {
-
-      this.$forceUpdate();
-    },
-    //ERASE
     checkForm: function(e) {
       if (this.newPasture.name) return true;
       this.errors = [];

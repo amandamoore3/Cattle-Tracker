@@ -36,7 +36,6 @@
     </div>
   </div>
 
-
   <!-- ADD Modal -->
   <div class="modal fade" id="addPregCheckModal" tabindex="-1" role="dialog" aria-labelledby="addPregCheckModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -49,6 +48,15 @@
         </div>
         <form>
           <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-0">
+                </div>
+                <div class="col-md-8 col-sm-12 ">
+                  <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                </div>
+              </div>
+            </div>
             <div class="errorContainer text-danger">
               <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -58,28 +66,28 @@
               </p>
             </div>
             <div class="form-group">
-              <label for="addPregCheckTagId">Ear Tag #</label>
+              <label for="addPregCheckTagId">Ear Tag Number*</label>
               <select v-model="newPregCheck.tag_id"  class="form-control" id="addPregCheckTagId">
                 <option disabled value="">Select an active animal</option>
-                <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
+                <option v-for="cow in cows" v-if="cow.status =='Active' && cow.type =='Cow'">{{cow.tag_id}}</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="addPregCheckDate">PregCheck date</label>
+              <label for="addPregCheckDate">Date*</label>
               <input v-model="newPregCheck.date" type="date" class="form-control" id="addPregCheckDate" placeholder="mm/dd/yyyy">
             </div>
             <div class="form-group">
-              <label for="addPregCheckMethod">Type</label>
+              <label for="addPregCheckresult">Result*</label>
+              <input v-model="newPregCheck.result" type="text" class="form-control" id="addPregCheckName" placeholder="PregCheck result">
+            </div>
+            <div class="form-group">
+              <label for="addPregCheckMethod">Method</label>
               <select v-model="newPregCheck.method" class="form-control" id="addPregCheckMethod">
                 <option disabled value="">Select preg-check method</option>
                 <option>Rectal palpitation</option>
                 <option>Ultrasound</option>
                 <option>Blood test</option>
               </select>
-            </div>
-            <div class="form-group">
-              <label for="addPregCheckresult">Preg-Check result</label>
-              <input v-model="newPregCheck.result" type="text" class="form-control" id="addPregCheckName" placeholder="PregCheck result">
             </div>
             <div class="form-group">
               <label for="addPregCheckComments">Comments</label>

@@ -127,7 +127,6 @@
           <template v-if="cow.type !=='Cow' || calvings.length === 0">
             <p class="pl-3">There is no calving data for this animal.</p>
           </template>
-
           <template v-else>
             <div class="table-responsive">
               <table class="table table-striped table-hover">
@@ -179,7 +178,7 @@
                       <a class="nav-link font-weight-bold" id="statusUpdate-tab" data-toggle="tab" href="#statusUpdate" role="tab" aria-controls="statusUpdate" aria-selected="false">Status</a>
                     </li>
                   </ul>
-                  <small class="text-right pr-4 text-secondary m-1">Fields marked with (*) are required.</small class="text-center m-1">
+                  <small class="text-right pr-4 text-secondary m-1">Fields marked with (*) are required.</small>
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
                       <div class="errorContainer custom-form text-danger">

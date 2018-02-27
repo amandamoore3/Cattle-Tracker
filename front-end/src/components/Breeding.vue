@@ -48,6 +48,15 @@
           </div>
         <form>
           <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-0">
+                </div>
+                <div class="col-md-8 col-sm-12 ">
+                  <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                </div>
+              </div>
+            </div>
             <div class="errorContainer text-danger">
               <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -57,18 +66,18 @@
               </p>
             </div>
             <div class="form-group">
-              <label for="addBreedingTagId">Ear Tag #</label>
+              <label for="addBreedingTagId">Ear Tag Number*</label>
               <select v-model="newBreeding.tag_id"  class="form-control" id="addBreedingTagId">
                 <option disabled value="">Select an active animal</option>
-                <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
+                <option v-for="cow in cows" v-if="cow.status =='Active' && cow.type =='Cow'">{{cow.tag_id}}</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="addBreedingDate">Breeding date</label>
+              <label for="addBreedingDate">Breeding date*</label>
               <input v-model="newBreeding.date" type="date" class="form-control" id="addBreedingDate" placeholder="mm/dd/yyyy">
             </div>
             <div class="form-group">
-              <label for="addBreedingMethod">Type</label>
+              <label for="addBreedingMethod">Method*</label>
               <select v-model="newBreeding.method" class="form-control" id="addBreedingMethod">
                 <option disabled value="">Select breeding method</option>
                 <option>AI</option>
@@ -77,7 +86,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="addBreedingSire">Sire</label>
+              <label for="addBreedingSire">Sire*</label>
               <input v-model="newBreeding.sire" type="text" class="form-control" id="addBreedingSire" placeholder="Sire">
             </div>
             <div class="form-group">
@@ -87,6 +96,14 @@
             <div class="form-group">
               <label for="addBreedingComments">Comments</label>
               <input v-model="newBreeding.comments" type="text" class="form-control" id="addBreedingComments" placeholder="Comments">
+            </div>
+            <div class="errorContainer text-danger">
+              <p v-if="errors.length">
+                <b>Please correct the following error(s):</b>
+                <ul>
+                  <li v-for="error in errors">{{ error }}</li>
+                </ul>
+              </p>
             </div>
           </div>
           <div class="modal-footer">

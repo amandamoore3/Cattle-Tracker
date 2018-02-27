@@ -33,6 +33,7 @@ let calvingSchema = mongoose.Schema({
   },
   sire: {
     type: String,
+    required: true,
     trim: true
   },
   comments: {

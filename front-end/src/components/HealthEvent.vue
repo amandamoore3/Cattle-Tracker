@@ -17,7 +17,15 @@
             <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
           </li>
         </ul>
-
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-4 col-sm-0">
+            </div>
+            <div class="col-md-8 col-sm-12 ">
+              <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+            </div>
+          </div>
+        </div>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
             <div class="errorContainer text-danger custom-form">
@@ -30,15 +38,19 @@
             </div>
             <form class="custom-form">
               <div class="form-group">
-                <label for="editHealthTagId">Ear Tag Number</label>
+                <label for="editHealthTagId">Ear Tag Number*</label>
                 <select v-model="health.tag_id"  class="form-control" id="editHealthTagId">
                   <option disabled value="">Select an active animal</option>
                   <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="editHealthTreatmentDate">Treatment Date</label>
+                <label for="editHealthTreatmentDate">Treatment Date*</label>
                 <input v-model:value="health.treatmentDate"  type="date" class="form-control" id="editHealthTreatmentDate" placeholder="mm/dd/yyyy">
+              </div>
+              <div class="form-group">
+                <label for="editHealthDiagnosis">Diagnosis*</label>
+                <input v-model:value="health.diagnosis"  type="text" class="form-control" id="editHealthDiagnosis" placeholder="No Diagnosis found">
               </div>
               <div class="form-group">
                 <label for="editHealthMedication">Medication</label>
@@ -53,18 +65,21 @@
                 <input  v-model:value="health.booster" type="date" class="form-control" id="editHealthBooster">
               </div>
               <div class="form-group">
-                <label for="editHealthDiagnosis">Diagnosis</label>
-                <input v-model:value="health.diagnosis"  type="text" class="form-control" id="editHealthDiagnosis" placeholder="No Diagnosis found">
-              </div>
-              <div class="form-group">
                 <label for="editHealthComments">Comments</label>
                 <input v-model:value="health.comments" type="text" class="form-control" id="editHealthComments" placeholder="No comments found">
+              </div>
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
               </div>
               <div class="form-group float-right">
                 <button type="button" class="btn btn-secondary " @click="cancel()">Cancel</button>
                 <button type="button" class="btn btn-primary" @click="checkForm($event); editHealth();">Update</button>
               </div>
-
             </form>
           </div>
           <div class="tab-pane fade text-center" id="delete" role="tabpanel" aria-labelledby="delete-tab">

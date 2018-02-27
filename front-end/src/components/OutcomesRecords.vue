@@ -14,12 +14,28 @@
             <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
           </li>
         </ul>
-
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
             <form class="custom-form">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4 col-sm-0">
+                  </div>
+                  <div class="col-md-8 col-sm-12 ">
+                    <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                  </div>
+                </div>
+              </div>
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
               <div class="form-group">
-                <label for="editAnimalOutcomeStatus">Status</label>
+                <label for="editAnimalOutcomeStatus">Status*</label>
                 <select v-model:value="cow.status"  class="form-control" id="editAnimalOutcomeStatus">
                   <option disabled value="">Select animal status</option>
                   <option>Active</option>
@@ -28,7 +44,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="editAnimalOutcomeStatusChangeDate">Status Change Date</label>
+                <label for="editAnimalOutcomeStatusChangeDate">Status Change Date*</label>
                 <input v-model:value="cow.status_date" type="date" class="form-control" id="editAnimalOutcomeStatusChangeDate">
               </div>
               <div class="form-group">
@@ -67,7 +83,8 @@ export default {
   data() {
     return {
       msg: 'Update this record',
-      cow: []
+      cow: [],
+      errors: []
     }
   },
   beforeCreate() {

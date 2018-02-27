@@ -14,39 +14,47 @@
             <a class="nav-link" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
           </li>
         </ul>
-
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
-            <div class="errorContainer text-danger custom-form">
-              <p v-if="errors.length">
-                <b>Please correct the following error(s):</b>
-                <ul>
-                  <li v-for="error in errors">{{ error }}</li>
-                </ul>
-              </p>
-            </div>
             <form class="custom-form">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4 col-sm-0">
+                  </div>
+                  <div class="col-md-8 col-sm-12 ">
+                    <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                  </div>
+                </div>
+              </div>
+              <div class="errorContainer text-danger custom-form">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
               <div class="form-group">
-                <label for="addCalvingTagId">Ear Tag #</label>
+                <label for="addCalvingTagId">Ear Tag Number*</label>
                 <select v-model="calving.tag_id"  class="form-control" id="addCalvingTagId">
                   <option disabled value="">Select an active animal</option>
-                  <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
+                  <option v-for="cow in cows" v-if="cow.status =='Active' && cow.type =='Cow'">{{cow.tag_id}}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="addCalvingCalfId">Calf Ear Tag</label>
+                <label for="addCalvingCalfId">Calf Ear Tag*</label>
                 <input v-model="calving.calf_id" type="text" class="form-control" id="addCalvingCalfId" placeholder="Calf ear tag number">
               </div>
               <div class="form-group">
-                <label for="addCalvingSeason">Season</label>
+                <label for="addCalvingSeason">Season*</label>
                 <input v-model="calving.season" type="text" class="form-control" id="addCalvingSeason">
               </div>
               <div class="form-group">
-                <label for="addCalvingDob">Birthdate</label>
+                <label for="addCalvingDob">Birth Date*</label>
                 <input v-model="calving.dob" type="date" class="form-control" id="addCalvingDob" placeholder="mm/dd/yyyy">
               </div>
               <div class="form-group">
-                <label for="addCalvingSex">Sex</label>
+                <label for="addCalvingSex">Sex*</label>
                 <select v-model="calving.sex" class="form-control" id="addCalvingSex">
                   <option disabled value="">Select sex</option>
                   <option>Heifer</option>
@@ -54,7 +62,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="addCalvingSire">Sire</label>
+                <label for="addCalvingSire">Sire*</label>
                 <input v-model="calving.sire" type="text" class="form-control" id="addCalvingSire" placeholder="Sire">
               </div>
               <div class="form-group">

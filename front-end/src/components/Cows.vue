@@ -49,6 +49,15 @@
           </div>
           <form>
             <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4 col-sm-0">
+                  </div>
+                  <div class="col-md-8 col-sm-12 ">
+                    <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                  </div>
+                </div>
+              </div>
               <div class="errorContainer text-danger">
                 <p v-if="errors.length">
                   <b>Please correct the following error(s):</b>
@@ -58,11 +67,11 @@
                 </p>
               </div>
               <div class="form-group">
-                <label for="addAnimalTagId">Ear Tag Number</label>
+                <label for="addAnimalTagId">Ear Tag Number*</label>
                 <input v-model="newAnimal.tag_id" type="text" class="form-control" id="addAnimalTagId" placeholder="Ear tag number">
               </div>
               <div class="form-group">
-                <label for="addAnimalType">Type</label>
+                <label for="addAnimalType">Type*</label>
                 <select v-model="newAnimal.type" class="form-control" id="addAnimalType">
                   <option>Cow</option>
                   <option>Bull</option>
@@ -75,7 +84,7 @@
                 <input v-model="newAnimal.dob" type="date" class="form-control" id="addAnimalDOB" placeholder="mm/dd/yyyy">
               </div>
               <div class="form-group">
-                <label for="addAnimalPasture">Pasture</label>
+                <label for="addAnimalPasture">Pasture*</label>
                 <select v-model="newAnimal.pasture" class="form-control" id="addAnimalPasture">
                   <option disabled value="">Select a pasture</option>
                   <option v-for="pasture in pastures">{{pasture.name}}</option>

@@ -16,6 +16,15 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-0">
+                </div>
+                <div class="col-md-8 col-sm-12 ">
+                  <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                </div>
+              </div>
+            </div>
             <div class="errorContainer text-danger custom-form">
               <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -26,15 +35,19 @@
             </div>
             <form class="custom-form">
               <div class="form-group">
-                <label for="editPregCheckTagId">Ear Tag Number</label>
+                <label for="editPregCheckTagId">Ear Tag Number*</label>
                 <select v-model:value="pregCheck.tag_id"  class="form-control" id="editPregCheckTagId">
                   <option disabled value="">Select an active animal</option>
-                  <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
+                  <option v-for="cow in cows" v-if="cow.status =='Active' && cow.type =='Cow'">{{cow.tag_id}}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="editPregCheckDate">Date</label>
+                <label for="editPregCheckDate">Date*</label>
                 <input v-model:value="pregCheck.date"  type="date" class="form-control" id="editPregCheckDate" placeholder="mm/dd/yyyy">
+              </div>
+              <div class="form-group">
+                <label for="editPregCheckResult">Result*</label>
+                <input v-model:value="pregCheck.result"  type="text" class="form-control" id="editPregCheckResult" >
               </div>
               <div class="form-group">
                 <label for="editPregCheckMethod">Method</label>
@@ -44,10 +57,6 @@
                   <option>Ultrasound</option>
                   <option>Blood test</option>
                 </select>
-              </div>
-              <div class="form-group">
-                <label for="editPregCheckResult">Result</label>
-                <input v-model:value="pregCheck.result"  type="text" class="form-control" id="editPregCheckResult" >
               </div>
               <div class="form-group">
                 <label for="editPregCheckComments">Comments</label>

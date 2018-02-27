@@ -16,6 +16,15 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-4 col-sm-0">
+                </div>
+                <div class="col-md-8 col-sm-12 ">
+                  <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                </div>
+              </div>
+            </div>
             <div class="errorContainer text-danger custom-form">
               <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
@@ -26,7 +35,7 @@
             </div>
             <form class="custom-form">
               <div class="form-group">
-                <label for="editPastureName">Name</label>
+                <label for="editPastureName">Pasture Name*</label>
                 <input v-model:value="pasture.name"  type="text" class="form-control" id="editPastureName">
               </div>
               <div class="form-group">

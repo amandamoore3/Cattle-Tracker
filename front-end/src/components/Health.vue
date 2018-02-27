@@ -54,6 +54,15 @@
           </div>
           <form>
             <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-4 col-sm-0">
+                  </div>
+                  <div class="col-md-8 col-sm-12 ">
+                    <small class="float-right text-secondary mb-3">Fields marked with (*) are required.</small>
+                  </div>
+                </div>
+              </div>
               <div class="errorContainer text-danger">
                 <p v-if="errors.length">
                   <b>Please correct the following error(s):</b>
@@ -63,22 +72,22 @@
                 </p>
               </div>
               <div class="form-group">
-                <label for="addHealthTagId">Ear Tag #</label>
+                <label for="addHealthTagId">Ear Tag Number*</label>
                 <select v-model="newHealth.tag_id"  class="form-control" id="addHealthTagId">
                   <option disabled value="">Select an active animal</option>
                   <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="addHealthDate">Treatment date</label>
+                <label for="addHealthDate">Treatment date*</label>
                 <input v-model="newHealth.treatmentDate" type="date" class="form-control" id="addHealthDate" placeholder="mm/dd/yyyy">
               </div>
               <div class="form-group">
-                <label for="addHealthDiagnosis">Diagnosis</label>
+                <label for="addHealthDiagnosis">Diagnosis*</label>
                 <input v-model="newHealth.diagnosis" type="text" class="form-control" id="addHealthDiagnosis" placeholder="Diagnosis">
               </div>
               <div class="form-group">
-                <label for="addHealthMedication">Type</label>
+                <label for="addHealthMedication">Medication</label>
                 <input v-model="newHealth.medication" class="form-control" id="addHealthMedication" placeholder="Medication">
               </div>
               <div class="form-group">
@@ -92,6 +101,14 @@
               <div class="form-group">
                 <label for="addHealthComments">Comments</label>
                 <input v-model="newHealth.comments" type="text" class="form-control" id="addHealthComments" placeholder="Comments">
+              </div>
+              <div class="errorContainer text-danger">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
               </div>
             </div>
             <div class="modal-footer">
