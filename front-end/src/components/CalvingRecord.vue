@@ -129,7 +129,6 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/calving");
-      this.errors = [];
     },
     checkForm: function(e) {
       if (this.calving.tag_id && this.calving.calf_id && this.calving.season && this.calving.sex && this.calving.dob && this.calving.sire) return true;

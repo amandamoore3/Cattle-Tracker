@@ -126,7 +126,6 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/health");
-      this.errors = [];
     },
     checkForm: function(e) {
       if (this.health.tag_id && this.health.treatmentDate && this.health.diagnosis) return true;

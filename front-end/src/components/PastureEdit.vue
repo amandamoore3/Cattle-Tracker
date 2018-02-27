@@ -87,7 +87,6 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/pastures");
-      this.errors = [];
     },
     checkForm: function(e) {
       if (this.pasture.name) return true;

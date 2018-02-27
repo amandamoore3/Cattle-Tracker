@@ -149,7 +149,7 @@ export default {
       axios.post('http://127.0.0.1:3000/pastures', newPasture)
         .then((response) => {
           console.log(response);
-          this.pastures.push(newPasture); //this is needed to force vue to update the DOM
+          this.pastures.unshift(newPasture); //this is needed to force vue to update the DOM
           this.hideModal();
           this.clearModal();
           this.newPasture.name = "";

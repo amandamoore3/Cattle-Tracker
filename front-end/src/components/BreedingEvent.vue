@@ -128,7 +128,6 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/breeding");
-      this.errors = [];
     },
     checkForm: function(e) {
       if (this.breeding.tag_id && this.breeding.date && this.breeding.method && this.breeding.sire) return true;

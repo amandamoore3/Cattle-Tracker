@@ -120,7 +120,6 @@ export default {
   methods: {
     cancel() {
       this.$router.push("/pregnancy");
-      this.errors = [];
     },
     checkForm: function(e) {
       if (this.pregCheck.tag_id && this.pregCheck.date && this.pregCheck.result) return true;

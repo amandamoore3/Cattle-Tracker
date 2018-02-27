@@ -168,6 +168,7 @@ export default {
       axios.post('http://127.0.0.1:3000/pregnancy', newPregCheck)
         .then((response) => {
           console.log(response);
+          this.pregChecks.unshift(newPregCheck);
           this.hideModal();
           this.clearModal();
           this.newPregCheck.tag_id = "";

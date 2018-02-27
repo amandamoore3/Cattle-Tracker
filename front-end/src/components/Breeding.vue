@@ -176,10 +176,9 @@ export default {
 
         .then((response) => {
           console.log(response);
+          this.breedings.unshift(newBreeding);
           this.hideModal();
           this.clearModal();
-          // this.newBreeding = {};
-          // console.log("test:" + this.newBreeding.tag_id);
           this.newBreeding.tag_id = "";
           this.newBreeding.date = "";
           this.newBreeding.method = "";
@@ -187,7 +186,6 @@ export default {
           this.newBreeding.technician = "";
           this.newBreeding.comments = "";
           this.errors = [];
-          // this.nextTick(function() {})
         })
         .catch((err) => {
           console.log(err);

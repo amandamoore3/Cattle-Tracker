@@ -91,6 +91,14 @@
                 </select>
               </div>
               <div class="form-group">
+                <label for="addAnimalStatus">Status*</label>
+                <select v-model="newAnimal.status" class="form-control" id="addAnimalStatus" selected="selected" value="Active">
+                  <option>Active</option>
+                  <option>Sold</option>
+                  <option>Deceased</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="addAnimalSire">Sire</label>
                 <input v-model="newAnimal.sire" type="text" class="form-control" id="addAnimalSire" placeholder="Sire">
               </div>
@@ -135,6 +143,7 @@ export default {
         tag_id: "",
         type: "",
         dob: "",
+        status: "",
         pasture: "",
         sire: "",
         dam: ""
@@ -168,13 +177,14 @@ export default {
         type: this.newAnimal.type,
         dob: this.newAnimal.dob,
         pasture: this.newAnimal.pasture,
+        status: this.newAnimal.status,
         sire: this.newAnimal.sire,
         dam: this.newAnimal.dam
       }
-      // console.log(newCow);
       axios.post('http://127.0.0.1:3000/cattle', newCow)
         .then((response) => {
           console.log(response);
+          this.cows.unshift(newCow);
           this.hideModal();
           this.clearModal();
           this.newAnimal.tag_id = "";

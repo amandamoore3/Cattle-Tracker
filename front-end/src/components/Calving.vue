@@ -184,6 +184,7 @@ export default {
       axios.post('http://127.0.0.1:3000/calving', newCalving)
         .then((response) => {
           console.log(response);
+          this.calvings.unshift(newCalving);
           this.hideModal();
           this.clearModal();
           this.newCalving.tag_id = "";

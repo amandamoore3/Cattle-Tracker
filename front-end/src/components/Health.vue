@@ -173,6 +173,7 @@ export default {
       axios.post('http://127.0.0.1:3000/health', newHealth)
         .then((response) => {
           console.log(response);
+          this.healthEvents.unshift(newHealth);
           this.hideModal();
           this.clearModal();
           this.newHealth.tag_id = "";
