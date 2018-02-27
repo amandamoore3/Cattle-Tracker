@@ -17,6 +17,8 @@ const { Health } = require('../models/health.js');
 
 const { Pasture } = require('../models/pastures.js');
 
+const { PastureMovements } = require('../models/pasture-movements.js');
+
 const { PregCheck } = require('../models/preg-check.js');
 
 
@@ -486,6 +488,98 @@ app.patch('/pastures/:id', (req, res) => {
     });
 });
 //UPDATE PASTURE DOCUMENT BY ID
+
+//  GET ALL DATA FROM PASTURE MOVEMENTS TABLE
+app.get('/movements', (req, res) => {
+  PastureMovements.find().sort({
+      dateMoved: -1
+    }).exec()
+    .then((docs) => {
+      res.send(docs)
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET ALL DATA FROM PASTURE MOVEMENTS TABLE
+
+//  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY TAG-ID
+app.get('/movement/:id', (req, res) => {
+  PastureMovements.find({
+      tag_id: req.params.id
+    })
+    .then((docs) => {
+      res.send(docs)
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY TAG-ID
+
+//  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY OBJECT ID
+app.get('/movements/:id', (req, res) => {
+  PastureMovements.findById(req.params.id)
+    .then((docs) => {
+      res.send(docs)
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY OBJECT ID
+
+//  POST TO PASTURE MOVEMENTS TABLE
+app.post('/movements', (req, res) => {
+  let newPastureMovement = new PastureMovements({
+    tag_id: req.body.tag_id,
+    dateMoved: req.body.dateMoved,
+    name: req.body.name,
+    comments: req.body.comments
+  });
+  newPastureMovement.save()
+    .then((doc) => {
+      res.send(doc);
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  POST TO PASTURE MOVEMENTS TABLE
+
+//DELETE PASTURE MOVEMENTS BY ID
+app.delete('/movements/:id', (req, res) => {
+  PastureMovements.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE PASTURE MOVEMENTS BY ID
+
+//UPDATE PASTURE MOVEMENTS BY ID
+app.patch('/movements/:id', (req, res) => {
+  PastureMovements.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $set: req.body
+    }, {
+      new: true,
+      runValidators: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+        return;
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE PASTURE MOVEMENTS BY ID
+
 
 //  GET ALL DATA FROM PREG-CHECK TABLE
 app.get('/pregnancy', (req, res) => {

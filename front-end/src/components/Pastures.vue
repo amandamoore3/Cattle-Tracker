@@ -60,7 +60,7 @@
                 </p>
               </div>
                 <div class="form-group">
-                  <label for="addPasturename">Pasture name*</label>
+                  <label for="addPastureName">Pasture name*</label>
                   <input v-model="newPasture.name" type="text" class="form-control" id="addPastureName" placeholder="Pasture name">
                 </div>
                 <div class="form-group">
@@ -85,7 +85,6 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
-import Vue from 'vue';
 
 export default {
   data() {

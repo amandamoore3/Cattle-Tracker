@@ -13,6 +13,7 @@ import Outcomes from './components/Outcomes.vue'
 import OutcomesRecords from './components/OutcomesRecords.vue'
 import Pastures from './components/Pastures.vue'
 import PastureEdit from './components/PastureEdit.vue'
+import PastureMovements from './components/PastureMovements.vue'
 import PregCheck from './components/PregCheck.vue'
 import PregCheckEvent from './components/PregCheckEvent.vue'
 
@@ -84,6 +85,10 @@ const router = new vueRouter({
     {
       path: '/pastures/:id',
       component: PastureEdit
+    },
+    {
+      path: '/movements',
+      component: PastureMovements
     }
   ]
 })
