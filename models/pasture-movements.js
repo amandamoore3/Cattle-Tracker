@@ -16,7 +16,8 @@ let pastureMovementsSchema = mongoose.Schema({
     trim: true
   },
   dateMoved: {
-    type: String,
+    type: Date,
+    default: Date(),
     required: true,
     trim: true
   },

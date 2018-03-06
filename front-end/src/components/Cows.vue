@@ -12,23 +12,24 @@
         </div>
       </div>
     </div>
+
     <div class="table-responsive">
       <table class="table table-striped table-hover">
         <thead class="thead-custom-darkgray">
           <tr>
             <th>Ear Tag</th>
             <th>Type</th>
-            <th>Pasture</th>
+            <!-- <th>Pasture</th> -->
             <th>Birth Date</th>
             <!-- <th>View/ Edit</th> -->
           </tr>
         </thead>
         <tbody>
           <tr v-for="cow in cows" v-if="cow.status =='Active'">
-                                                 <!-- <router-link :to="{name: 'itemModal', params: {id: item.id}}">See item 1</router-link> -->
+            <!-- <router-link :to="{name: 'itemModal', params: {id: item.id}}">See item 1</router-link> -->
             <td class="font-weight-bold text-md"><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id}}">{{cow.tag_id}}</router-link></td>
             <td>{{cow.type}}</td>
-            <td>{{cow.pasture}}</td>
+            <!-- <td>{{cow.pasture}}</td> -->
             <td>{{cow.dob}}</td>
             <!-- <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td> -->
         </tr>
@@ -83,19 +84,19 @@
                 <label for="addAnimalDOB">Date of Birth</label>
                 <input v-model="newAnimal.dob" type="date" class="form-control" id="addAnimalDOB" placeholder="mm/dd/yyyy">
               </div>
-              <div class="form-group">
-                <label for="addAnimalPasture">Pasture*</label>
-                <select v-model="newAnimal.pasture" class="form-control" id="addAnimalPasture">
-                  <option disabled value="">Select a pasture</option>
-                  <option v-for="pasture in pastures">{{pasture.name}}</option>
-                </select>
-              </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="addAnimalStatus">Status*</label>
-                <select v-model="newAnimal.status" class="form-control" id="addAnimalStatus" selected="selected" value="Active">
-                  <option>Active</option>
+                <select v-model="newAnimal.status" class="form-control" id="addAnimalStatus">
+                  <option selected id="defaultActive">Active</option>
                   <option>Sold</option>
                   <option>Deceased</option>
+                </select>
+              </div> -->
+              <div class="form-group">
+                <label for="addInitialPastureMovementName">Pasture name*</label>
+                <select v-model="initialPasture.name"  class="form-control" id="addInitialPastureMovementName">
+                  <option disabled value="">Select a pasture</option>
+                  <option v-for="pasture in pastures">{{pasture.name}}</option>
                 </select>
               </div>
               <div class="form-group">
@@ -131,34 +132,42 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+import { getUserId } from './mixins/user';
+
 
 export default {
+  // props: [user],
   data() {
     return {
       msg: 'Active Cattle',
       cows: [],
-      pastures: [],
+      uid: [],
       errors: [],
+      pastures: [],
       newAnimal: {
         tag_id: "",
         type: "",
         dob: "",
-        status: "",
-        pasture: "",
+        status: "Active",
         sire: "",
         dam: ""
+      },
+      initialPasture: {
+        name: "",
+        dateMoved: ""
       }
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //       this.uid= user.uid
+  //       //capture user id and push to uid array.  add user id to each schema. capture uid and add to object sent to db.
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
     axios.get('http://127.0.0.1:3000/cattle')
       .then((response) => {
@@ -168,6 +177,12 @@ export default {
       .then((response) => {
         this.pastures = response.data
       });
+
+    // console.log($userID);
+    // axios.get('http://127.0.0.1:3000/movements')
+    //   .then((response) => {
+    //     this.pastureMovements = response.data
+    //   });
   },
   mixins: [hideModal, clearModal],
   methods: {
@@ -176,21 +191,44 @@ export default {
         tag_id: this.newAnimal.tag_id,
         type: this.newAnimal.type,
         dob: this.newAnimal.dob,
-        pasture: this.newAnimal.pasture,
         status: this.newAnimal.status,
         sire: this.newAnimal.sire,
         dam: this.newAnimal.dam
       }
+      let firstPastureMovement = {
+        tag_id: this.newAnimal.tag_id,
+        name: this.initialPasture.name,
+        dateMoved: Date().toString()
+      }
+      axios.post('http://127.0.0.1:3000/movements', firstPastureMovement)
+        .then((response) => {
+          console.log(response);
+          // this.cows.unshift(newCow);
+          // this.hideModal();
+          // this.clearModal();
+          // this.newAnimal.tag_id = "";
+          // this.newAnimal.type = "";
+          // this.newAnimal.dob = "";
+          // this.newAnimal.sire = "";
+          // this.newAnimal.dam = "";
+          // this.errors = [];
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       axios.post('http://127.0.0.1:3000/cattle', newCow)
         .then((response) => {
           console.log(response);
+          console.log(this.cows);
           this.cows.unshift(newCow);
+          console.log(this.cows);
           this.hideModal();
           this.clearModal();
           this.newAnimal.tag_id = "";
           this.newAnimal.type = "";
+          // this.newAnimal.status = "";
+          this.initialPasture.name = "";
           this.newAnimal.dob = "";
-          this.newAnimal.pasture = "";
           this.newAnimal.sire = "";
           this.newAnimal.dam = "";
           this.errors = [];
@@ -200,11 +238,12 @@ export default {
         });
     },
     checkForm: function(e) {
-      if (this.newAnimal.tag_id && this.newAnimal.type && this.newAnimal.pasture) return true;
+      if (this.newAnimal.tag_id && this.newAnimal.type && this.initialPasture.name) return true;
       this.errors = [];
       if (!this.newAnimal.tag_id) this.errors.push("Ear tag is required.");
       if (!this.newAnimal.type) this.errors.push("Animal type is required.");
-      if (!this.newAnimal.pasture) this.errors.push("Pasture is required.");
+      // if (!this.newAnimal.status) this.errors.push("Status is required.");
+      if (!this.initialPasture.name) this.errors.push("Pasture name is required.");
       e.preventDefault();
     },
     clear() {
@@ -212,7 +251,8 @@ export default {
       this.newAnimal.tag_id = "";
       this.newAnimal.type = "";
       this.newAnimal.dob = "";
-      this.newAnimal.pasture = "";
+      // this.newAnimal.status = "";
+      this.initialPasture.name = "";
       this.newAnimal.sire = "";
       this.newAnimal.dam = "";
       this.errors = [];

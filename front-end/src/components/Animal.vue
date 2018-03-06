@@ -17,7 +17,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{cow.pasture}}</td>
+              <td>{{currentPasture}}</td>
               <td>{{cow.dob}}</td>
               <!-- Button trigger modal -->
               <td><span data-toggle="modal" data-target="#editAnimalModal" class="icon nav-link"><i class="fa fa-2x fa-chevron-circle-right"></i></span></td>
@@ -32,16 +32,19 @@
       <div>
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link font-weight-bold active" id="breeding-tab" data-toggle="tab" href="#breeding" role="tab" aria-controls="breeding" aria-selected="true">Breeding</a>
+            <a class="nav-link font-weight-bold active" id="calving-tab" data-toggle="tab" href="#calving" role="tab" aria-controls="calving" aria-selected="true">Calving</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold" id="breeding-tab" data-toggle="tab" href="#breeding" role="tab" aria-controls="breeding" aria-selected="false">Breeding</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link font-weight-bold" id="pregnancy-tab" data-toggle="tab" href="#pregnancy" role="tab" aria-controls="pregnancy" aria-selected="false">Preg</a>
           </li>
           <li class="nav-item">
             <a class="nav-link font-weight-bold" id="health-tab" data-toggle="tab" href="#health" role="tab" aria-controls="health" aria-selected="false">Health</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link font-weight-bold" id="pregnancy-tab" data-toggle="tab" href="#pregnancy" role="tab" aria-controls="pregnancy" aria-selected="false">Preg-checks</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link font-weight-bold" id="calving-tab" data-toggle="tab" href="#calving" role="tab" aria-controls="calving" aria-selected="true">Calving</a>
+            <a class="nav-link font-weight-bold" id="movements-tab" data-toggle="tab" href="#movements" role="tab" aria-controls="movements" aria-selected="false">Movements</a>
           </li>
           <li class="nav-item">
             <a class="nav-link font-weight-bold" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">Delete</a>
@@ -50,7 +53,36 @@
       </div>
 
       <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="breeding" role="tabpanel" aria-labelledby="breeding-tab">
+        <div class="tab-pane fade show active" id="calving" role="tabpanel" aria-labelledby="calving-tab">
+          <template v-if="cow.type !=='Cow' || calvings.length === 0">
+            <p class="pl-3">There is no calving data for this animal.</p>
+          </template>
+          <template v-else>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Season</th>
+                    <th>Calf ear tag</th>
+                    <th>Birthdate</th>
+                    <th>Sex</th>
+                    <th>Sire</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="calving in calvings">
+                    <td>{{calving.season}}</td>
+                    <td>{{calving.calf_id}}</td>
+                    <td>{{calving.dob}}</td>
+                    <td>{{calving.sex}}</td>
+                    <td>{{calving.sire}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </template>
+        </div>
+        <div class="tab-pane fade" id="breeding" role="tabpanel" aria-labelledby="breeding-tab">
           <template v-if="breedings.length === 0">
             <p class="pl-3">There is no breeding data for this animal.</p>
           </template>
@@ -69,6 +101,31 @@
                     <td>{{breeding.date}}</td>
                     <td>{{breeding.method}}</td>
                     <td>{{breeding.sire}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </template>
+        </div>
+
+        <div class="tab-pane fade" id="pregnancy" role="tabpanel" aria-labelledby="pregnancy-tab">
+          <template v-if="cow.type !=='Cow' || pregnancies.length === 0">
+            <p class="pl-3">There is no pregnancy data for this animal.</p>
+          </template>
+
+          <template v-else>
+            <div class="table-responsive">
+              <table class="table  table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="pregnancy in pregnancies">
+                    <td>{{pregnancy.date}}</td>
+                    <td>{{pregnancy.result}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -99,59 +156,33 @@
             </div>
           </template>
         </div>
-        <div class="tab-pane fade" id="pregnancy" role="tabpanel" aria-labelledby="pregnancy-tab">
-          <template v-if="cow.type !=='Cow' || pregnancies.length === 0">
-            <p class="pl-3">There is no pregnancy data for this animal.</p>
-          </template>
 
-          <template v-else>
-            <div class="table-responsive">
-              <table class="table  table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="pregnancy in pregnancies">
-                    <td>{{pregnancy.date}}</td>
-                    <td>{{pregnancy.result}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </template>
-        </div>
-        <div class="tab-pane fade" id="calving" role="tabpanel" aria-labelledby="calving-tab">
-          <template v-if="cow.type !=='Cow' || calvings.length === 0">
-            <p class="pl-3">There is no calving data for this animal.</p>
+        <div class="tab-pane fade" id="movements" role="tabpanel" aria-labelledby="movements-tab">
+          <template v-if="pastureMovements.length === 0">
+            <p class="pl-3">There are no pasture changes for this animal.</p>
           </template>
           <template v-else>
             <div class="table-responsive">
               <table class="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>Season</th>
-                    <th>Calf ear tag</th>
-                    <th>Birthdate</th>
-                    <th>Sex</th>
-                    <th>Sire</th>
+                    <th>Date</th>
+                    <th>Pasture</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="calving in calvings">
-                    <td>{{calving.season}}</td>
-                    <td>{{calving.calf_id}}</td>
-                    <td>{{calving.dob}}</td>
-                    <td>{{calving.sex}}</td>
-                    <td>{{calving.sire}}</td>
+                  <tr v-for="pastureMovement in pastureMovements">
+                    <td>{{pastureMovement.dateMoved}}</td>
+                    <td>{{pastureMovement.name}}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </template>
         </div>
+
+
+
         <div class="tab-pane fade text-center" id="delete" role="tabpanel" aria-labelledby="delete-tab">
           <button class="btn btn-danger" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
         </div>
@@ -210,9 +241,9 @@
                         </div>
                         <div class="form-group">
                           <label for="editAnimalPasture">Pasture*</label>
-                          <select v-model:value="cow.pasture"  class="form-control" id="editAnimalPasture">
-                            <option disabled value="">Select a pasture</option>
-                            <option v-for="pasture in pastures">{{pasture.name}}</option>
+                          <select v-model:value="pastureMovements.name"  class="form-control" id="editAnimalPasture">
+                            <option disabled value="">To change pasture, add new pasture movement</option>
+                            <option disabled v-for="pasture in pastures">{{pasture.name}}</option>
                           </select>
                         </div>
                         <div class="form-group">
@@ -296,6 +327,8 @@ export default {
       healthEvents: [],
       pregnancies: [],
       pastures: [],
+      pastureMovements: [],
+      currentPasture: [],
       errors: []
     }
   },
@@ -332,6 +365,11 @@ export default {
     axios.get('http://127.0.0.1:3000/pastures')
       .then((response) => {
         this.pastures = response.data
+      });
+    axios.get('http://127.0.0.1:3000/movement/' + this.$route.params.id)
+      .then((response) => {
+        this.pastureMovements = response.data
+        this.currentPasture = this.pastureMovements[0].name
       });
   },
   mixins: [hideModal, clearModal],

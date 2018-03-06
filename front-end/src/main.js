@@ -9,18 +9,28 @@ import "./stylesheets/style.scss";
 
 
 Vue.use(vueRouter);
+// Vue.prototype.$userID = firebase.auth().currentUser
 
 new Vue({
   el: '#app',
   router: route,
-  // created() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       // this.$router.push('/loggedin');
-  //     } else {
-  //       // this.$router.push('/');
-  //     }
-  //   });
-  // },
+  data() {
+    return {
+      uid: ""
+    }
+  },
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user.uid);
+
+        // console.log($userID);
+        // this.uid = user.uid
+        //capture user id and push to uid array.  add user id to each schema. capture uid and add to object sent to db.
+      } else {
+        this.$router.push('/login');
+      }
+    })
+  },
   render: h => h(App)
 })

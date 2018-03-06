@@ -504,9 +504,9 @@ app.get('/movements', (req, res) => {
 
 //  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY TAG-ID
 app.get('/movement/:id', (req, res) => {
-  PastureMovements.find({
-      tag_id: req.params.id
-    })
+  PastureMovements.find({ tag_id: req.params.id })
+    .sort({ dateMoved: -1 })
+    // .exec()
     .then((docs) => {
       res.send(docs)
     }, (err) => {

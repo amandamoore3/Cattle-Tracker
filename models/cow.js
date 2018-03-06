@@ -35,11 +35,11 @@ let cowSchema = mongoose.Schema({
     type: Date,
     trim: true
   },
-  pasture: {
-    type: String,
-    required: true,
-    trim: true
-  },
+  // pasture: {
+  //   type: String,
+  //   required: true,
+  //   trim: true
+  // },
   dateCreated: {
     type: Date,
     required: true,
