@@ -29,7 +29,7 @@
             <td>{{breeding.date}}</td>
             <td>{{breeding.method}}</td>
             <td>{{breeding.sire}}</td>
-            <td><router-link :to="{path: '/breedingevent/' + breeding._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+            <td><router-link :to="{name: 'breeding-event', params:{user, id: breeding._id}} "><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
           </tr>
         </tbody>
       </table>
@@ -130,6 +130,7 @@ export default {
       msg: 'Herd Breeding',
       breedings: [],
       cows: [],
+      user: null,
       errors: [],
       newBreeding: {
         tag_id: "",
@@ -151,11 +152,12 @@ export default {
     })
   },
   created() {
-    axios.get('http://127.0.0.1:3000/breeding')
+    this.user = firebase.auth().currentUser.uid;
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding')
       .then((response) => {
         this.breedings = response.data
       });
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });
@@ -165,6 +167,7 @@ export default {
     addBreeding() {
       let newBreeding = {
         tag_id: this.newBreeding.tag_id,
+        user: this.user,
         date: this.newBreeding.date,
         method: this.newBreeding.method,
         sire: this.newBreeding.sire,
@@ -172,8 +175,7 @@ export default {
         comments: this.newBreeding.comments
       }
       // console.log(newBreeding);
-      axios.post('http://127.0.0.1:3000/breeding', newBreeding)
-
+      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding', newBreeding)
         .then((response) => {
           console.log(response);
           this.breedings.unshift(newBreeding);

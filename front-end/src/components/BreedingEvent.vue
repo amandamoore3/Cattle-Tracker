@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="appContent">
-    <h5 class="text-right"><router-link :to="{path: '/breeding'}">Back to breeding records</router-link></h5>
+    <h5 class="text-right"><router-link :to="{name: 'breeding', params: {user}}">Back to breeding records</router-link></h5>
     <div class="card shadow">
       <div class="card-header">
         <div class="row no-gutters">
@@ -103,6 +103,7 @@ export default {
       msg: 'Edit breeding record',
       breeding: [],
       cows: [],
+      user: null,
       errors: []
     }
   },
@@ -116,18 +117,19 @@ export default {
     })
   },
   created() {
-    axios.get('http://127.0.0.1:3000/breedingevent/' + this.$route.params.id)
+    this.user = firebase.auth().currentUser.uid;
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
       .then((response) => {
         this.breeding = response.data
       });
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });
   },
   methods: {
     cancel() {
-      this.$router.push("/breeding");
+      this.$router.push("/" + this.user + "/breeding");
     },
     checkForm: function(e) {
       if (this.breeding.tag_id && this.breeding.date && this.breeding.method && this.breeding.sire) return true;
@@ -139,17 +141,17 @@ export default {
       e.preventDefault();
     },
     deleteBreeding() {
-      axios.delete('http://127.0.0.1:3000/breedingevent/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/breeding");
+          this.$router.push("/" + this.user + "/breeding");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editBreeding() {
-      axios.patch('http://127.0.0.1:3000/breedingevent/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id, {
           tag_id: this.breeding.tag_id,
           date: this.breeding.date,
           method: this.breeding.method,
@@ -159,7 +161,7 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$router.push("/breeding");
+          this.$router.push("/" + this.user + "/breeding");
         })
         .catch((error) => {
           console.log(error);

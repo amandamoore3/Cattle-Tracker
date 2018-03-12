@@ -31,14 +31,13 @@ app.use(express.static(__dirname + '/static'));
 
 
 //  GET ALL DATA FROM CATTLE TABLE
-app.get('/cattle', (req, res) => {
-  Cow.find()
+app.get('/:user/cattle', (req, res) => {
+  Cow.find({ user: req.params.user })
     // .sort({
     //     tag_id: 1
     //   }).exec()
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
@@ -46,9 +45,10 @@ app.get('/cattle', (req, res) => {
 
 
 //  GET INDIVIDUAL FROM CATTLE TABLE
-app.get('/cattle/:id', (req, res) => {
+app.get('/:user/cattle/:id', (req, res) => {
   Cow.findOne({
-      tag_id: req.params.id
+      tag_id: req.params.id,
+      user: req.params.user
     })
     .then((docs) => {
       res.send(docs)
@@ -60,9 +60,11 @@ app.get('/cattle/:id', (req, res) => {
 //  GET INDIVIDUAL FROM CATTLE TABLE
 
 //  POST TO CATTLE TABLE
-app.post('/cattle', (req, res) => {
+app.post('/:user/cattle', (req, res) => {
+  // console.log(req);
   let newCow = new Cow({
     tag_id: req.body.tag_id,
+    user: req.body.user,
     type: req.body.type,
     dob: req.body.dob,
     pasture: req.body.pasture,
@@ -79,10 +81,11 @@ app.post('/cattle', (req, res) => {
 //  POST TO CATTLE TABLE
 
 //DELETE ANIMAL BY ID
-app.delete('/cattle/:id', (req, res) => {
-  // console.log("deleterequest" + JSON.stringify(req.params));
+app.delete('/:user/cattle/:id', (req, res) => {
+  console.log("deleterequest" + JSON.stringify(req.params));
   Cow.findOneAndRemove({
-      tag_id: req.params.id
+      tag_id: req.params.id,
+      user: req.params.user
     })
     .then((docs) => {
       if (!docs) {
@@ -97,10 +100,10 @@ app.delete('/cattle/:id', (req, res) => {
 ////DELETE ANIMAL BY ID
 
 //  UPDATE ANIMAL BY TAG ID
-app.patch('/cattle/:id', (req, res) => {
+app.patch('/:user/cattle/:id', (req, res) => {
   Cow.findOneAndUpdate({
-      tag_id: req.params.id
-
+      tag_id: req.params.id,
+      user: req.params.user
     }, {
       $set: req.body
     }, {
@@ -120,13 +123,10 @@ app.patch('/cattle/:id', (req, res) => {
 //  UPDATE ANIMAL BY TAG ID
 
 //  GET ALL DATA FROM BREEDING TABLE
-app.get('/breeding', (req, res) => {
-  Breeding.find().sort({
-      date: -1
-    }).exec()
+app.get('/:user/breeding', (req, res) => {
+  Breeding.find({ user: req.params.user }).sort({ date: -1 }).exec()
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
@@ -134,13 +134,10 @@ app.get('/breeding', (req, res) => {
 //  GET ALL DATA FROM BREEDING TABLE
 
 //  GET INDIVIDUAL COW BREEDING DATA BY TAG-ID
-app.get('/breeding/:id', (req, res) => {
-  Breeding.find({
-      tag_id: req.params.id
-    })
+app.get('/:user/breeding/:id', (req, res) => {
+  Breeding.find({ tag_id: req.params.id, user: req.params.user })
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
@@ -148,11 +145,10 @@ app.get('/breeding/:id', (req, res) => {
 //  GET INDIVIDUAL COW BREEDING DATA BY TAG-ID
 
 //  GET INDIVIDUAL BREEDING EVENT DATA BY OBJECT ID
-app.get('/breedingevent/:id', (req, res) => {
+app.get('/:user/breedingevent/:id', (req, res) => {
   Breeding.findById(req.params.id)
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
@@ -160,9 +156,10 @@ app.get('/breedingevent/:id', (req, res) => {
 //  GET INDIVIDUAL COW BREEDING DATA BY OBJECT ID
 
 //  POST TO BREEDING TABLE
-app.post('/breeding', (req, res) => {
+app.post('/:user/breeding', (req, res) => {
   let newBreeding = new Breeding({
     tag_id: req.body.tag_id,
+    user: req.body.user,
     date: req.body.date,
     method: req.body.method,
     sire: req.body.sire,
@@ -179,7 +176,7 @@ app.post('/breeding', (req, res) => {
 //  POST TO BREEDING TABLE
 
 //DELETE BREEDING DOCUMENT BY ID
-app.delete('/breedingevent/:id', (req, res) => {
+app.delete('/:user/breedingevent/:id', (req, res) => {
   Breeding.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -194,7 +191,7 @@ app.delete('/breedingevent/:id', (req, res) => {
 ////DELETE BREEDING DOCUMENT BY ID
 
 //UPDATE BREEDING DOCUMENT BY ID
-app.patch('/breedingevent/:id', (req, res) => {
+app.patch('/:user/breedingevent/:id', (req, res) => {
   Breeding.findOneAndUpdate({
       _id: req.params.id
     }, {
@@ -491,7 +488,7 @@ app.patch('/pastures/:id', (req, res) => {
 
 //  GET ALL DATA FROM PASTURE MOVEMENTS TABLE
 app.get('/movements', (req, res) => {
-  PastureMovements.find().sort({
+  PastureMovements.find({ user: req.params.user }).sort({
       dateMoved: -1
     }).exec()
     .then((docs) => {
@@ -527,8 +524,10 @@ app.get('/movements/:id', (req, res) => {
 //  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY OBJECT ID
 
 //  POST TO PASTURE MOVEMENTS TABLE
-app.post('/movements', (req, res) => {
+app.post('/:user/movements', (req, res) => {
+  // console.log(req);
   let newPastureMovement = new PastureMovements({
+    user: req.body.user,
     tag_id: req.body.tag_id,
     dateMoved: req.body.dateMoved,
     name: req.body.name,

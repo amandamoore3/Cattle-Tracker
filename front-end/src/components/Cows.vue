@@ -44,7 +44,7 @@
         <div class="modal-content">
           <div class="modal-header card-header">
             <h5 class="modal-title text-primary font-weight-bold" id="addAnimalModalLabel">Add new animal</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" @click="clear()" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -132,16 +132,16 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
-import { getUserId } from './mixins/user';
-
+// import app from '../App'
 
 export default {
-  // props: [user],
+  // props: ['app'],
   data() {
     return {
       msg: 'Active Cattle',
       cows: [],
-      uid: [],
+      user: null,
+      // appuser: null,
       errors: [],
       pastures: [],
       newAnimal: {
@@ -161,7 +161,7 @@ export default {
   // beforeCreate() {
   //   firebase.auth().onAuthStateChanged((user) => {
   //     if (user) {
-  //       this.uid= user.uid
+  //       this.user = firebase.auth().currentUser.uid;
   //       //capture user id and push to uid array.  add user id to each schema. capture uid and add to object sent to db.
   //     } else {
   //       this.$router.push('/login');
@@ -169,7 +169,9 @@ export default {
   //   })
   // },
   created() {
-    axios.get('http://127.0.0.1:3000/cattle')
+    this.user = firebase.auth().currentUser.uid;
+    // console.log("user:" + this.user);
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });
@@ -177,17 +179,17 @@ export default {
       .then((response) => {
         this.pastures = response.data
       });
-
-    // console.log($userID);
-    // axios.get('http://127.0.0.1:3000/movements')
-    //   .then((response) => {
-    //     this.pastureMovements = response.data
-    //   });
   },
+  // mounted() {
+  //   this.appuser = app.user
+  //   console.log(this.appuser);
+  // },
   mixins: [hideModal, clearModal],
   methods: {
     addAnimal() {
+      // console.log(this.user);
       let newCow = {
+        user: this.user,
         tag_id: this.newAnimal.tag_id,
         type: this.newAnimal.type,
         dob: this.newAnimal.dob,
@@ -196,37 +198,22 @@ export default {
         dam: this.newAnimal.dam
       }
       let firstPastureMovement = {
+        user: this.user,
         tag_id: this.newAnimal.tag_id,
         name: this.initialPasture.name,
         dateMoved: Date().toString()
       }
-      axios.post('http://127.0.0.1:3000/movements', firstPastureMovement)
+      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow)
         .then((response) => {
-          console.log(response);
-          // this.cows.unshift(newCow);
-          // this.hideModal();
-          // this.clearModal();
-          // this.newAnimal.tag_id = "";
-          // this.newAnimal.type = "";
-          // this.newAnimal.dob = "";
-          // this.newAnimal.sire = "";
-          // this.newAnimal.dam = "";
-          // this.errors = [];
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      axios.post('http://127.0.0.1:3000/cattle', newCow)
-        .then((response) => {
-          console.log(response);
-          console.log(this.cows);
+          axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', firstPastureMovement)
+            .then((response) => {
+              console.log(response);
+            })
           this.cows.unshift(newCow);
-          console.log(this.cows);
           this.hideModal();
           this.clearModal();
           this.newAnimal.tag_id = "";
           this.newAnimal.type = "";
-          // this.newAnimal.status = "";
           this.initialPasture.name = "";
           this.newAnimal.dob = "";
           this.newAnimal.sire = "";
@@ -234,15 +221,41 @@ export default {
           this.errors = [];
         })
         .catch((err) => {
-          console.log(err);
+          console.log("Animal:" + err);
         });
+
+      //TESTING AXIOS.ALL(): CONSOLE.LOG RETURNS ERROR FOR BOTH POST REQUESTS ON FORCED ERROR.  INITIAL PASTURE STILL POSTS TO DB.
+      // axios.all([
+      //     axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow),
+      //     axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', firstPastureMovement)
+      //   ])
+      //   .then(axios.spread((initialPasture, newAnimal) => {
+      //     console.log(initialPasture);
+      //     console.log(newAnimal);
+      //     this.cows.unshift(newCow);
+      //     // console.log(this.cows);
+      //     this.hideModal();
+      //     this.clearModal();
+      //     this.newAnimal.tag_id = "";
+      //     this.newAnimal.type = "";
+      //     this.initialPasture.name = "";
+      //     this.newAnimal.dob = "";
+      //     this.newAnimal.sire = "";
+      //     this.newAnimal.dam = "";
+      //     this.errors = [];
+      //   }))
+      //   .catch((err) => {
+      //     console.log("Movement:" + err);
+      //     this.errors.push(err.response);
+      //   });
+      //TESTING AXIOS.ALL: CONSOLE.LOG RETURNS ERROR FOR BOTH POST REQUESTS ON FORCED ERROR.  INITIAL PASTURE STILL POSTS TO DB.
+
     },
     checkForm: function(e) {
       if (this.newAnimal.tag_id && this.newAnimal.type && this.initialPasture.name) return true;
       this.errors = [];
       if (!this.newAnimal.tag_id) this.errors.push("Ear tag is required.");
       if (!this.newAnimal.type) this.errors.push("Animal type is required.");
-      // if (!this.newAnimal.status) this.errors.push("Status is required.");
       if (!this.initialPasture.name) this.errors.push("Pasture name is required.");
       e.preventDefault();
     },
@@ -251,7 +264,6 @@ export default {
       this.newAnimal.tag_id = "";
       this.newAnimal.type = "";
       this.newAnimal.dob = "";
-      // this.newAnimal.status = "";
       this.initialPasture.name = "";
       this.newAnimal.sire = "";
       this.newAnimal.dam = "";

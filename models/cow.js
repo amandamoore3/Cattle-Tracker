@@ -21,11 +21,17 @@ const mongoose = require('mongoose');
 let cowSchema = mongoose.Schema({
   tag_id: {
     type: String,
-    unique: true,
-    dropDups: true,
+    index: true,
+    // unique: true,
+    // dropDups: true,
     required: true,
     minLength: 1,
     trim: true
+  },
+  user: {
+    type: String,
+    index: true,
+    required: true
   },
   type: {
     type: String,
@@ -74,7 +80,9 @@ let cowSchema = mongoose.Schema({
     type: String,
     trim: true
   }
-});
+}, { emitIndexErrors: true });
+
+cowSchema.index({ user: 1, tag_id: -1 }, { unique: true });
 
 let Cow = mongoose.model('Cow', cowSchema);
 

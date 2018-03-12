@@ -24,75 +24,92 @@ const router = new vueRouter({
   mode: 'history',
   routes: [{
       path: '/login',
+      name: 'login',
       component: Login
     },
     {
       path: '/',
+      name: 'home',
       component: Home
     },
     {
-      path: '/cattle',
+      path: '/:user/cattle',
+      name: 'cattle',
       component: Cows
     },
     {
-      path: '/cattle/:id',
+      path: '/:user/cattle/:id',
       name: 'individual-animal',
       component: Animal
     },
     {
-      path: '/breeding',
+      path: '/:user/breeding',
+      name: 'breeding',
       component: Breeding
     },
     {
-      path: '/breedingevent/:id',
+      path: '/:user/breedingevent/:id',
+      name: 'breeding-event',
       component: BreedingEvent
     },
     {
-      path: '/calving',
+      path: '/:user/calving',
+      name: 'calving',
       component: Calving
     },
     {
-      path: '/calvingevent/:id',
+      path: '/:user/calvingevent/:id',
+      name: 'calving-record',
       component: CalvingRecord
     },
     {
-      path: '/pregnancy',
+      path: '/:user/pregnancy',
+      name: 'preg-check',
       component: PregCheck
     },
     {
-      path: '/pregcheck/:id',
+      path: '/:user/pregcheck/:id',
+      name: 'preg-check-event',
       component: PregCheckEvent
     },
     {
-      path: '/health',
+      path: '/:user/health',
+      name: 'health',
       component: Health
     },
     {
-      path: '/healthevent/:id',
+      path: '/:user/healthevent/:id',
+      name: 'health-event',
       component: HealthEvent
     },
     {
-      path: '/outcomes',
+      path: '/:user/outcomes',
+      name: 'outcomes',
       component: Outcomes
     },
     {
-      path: '/outcomes/:id',
+      path: '/:user/outcomes/:id',
+      name: 'outcomes-records',
       component: OutcomesRecords
     },
     {
-      path: '/pastures',
+      path: '/:user/pastures',
+      name: 'pastures',
       component: Pastures
     },
     {
-      path: '/pastures/:id',
+      path: '/:user/pastures/:id',
+      name: 'pasture-edit',
       component: PastureEdit
     },
     {
-      path: '/movements',
+      path: '/:user/movements',
+      name: 'pasture-movements',
       component: PastureMovements
     },
     {
-      path: '/movements/:id',
+      path: '/:user/movements/:id',
+      name: 'pasture-movement-record',
       component: PastureMovementRecord
     }
   ]

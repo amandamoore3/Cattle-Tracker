@@ -8,8 +8,14 @@ const mongoose = require('mongoose');
 let breedingSchema = mongoose.Schema({
   tag_id: {
     type: String,
+    index: true,
     required: true,
     trim: true
+  },
+  user: {
+    type: String,
+    index: true,
+    required: true
   },
   date: {
     type: Date,
@@ -39,9 +45,10 @@ let breedingSchema = mongoose.Schema({
     required: true,
     default: Date.now()
   }
-});
+}, { emitIndexErrors: true });
+
+breedingSchema.index({ user: 1, tag_id: -1 }, { unique: true });
 
 let Breeding = mongoose.model('Breeding', breedingSchema);
-
 
 module.exports = { Breeding };

@@ -26,7 +26,7 @@
         </table>
       </div>
     </div>
-    <h6 class="text-right"><router-link :to="{path: '/cattle'}" class="font-weight-bold ">Back to herd information</router-link></h6>
+    <h6 class="text-right"><router-link :to="{name: 'cattle', params: {user}}" class="font-weight-bold ">Back to herd information</router-link></h6>
 
     <div class="card  shadow">
       <div>
@@ -321,6 +321,7 @@ export default {
   data() {
     return {
       msg: 'Animal Information',
+      user: null,
       cow: [],
       breedings: [],
       calvings: [],
@@ -332,21 +333,21 @@ export default {
       errors: []
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
-    axios.get('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
       .then((response) => {
         this.cow = response.data
       });
-    axios.get('http://127.0.0.1:3000/breeding/' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding' + this.$route.params.id)
       .then((response) => {
         this.breedings = response.data
       });
@@ -379,28 +380,28 @@ export default {
       this.errors = [];
       if (!this.cow.tag_id) this.errors.push("Ear tag is required.");
       if (!this.cow.type) this.errors.push("Animal type is required.");
-      if (!this.cow.pasture) this.errors.push("Pasture is required.");
+      // if (!this.cow.pasture) this.errors.push("Pasture is required.");
       e.preventDefault();
     },
     clear() {
       this.errors = [];
     },
     deleteCow() {
-      axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/cattle");
+          this.$router.push("/" + this.user + "/cattle");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editAnimal() {
-      axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id, {
           tag_id: this.cow.tag_id,
           type: this.cow.type,
           dob: this.cow.dob,
-          pasture: this.cow.pasture,
+          // pasture: this.cow.pasture,
           sire: this.cow.sire,
           dam: this.cow.dam,
           status: this.cow.status,
