@@ -123,6 +123,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+// import { getUserId } from './mixins/user';
 
 export default {
   data() {

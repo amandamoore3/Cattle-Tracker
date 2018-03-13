@@ -29,7 +29,7 @@
             <!-- <router-link :to="{name: 'itemModal', params: {id: item.id}}">See item 1</router-link> -->
             <td class="font-weight-bold text-md"><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id}}">{{cow.tag_id}}</router-link></td>
             <td>{{cow.type}}</td>
-            <!-- <td>{{cow.pasture}}</td> -->
+            <!-- <td>{{currentPasture}}</td> -->
             <td>{{cow.dob}}</td>
             <!-- <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td> -->
         </tr>
@@ -144,6 +144,7 @@ export default {
       // appuser: null,
       errors: [],
       pastures: [],
+      // currentPasture: [],
       newAnimal: {
         tag_id: "",
         type: "",
@@ -170,7 +171,6 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    // console.log("user:" + this.user);
     axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
@@ -178,18 +178,16 @@ export default {
     axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
       .then((response) => {
         this.pastures = response.data
-        // console.log(this.pastures);
       });
-
+    // axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
+    //   .then((response) => {
+    //     this.pastureMovements = response.data
+    //     this.currentPasture = this.pastureMovements[0]
+    //   });
   },
-  // mounted() {
-  //   this.appuser = app.user
-  //   console.log(this.appuser);
-  // },
   mixins: [hideModal, clearModal],
   methods: {
     addAnimal() {
-      // console.log(this.user);
       let newCow = {
         user: this.user,
         tag_id: this.newAnimal.tag_id,
@@ -203,7 +201,7 @@ export default {
         user: this.user,
         tag_id: this.newAnimal.tag_id,
         name: this.initialPasture.name,
-        dateMoved: Date().toString()
+        dateMoved: Date.now()
       }
       axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow)
         .then((response) => {

@@ -9,7 +9,13 @@ let calvingSchema = mongoose.Schema({
   tag_id: {
     type: String,
     required: true,
+    // index: true,
     trim: true
+  },
+  user: {
+    type: String,
+    index: true,
+    required: true
   },
   calf_id: {
     type: String,
@@ -45,7 +51,9 @@ let calvingSchema = mongoose.Schema({
     required: true,
     default: Date.now()
   }
-});
+}, { emitIndexErrors: true });
+
+calvingSchema.index({ user: 1 });
 
 let Calving = mongoose.model('Calving', calvingSchema);
 

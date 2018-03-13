@@ -92,7 +92,6 @@ export default {
       msg: 'Pastures',
       pastures: [],
       user: null,
-      // loggedIn: false,
       cows: [],
       errors: [],
       newPasture: {
@@ -101,15 +100,15 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // this.loggedIn= true;
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
     this.user = firebase.auth().currentUser.uid;
 

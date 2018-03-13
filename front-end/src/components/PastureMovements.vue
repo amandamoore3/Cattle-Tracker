@@ -118,25 +118,25 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
-    axios.get('http://127.0.0.1:3000/movements')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movements')
       .then((response) => {
         this.pastureMovements = response.data
       });
-    axios.get('http://127.0.0.1:3000/pastures')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
       .then((response) => {
         this.pastures = response.data
       });
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });

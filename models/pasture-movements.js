@@ -12,16 +12,18 @@ let pastureMovementsSchema = mongoose.Schema({
   },
   tag_id: {
     type: String,
+    index: true,
     required: true,
     trim: true
   },
   user: {
     type: String,
+    index: true,
     required: true
   },
   dateMoved: {
     type: Date,
-    default: Date(),
+    // default: Date(),
     required: true,
     trim: true
   },
@@ -34,7 +36,9 @@ let pastureMovementsSchema = mongoose.Schema({
     required: true,
     default: Date.now()
   }
-});
+}, { emitIndexErrors: true });
+
+pastureMovementsSchema.index({ user: 1, tag_id: -1 });
 
 let PastureMovements = mongoose.model('PastureMovements', pastureMovementsSchema);
 

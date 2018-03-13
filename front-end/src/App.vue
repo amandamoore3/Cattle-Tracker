@@ -106,8 +106,9 @@ export default {
   },
   methods: {
     logout() {
-      firebase.auth().signOut();
-      this.$router.push('/login');
+      firebase.auth().signOut()
+      // .then(this.$router.push('/'));
+      // this.$router.push('/login');
     }
   }
 }

@@ -107,15 +107,15 @@ export default {
       errors: []
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
     this.user = firebase.auth().currentUser.uid;
     axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)

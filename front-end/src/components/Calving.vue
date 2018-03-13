@@ -31,7 +31,7 @@
               <td>{{calving.season}}</td>
               <td>{{calving.sex}}</td>
               <td>{{calving.sire}}</td>
-              <td><router-link :to="{path: '/calvingevent/' + calving._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+              <td><router-link :to="{name: 'calving-record', params: {user, id:calving._id }}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
             </tr>
           </tbody>
         </table>
@@ -91,8 +91,15 @@
                 <label for="addCalvingSex">Sex*</label>
                 <select v-model="newCalving.sex" class="form-control" id="addCalvingSex">
                   <option disabled value="">Select sex</option>
-                  <option>Heifer</option>
-                  <option>Bull</option>
+                  <option>Calf- heifer</option>
+                  <option>Calf- bull</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="addInitialPastureMovementName">Pasture*</label>
+                <select v-model="newCalving.pasture"  class="form-control" id="addInitialPastureMovementName">
+                  <option disabled value="">Select a pasture</option>
+                  <option v-for="pasture in pastures">{{pasture.name}}</option>
                 </select>
               </div>
               <div class="form-group">
@@ -137,10 +144,14 @@ export default {
       msg: 'Calving Records',
       calvings: [],
       cows: [],
+      pastures: [],
+      user: null,
       errors: [],
       newCalving: {
         tag_id: "",
         dob: "",
+        status: "Active",
+        pasture: "",
         calf_id: "",
         season: "",
         sire: "",
@@ -149,23 +160,28 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
-    axios.get('http://127.0.0.1:3000/calving')
+    this.user = firebase.auth().currentUser.uid;
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving')
       .then((response) => {
         this.calvings = response.data
       });
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
+      });
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+      .then((response) => {
+        this.pastures = response.data
       });
   },
   mixins: [hideModal, clearModal],
@@ -173,6 +189,7 @@ export default {
     addCalving() {
       let newCalving = {
         tag_id: this.newCalving.tag_id,
+        user: this.user,
         calf_id: this.newCalving.calf_id,
         season: this.newCalving.season,
         dob: this.newCalving.dob,
@@ -180,16 +197,41 @@ export default {
         sire: this.newCalving.sire,
         comments: this.newCalving.comments
       }
-      console.log(newCalving);
-      axios.post('http://127.0.0.1:3000/calving', newCalving)
+      let newCow = {
+        user: this.user,
+        tag_id: this.newCalving.calf_id,
+        type: this.newCalving.sex,
+        dob: this.newCalving.dob,
+        status: this.newCalving.status,
+        sire: this.newCalving.sire,
+        dam: this.newCalving.tag_id
+      }
+      let firstPastureMovement = {
+        user: this.user,
+        tag_id: this.newCalving.calf_id,
+        name: this.newCalving.pasture,
+        dateMoved: this.newCalving.dob
+      }
+
+      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow)
         .then((response) => {
-          console.log(response);
+          // console.log(newCow);
+          // console.log(newCalving);
+          // console.log(firstPastureMovement);
+          axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', firstPastureMovement)
+            .then((response) => {
+              axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/calving', newCalving)
+                .then((response) => {
+                  console.log(response);
+                })
+            })
           this.calvings.unshift(newCalving);
-          this.hideModal();
           this.clearModal();
+          this.hideModal();
           this.newCalving.tag_id = "";
           this.newCalving.calf_id = "";
           this.newCalving.season = "";
+          this.newCalving.pasture = "";
           this.newCalving.dob = "";
           this.newCalving.sex = "";
           this.newCalving.sire = "";
@@ -198,12 +240,15 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.errors.unshift("There was an error with your request.  Check that you are not using a duplicate ear tag number.");
+
         });
     },
     checkForm: function(e) {
-      if (this.newCalving.tag_id && this.newCalving.calf_id && this.newCalving.season && this.newCalving.sex && this.newCalving.dob && this.newCalving.sire) return true;
+      if (this.newCalving.tag_id && this.newCalving.pasture && this.newCalving.calf_id && this.newCalving.season && this.newCalving.sex && this.newCalving.dob && this.newCalving.sire) return true;
       this.errors = [];
       if (!this.newCalving.tag_id) this.errors.push("Cow ear tag is required.");
+      if (!this.newCalving.pasture) this.errors.push("Pasture is required.");
       if (!this.newCalving.calf_id) this.errors.push("Calf ear tag is required.");
       if (!this.newCalving.season) this.errors.push("Calving Season is required.");
       if (!this.newCalving.dob) this.errors.push("Calf birth date is required.");
@@ -215,6 +260,7 @@ export default {
       this.clearModal();
       this.newCalving.tag_id = "";
       this.newCalving.calf_id = "";
+      this.newCalving.pasture = "";
       this.newCalving.season = "";
       this.newCalving.dob = "";
       this.newCalving.sex = "";

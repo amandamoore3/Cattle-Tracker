@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="appContent">
-    <h5 class="text-right"><router-link :to="{path: '/calving'}">Herd calving records</router-link></h5>
+    <h5 class="text-right"><router-link :to="{name: 'calving', params: {user}}">Herd calving records</router-link></h5>
     <div class="card shadow">
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
@@ -104,31 +104,33 @@ export default {
       msg: 'Edit calving record',
       calving: [],
       cows: [],
+      user: null,
       errors: []
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
-    axios.get('http://127.0.0.1:3000/calvingevent/' + this.$route.params.id)
+    this.user = firebase.auth().currentUser.uid;
+    axios.get('http://127.0.0.1:3000/ ' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
       .then((response) => {
         this.calving = response.data
       });
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });
   },
   methods: {
     cancel() {
-      this.$router.push("/calving");
+      this.$router.push("/" + this.user + "/calving");
     },
     checkForm: function(e) {
       if (this.calving.tag_id && this.calving.calf_id && this.calving.season && this.calving.sex && this.calving.dob && this.calving.sire) return true;
@@ -142,17 +144,17 @@ export default {
       e.preventDefault();
     },
     deleteCalving() {
-      axios.delete('http://127.0.0.1:3000/calvingevent/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/calving");
+          this.$router.push("/" + this.user + "/calving");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editCalving() {
-      axios.patch('http://127.0.0.1:3000/calvingevent/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id, {
           tag_id: this.calving.tag_id,
           calf_id: this.calving.calf_id,
           season: this.calving.season,
@@ -163,7 +165,7 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$router.push("/calving");
+          this.$router.push("/" + this.user + "/calving");
         })
         .catch((error) => {
           console.log(error);
