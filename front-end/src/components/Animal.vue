@@ -18,7 +18,12 @@
           <tbody>
             <tr>
               <td>{{currentPasture}}</td>
-              <td>{{cow.dob}}</td>
+              <template v-if="cow.dob">
+                <td>{{cow.dob}}</td>
+              </template>
+              <template v-else>
+                <td>No DOB found</td>
+              </template>
               <!-- Button trigger modal -->
               <td><span data-toggle="modal" data-target="#editAnimalModal" class="icon nav-link"><i class="fa fa-2x fa-chevron-circle-right"></i></span></td>
             </tr>
@@ -343,31 +348,32 @@ export default {
   //   })
   // },
   created() {
+    this.user = firebase.auth().currentUser.uid;
     axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
       .then((response) => {
         this.cow = response.data
       });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding/' + this.$route.params.id)
       .then((response) => {
         this.breedings = response.data
       });
-    axios.get('http://127.0.0.1:3000/calving/' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving/' + this.$route.params.id)
       .then((response) => {
         this.calvings = response.data
       });
-    axios.get('http://127.0.0.1:3000/health/' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/health/' + this.$route.params.id)
       .then((response) => {
         this.healthEvents = response.data
       });
-    axios.get('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id)
       .then((response) => {
         this.pregnancies = response.data
       });
-    axios.get('http://127.0.0.1:3000/pastures')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
       .then((response) => {
         this.pastures = response.data
       });
-    axios.get('http://127.0.0.1:3000/movement/' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
       .then((response) => {
         this.pastureMovements = response.data
         this.currentPasture = this.pastureMovements[0].name

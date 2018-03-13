@@ -5,14 +5,14 @@
       <div class="col-12">
         <template v-if="user">
           <nav class="navbar navbar-dark fixed-top navbar-expand-lg custom-nav shadow">
-            <router-link :to="{ path: '/'}" class="navbar-brand">Cattle-Tracks</router-link>
+            <router-link :to="{ name: 'home'}" class="navbar-brand">Cattle-Tracks</router-link>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <router-link :to="{path: '/cattle'}" class="nav-link">Active Cattle <span class="sr-only">(current)</span></router-link>
+                  <router-link :to="{ name: 'cattle', params:{user}}" class="nav-link">Active Cattle <span class="sr-only">(current)</span></router-link>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,8 +37,7 @@
         </template>
         <template v-else>
           <nav class="navbar navbar-dark fixed-top navbar-expand-lg custom-nav shadow">
-            <router-link :to="{ path: '/'}" class="navbar-brand">Cattle-Tracks</router-link>
-            <!-- <router-link :to="{name: 'login'}" class="dropdown-item">Login</router-link> -->
+            <router-link :to="{ name: 'home'}" class="navbar-brand">Cattle-Tracks</router-link>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -77,8 +76,9 @@ export default {
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        //forces conditional rendering
         this.user = user.uid
-        console.log("appbeforecreate:" + this.user);
+        // console.log("appbeforecreate:" + this.user);
         // this.$bindAsArray('items', db.ref(`items/${user.uid}`))
       } else {
         this.$router.push('/login');
@@ -102,7 +102,7 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    console.log("app:" + this.user);
+    // console.log("app:" + this.user);
   },
   methods: {
     logout() {

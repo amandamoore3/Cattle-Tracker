@@ -175,10 +175,12 @@ export default {
       .then((response) => {
         this.cows = response.data
       });
-    axios.get('http://127.0.0.1:3000/pastures')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
       .then((response) => {
         this.pastures = response.data
+        // console.log(this.pastures);
       });
+
   },
   // mounted() {
   //   this.appuser = app.user
@@ -222,6 +224,8 @@ export default {
         })
         .catch((err) => {
           console.log("Animal:" + err);
+
+          this.errors.unshift("There was an error with your request.  Check that you are not using a duplicate ear tag number.");
         });
 
       //TESTING AXIOS.ALL(): CONSOLE.LOG RETURNS ERROR FOR BOTH POST REQUESTS ON FORCED ERROR.  INITIAL PASTURE STILL POSTS TO DB.

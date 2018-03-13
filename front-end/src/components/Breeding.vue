@@ -174,7 +174,7 @@ export default {
         technician: this.newBreeding.technician,
         comments: this.newBreeding.comments
       }
-      // console.log(newBreeding);
+      console.log(newBreeding);
       axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding', newBreeding)
         .then((response) => {
           console.log(response);

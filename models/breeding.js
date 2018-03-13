@@ -2,8 +2,6 @@
 
 const mongoose = require('mongoose');
 
-
-
 //set up the schema/ structure of data
 let breedingSchema = mongoose.Schema({
   tag_id: {
@@ -47,7 +45,7 @@ let breedingSchema = mongoose.Schema({
   }
 }, { emitIndexErrors: true });
 
-breedingSchema.index({ user: 1, tag_id: -1 }, { unique: true });
+breedingSchema.index({ user: 1, tag_id: -1 });
 
 let Breeding = mongoose.model('Breeding', breedingSchema);
 

@@ -91,6 +91,8 @@ export default {
     return {
       msg: 'Pastures',
       pastures: [],
+      user: null,
+      // loggedIn: false,
       cows: [],
       errors: [],
       newPasture: {
@@ -102,18 +104,20 @@ export default {
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-
+        // this.loggedIn= true;
       } else {
         this.$router.push('/login');
       }
     })
   },
   created() {
-    axios.get('http://127.0.0.1:3000/pastures')
+    this.user = firebase.auth().currentUser.uid;
+
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
       .then((response) => {
         this.pastures = response.data
       });
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });
@@ -143,9 +147,10 @@ export default {
     addPasture() {
       let newPasture = {
         name: this.newPasture.name,
+        user: this.user,
         comments: this.newPasture.comments
       }
-      axios.post('http://127.0.0.1:3000/pastures', newPasture)
+      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures', newPasture)
         .then((response) => {
           console.log(response);
           this.pastures.unshift(newPasture); //this is needed to force vue to update the DOM

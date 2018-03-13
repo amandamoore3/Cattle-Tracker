@@ -168,6 +168,7 @@ app.post('/:user/breeding', (req, res) => {
   });
   newBreeding.save()
     .then((doc) => {
+      // console.log(doc);
       res.send(doc);
     }, (err) => {
       res.status(400).send(err);
@@ -213,8 +214,8 @@ app.patch('/:user/breedingevent/:id', (req, res) => {
 //UPDATE BREEDING DOCUMENT BY ID
 
 //  GET ALL DATA FROM CALVING TABLE
-app.get('/calving', (req, res) => {
-  Calving.find()
+app.get('/:user/calving', (req, res) => {
+  Calving.find({ user: req.params.user })
     // .sort({
     //     season: -1
     //   }).exec()
@@ -228,9 +229,10 @@ app.get('/calving', (req, res) => {
 //  GET ALL DATA FROM CALVING TABLE
 
 //  GET INDIVIDUAL COW CALVING DATA BY TAG-ID
-app.get('/calving/:id', (req, res) => {
+app.get('/:user/calving/:id', (req, res) => {
   Calving.find({
-      tag_id: req.params.id
+      tag_id: req.params.id,
+      user: req.params.user
     })
     .then((docs) => {
       res.send(docs)
@@ -242,7 +244,7 @@ app.get('/calving/:id', (req, res) => {
 //  GET INDIVIDUAL COW CALVING DATA BY TAG-ID
 
 //  GET INDIVIDUAL CALVING EVENT DATA BY OBJECT ID
-app.get('/calvingevent/:id', (req, res) => {
+app.get('/:user/calvingevent/:id', (req, res) => {
   Calving.findById(req.params.id)
     .then((docs) => {
       res.send(docs)
@@ -254,9 +256,11 @@ app.get('/calvingevent/:id', (req, res) => {
 //  GET INDIVIDUAL COW CALVING DATA BY OBJECT ID
 
 //  POST TO CALVING TABLE
-app.post('/calving', (req, res) => {
+app.post('/:user/calving', (req, res) => {
   let newCalving = new Calving({
     tag_id: req.body.tag_id,
+    user: req.body.user,
+
     calf_id: req.body.calf_id,
     season: req.body.season,
     dob: req.body.dob,
@@ -274,7 +278,7 @@ app.post('/calving', (req, res) => {
 //  POST TO CALVING TABLE
 
 //DELETE CALVING DOCUMENT BY ID
-app.delete('/calvingevent/:id', (req, res) => {
+app.delete('/:user/calvingevent/:id', (req, res) => {
   Calving.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -289,7 +293,7 @@ app.delete('/calvingevent/:id', (req, res) => {
 ////DELETE CALVING DOCUMENT BY ID
 
 //UPDATE CALVING DOCUMENT BY ID
-app.patch('/calvingevent/:id', (req, res) => {
+app.patch('/:user/calvingevent/:id', (req, res) => {
   Calving.findOneAndUpdate({
       _id: req.params.id
     }, {
@@ -311,10 +315,8 @@ app.patch('/calvingevent/:id', (req, res) => {
 //UPDATE CALVING DOCUMENT BY ID
 
 //  GET ALL DATA FROM HEALTH TABLE
-app.get('/health', (req, res) => {
-  Health.find().sort({
-      date: -1
-    }).exec()
+app.get('/:user/health', (req, res) => {
+  Health.find({ user: req.params.user }).sort({ date: -1 }).exec()
     .then((docs) => {
       res.send(docs)
 
@@ -325,9 +327,10 @@ app.get('/health', (req, res) => {
 //  GET ALL DATA FROM HEALTH TABLE
 
 //  GET INDIVIDUAL COW HEALTH DATA
-app.get('/health/:id', (req, res) => {
+app.get('/:user/health/:id', (req, res) => {
   Health.find({
-      tag_id: req.params.id
+      tag_id: req.params.id,
+      user: req.params.user
     })
     .then((docs) => {
       res.send(docs)
@@ -339,7 +342,7 @@ app.get('/health/:id', (req, res) => {
 //  GET INDIVIDUAL COW HEALTH DATA
 
 //  GET INDIVIDUAL HEALTH EVENT DATA BY OBJECT ID
-app.get('/healthevent/:id', (req, res) => {
+app.get('/:user/healthevent/:id', (req, res) => {
   Health.findById(req.params.id)
     .then((docs) => {
       res.send(docs)
@@ -351,9 +354,10 @@ app.get('/healthevent/:id', (req, res) => {
 //  GET INDIVIDUAL COW HEALTH DATA BY OBJECT ID
 
 //  POST TO HEALTH TABLE
-app.post('/health', (req, res) => {
+app.post('/:user/health', (req, res) => {
   let newHealth = new Health({
     tag_id: req.body.tag_id,
+    user: req.body.user,
     treatmentDate: req.body.treatmentDate,
     medication: req.body.medication,
     dosage: req.body.dosage,
@@ -371,7 +375,7 @@ app.post('/health', (req, res) => {
 //  POST TO HEALTH TABLE
 
 //DELETE HEALTH DOCUMENT BY ID
-app.delete('/healthevent/:id', (req, res) => {
+app.delete('/:user/healthevent/:id', (req, res) => {
   Health.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -386,7 +390,7 @@ app.delete('/healthevent/:id', (req, res) => {
 ////DELETE HEALTH DOCUMENT BY ID
 
 //UPDATE HEALTH DOCUMENT BY ID
-app.patch('/healthevent/:id', (req, res) => {
+app.patch('/:user/healthevent/:id', (req, res) => {
   Health.findOneAndUpdate({
       _id: req.params.id
     }, {
@@ -409,13 +413,10 @@ app.patch('/healthevent/:id', (req, res) => {
 
 
 // GET ALL DATA FROM PASTURES TABLE
-app.get('/pastures', (req, res) => {
-  Pasture.find().sort({
-      name: 1
-    }).exec()
+app.get('/:user/pastures', (req, res) => {
+  Pasture.find({ user: req.params.user }).sort({ name: 1 }).exec()
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
@@ -423,7 +424,7 @@ app.get('/pastures', (req, res) => {
 // GET ALL DATA FROM PASTURES TABLE
 
 //  GET INDIVIDUAL PASTURE DATA BY OBJECT ID
-app.get('/pastures/:id', (req, res) => {
+app.get('/:user/pastures/:id', (req, res) => {
   Pasture.findById(req.params.id)
     .then((docs) => {
       res.send(docs)
@@ -435,8 +436,9 @@ app.get('/pastures/:id', (req, res) => {
 //  GET INDIVIDUAL PASTURE BY OBJECT ID
 
 // POST TO PASTURES TABLE
-app.post('/pastures', (req, res) => {
+app.post('/:user/pastures', (req, res) => {
   let newPasture = new Pasture({
+    user: req.body.user,
     name: req.body.name,
     comments: req.body.comments
   });
@@ -450,7 +452,7 @@ app.post('/pastures', (req, res) => {
 // POST TO PASTURES TABLE
 
 //DELETE PASTURE DOCUMENT BY ID
-app.delete('/pastures/:id', (req, res) => {
+app.delete('/:user/pastures/:id', (req, res) => {
   Pasture.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -465,7 +467,7 @@ app.delete('/pastures/:id', (req, res) => {
 ////DELETE PASTURE DOCUMENT BY ID
 
 //UPDATE PASTURE DOCUMENT BY ID
-app.patch('/pastures/:id', (req, res) => {
+app.patch('/:user/pastures/:id', (req, res) => {
   Pasture.findOneAndUpdate({
       _id: req.params.id
     }, {
@@ -487,7 +489,7 @@ app.patch('/pastures/:id', (req, res) => {
 //UPDATE PASTURE DOCUMENT BY ID
 
 //  GET ALL DATA FROM PASTURE MOVEMENTS TABLE
-app.get('/movements', (req, res) => {
+app.get('/:user/movements', (req, res) => {
   PastureMovements.find({ user: req.params.user }).sort({
       dateMoved: -1
     }).exec()
@@ -500,8 +502,8 @@ app.get('/movements', (req, res) => {
 //  GET ALL DATA FROM PASTURE MOVEMENTS TABLE
 
 //  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY TAG-ID
-app.get('/movement/:id', (req, res) => {
-  PastureMovements.find({ tag_id: req.params.id })
+app.get('/:user/movement/:id', (req, res) => {
+  PastureMovements.find({ tag_id: req.params.id, user: req.params.user })
     .sort({ dateMoved: -1 })
     // .exec()
     .then((docs) => {
@@ -513,7 +515,7 @@ app.get('/movement/:id', (req, res) => {
 //  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY TAG-ID
 
 //  GET INDIVIDUAL PASTURE MOVEMENTS DATA BY OBJECT ID
-app.get('/movements/:id', (req, res) => {
+app.get('/:user/movements/:id', (req, res) => {
   PastureMovements.findById(req.params.id)
     .then((docs) => {
       res.send(docs)
@@ -525,7 +527,7 @@ app.get('/movements/:id', (req, res) => {
 
 //  POST TO PASTURE MOVEMENTS TABLE
 app.post('/:user/movements', (req, res) => {
-  // console.log(req);
+  console.log(req);
   let newPastureMovement = new PastureMovements({
     user: req.body.user,
     tag_id: req.body.tag_id,
@@ -543,7 +545,7 @@ app.post('/:user/movements', (req, res) => {
 //  POST TO PASTURE MOVEMENTS TABLE
 
 //DELETE PASTURE MOVEMENTS BY ID
-app.delete('/movements/:id', (req, res) => {
+app.delete('/:user/movements/:id', (req, res) => {
   PastureMovements.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -558,7 +560,7 @@ app.delete('/movements/:id', (req, res) => {
 ////DELETE PASTURE MOVEMENTS BY ID
 
 //UPDATE PASTURE MOVEMENTS BY ID
-app.patch('/movements/:id', (req, res) => {
+app.patch('/:user/movements/:id', (req, res) => {
   PastureMovements.findOneAndUpdate({
       _id: req.params.id
     }, {
@@ -581,13 +583,10 @@ app.patch('/movements/:id', (req, res) => {
 
 
 //  GET ALL DATA FROM PREG-CHECK TABLE
-app.get('/pregnancy', (req, res) => {
-  PregCheck.find().sort({
-      date: -1
-    }).exec()
+app.get('/:user/pregnancy', (req, res) => {
+  PregCheck.find({ user: req.params.user }).sort({ date: -1 }).exec()
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
@@ -595,9 +594,10 @@ app.get('/pregnancy', (req, res) => {
 //  GET ALL DATA FROM PREG-CHECK TABLE
 
 //  GET INDIVIDUAL COW PREG-CHECK DATA
-app.get('/pregnancy/:id', (req, res) => {
+app.get('/:user/pregnancy/:id', (req, res) => {
   PregCheck.find({
-      tag_id: req.params.id
+      tag_id: req.params.id,
+      user: req.params.user
     })
     .then((docs) => {
       res.send(docs)
@@ -609,7 +609,7 @@ app.get('/pregnancy/:id', (req, res) => {
 //  GET INDIVIDUAL COW PREG-CHECK DATA
 
 //  GET INDIVIDUAL COW PREG-CHECK DATA BY OBJECT ID
-app.get('/pregcheck/:id', (req, res) => {
+app.get('/:user/pregcheck/:id', (req, res) => {
   PregCheck.findById(req.params.id)
     .then((docs) => {
       res.send(docs)
@@ -621,9 +621,10 @@ app.get('/pregcheck/:id', (req, res) => {
 //  GET INDIVIDUAL COW PREG-CHECK DATA BY OBJECT ID
 
 //  POST TO PREG-CHECK TABLE
-app.post('/pregnancy', (req, res) => {
+app.post('/:user/pregnancy', (req, res) => {
   let newPregCheck = new PregCheck({
     tag_id: req.body.tag_id,
+    user: req.body.user,
     date: req.body.date,
     method: req.body.method,
     result: req.body.result,
@@ -639,7 +640,7 @@ app.post('/pregnancy', (req, res) => {
 //  POST TO PREG-CHECK TABLE
 
 //DELETE PREG-CHECK DOCUMENT BY ID
-app.delete('/pregnancy/:id', (req, res) => {
+app.delete('/:user/pregnancy/:id', (req, res) => {
   PregCheck.findByIdAndRemove(req.params.id)
     .then((docs) => {
       if (!docs) {
@@ -654,7 +655,7 @@ app.delete('/pregnancy/:id', (req, res) => {
 ////DELETE PREG-CHECK DOCUMENT BY ID
 
 //UPDATE PREG-CHECK DOCUMENT BY ID
-app.patch('/pregnancy/:id', (req, res) => {
+app.patch('/:user/pregnancy/:id', (req, res) => {
   PregCheck.findOneAndUpdate({
       _id: req.params.id
     }, {
