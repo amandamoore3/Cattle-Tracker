@@ -95,6 +95,7 @@ export default {
       msg: 'Edit preg-check record',
       pregCheck: [],
       cows: [],
+      user: null,
       errors: []
     }
   },
@@ -108,6 +109,7 @@ export default {
   //   })
   // },
   created() {
+    this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
   watch: {
@@ -115,7 +117,7 @@ export default {
   },
   methods: {
     cancel() {
-      this.$router.push("/pregnancy");
+      this.$router.push("/" + this.user + "/pregnancy");
     },
     checkForm: function(e) {
       if (this.pregCheck.tag_id && this.pregCheck.date && this.pregCheck.result) return true;
@@ -126,17 +128,17 @@ export default {
       e.preventDefault();
     },
     deletePregCheck() {
-      axios.delete('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/pregnancy");
+          this.$router.push("/" + this.user + "/pregnancy");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editPregCheck() {
-      axios.patch('http://127.0.0.1:3000/pregnancy/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id, {
           tag_id: this.pregCheck.tag_id,
           date: this.pregCheck.date,
           method: this.pregCheck.method,
@@ -145,18 +147,18 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$router.push("/pregnancy");
+          this.$router.push("/" + this.user + "/pregnancy");
         })
         .catch((error) => {
           console.log(error);
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/pregcheck/' + this.$route.params.id)
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pregcheck/' + this.$route.params.id)
         .then((response) => {
           this.pregCheck = response.data
         });
-      axios.get('http://127.0.0.1:3000/cattle')
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="appContent">
-    <h5 class="text-right"><router-link :to="{path: '/movements'}">View all movements</router-link></h5>
+    <h5 class="text-right"><router-link :to="{name: 'pasture-movements', params:{user}}">View all movements</router-link></h5>
     <div class="card shadow">
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
@@ -48,7 +48,7 @@
               <div class="form-group">
                 <label for="editPastureMovementName">Pasture*</label>
                 <select v-model:value="pastureMovement.name"  class="form-control" id="editPastureMovementName">
-                  <option disabled value="">Select a pasture</option>
+                  <option disabled>Select a pasture</option>
                   <option v-for="pasture in pastures">{{pasture.name}}</option>
                 </select>
               </div>
@@ -90,6 +90,7 @@ export default {
       pastureMovement: [],
       pastures: [],
       cows: [],
+      user: null,
       errors: []
     }
   },
@@ -103,6 +104,7 @@ export default {
   //   })
   // },
   created() {
+    this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
   watch: {
@@ -110,7 +112,7 @@ export default {
   },
   methods: {
     cancel() {
-      this.$router.push("/movements");
+      this.$router.push("/" + this.user + "/movements");
     },
     checkForm: function(e) {
       if (this.pastureMovement.name && this.pastureMovement.tag_id && this.pastureMovement.dateMoved) return true;
@@ -121,17 +123,17 @@ export default {
       e.preventDefault();
     },
     deleteMovement() {
-      axios.delete('http://127.0.0.1:3000/movements/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/movements/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/movements");
+          this.$router.push("/" + this.user + "/movements");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editMovement() {
-      axios.patch('http://127.0.0.1:3000/movements/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/movements/' + this.$route.params.id, {
           name: this.pastureMovement.name,
           tag_id: this.pastureMovement.tag_id,
           dateMoved: this.pastureMovement.dateMoved,
@@ -139,22 +141,22 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$router.push("/movements");
+          this.$router.push("/" + this.user + "/movements");
         })
         .catch((error) => {
           console.log(error);
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/movements/' + this.$route.params.id)
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movements/' + this.$route.params.id)
         .then((response) => {
           this.pastureMovement = response.data
         });
-      axios.get('http://127.0.0.1:3000/cattle')
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });
-      axios.get('http://127.0.0.1:3000/pastures')
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
         .then((response) => {
           this.pastures = response.data
         });

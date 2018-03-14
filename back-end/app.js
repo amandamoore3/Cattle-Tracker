@@ -35,7 +35,7 @@ app.get('/:user/cattle', (req, res) => {
   Cow.find({ user: req.params.user })
     // .sort({
     //     tag_id: 1
-    //   }).exec()
+    //   })
     .then((docs) => {
       res.send(docs)
     }, (err) => {
@@ -124,7 +124,7 @@ app.patch('/:user/cattle/:id', (req, res) => {
 
 //  GET ALL DATA FROM BREEDING TABLE
 app.get('/:user/breeding', (req, res) => {
-  Breeding.find({ user: req.params.user }).sort({ date: -1 }).exec()
+  Breeding.find({ user: req.params.user }).sort({ date: -1 })
     .then((docs) => {
       res.send(docs)
     }, (err) => {
@@ -136,7 +136,7 @@ app.get('/:user/breeding', (req, res) => {
 //  GET INDIVIDUAL COW BREEDING DATA BY TAG-ID
 app.get('/:user/breeding/:id', (req, res) => {
   Breeding.find({ tag_id: req.params.id, user: req.params.user })
-    .sort({ date: -1 }).exec()
+    .sort({ date: -1 })
     .then((docs) => {
       res.send(docs)
     }, (err) => {
@@ -217,7 +217,7 @@ app.patch('/:user/breedingevent/:id', (req, res) => {
 //  GET ALL DATA FROM CALVING TABLE
 app.get('/:user/calving', (req, res) => {
   Calving.find({ user: req.params.user })
-    .sort({ dob: -1 }).exec()
+    .sort({ dob: -1 })
     .then((docs) => {
       res.send(docs)
 
@@ -232,7 +232,7 @@ app.get('/:user/calving/:id', (req, res) => {
   Calving.find({
       tag_id: req.params.id,
       user: req.params.user
-    }).sort({ dob: -1 }).exec()
+    }).sort({ dob: -1 })
     .then((docs) => {
       res.send(docs)
 
@@ -315,7 +315,7 @@ app.patch('/:user/calvingevent/:id', (req, res) => {
 //  GET ALL DATA FROM HEALTH TABLE
 app.get('/:user/health', (req, res) => {
   Health.find({ user: req.params.user })
-    .sort({ treatmentDate: -1 }).exec()
+    .sort({ treatmentDate: -1 })
     .then((docs) => {
       res.send(docs)
 
@@ -414,7 +414,7 @@ app.patch('/:user/healthevent/:id', (req, res) => {
 
 // GET ALL DATA FROM PASTURES TABLE
 app.get('/:user/pastures', (req, res) => {
-  Pasture.find({ user: req.params.user }).sort({ name: 1 }).exec()
+  Pasture.find({ user: req.params.user }).sort({ name: 1 })
     .then((docs) => {
       res.send(docs)
     }, (err) => {
@@ -426,7 +426,7 @@ app.get('/:user/pastures', (req, res) => {
 //  GET INDIVIDUAL PASTURE DATA BY OBJECT ID
 app.get('/:user/pastures/:id', (req, res) => {
   Pasture.findById(req.params.id)
-    .sort({ name: 1 }).exec()
+    .sort({ name: 1 })
     .then((docs) => {
       res.send(docs)
 
@@ -492,7 +492,7 @@ app.patch('/:user/pastures/:id', (req, res) => {
 //  GET ALL DATA FROM PASTURE MOVEMENTS TABLE
 app.get('/:user/movements', (req, res) => {
   PastureMovements.find({ user: req.params.user })
-    .sort({ dateMoved: -1 }).exec()
+    .sort({ dateMoved: -1 })
     .then((docs) => {
       res.send(docs)
     }, (err) => {
@@ -505,7 +505,7 @@ app.get('/:user/movements', (req, res) => {
 app.get('/:user/movement/:id', (req, res) => {
   PastureMovements.find({ tag_id: req.params.id, user: req.params.user })
     .sort({ dateMoved: -1 })
-    // .exec()
+    //
     .then((docs) => {
       res.send(docs)
     }, (err) => {
@@ -584,7 +584,7 @@ app.patch('/:user/movements/:id', (req, res) => {
 
 //  GET ALL DATA FROM PREG-CHECK TABLE
 app.get('/:user/pregnancy', (req, res) => {
-  PregCheck.find({ user: req.params.user }).sort({ date: -1 }).exec()
+  PregCheck.find({ user: req.params.user }).sort({ date: -1 })
     .then((docs) => {
       res.send(docs)
     }, (err) => {
@@ -599,7 +599,7 @@ app.get('/:user/pregnancy/:id', (req, res) => {
       tag_id: req.params.id,
       user: req.params.user
     })
-    .sort({ date: -1 }).exec()
+    .sort({ date: -1 })
     .then((docs) => {
       res.send(docs)
     }, (err) => {

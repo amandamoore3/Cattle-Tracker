@@ -10,6 +10,11 @@ let pregCheckSchema = mongoose.Schema({
     required: true,
     trim: true
   },
+  user: {
+    type: String,
+    index: true,
+    required: true
+  },
   date: {
     type: Date,
     required: true,
@@ -33,9 +38,10 @@ let pregCheckSchema = mongoose.Schema({
     required: true,
     default: Date.now()
   }
-});
+}, { emitIndexErrors: true });
+
+pregCheckSchema.index({ user: 1 });
 
 let PregCheck = mongoose.model('PregCheck', pregCheckSchema);
-
 
 module.exports = { PregCheck };

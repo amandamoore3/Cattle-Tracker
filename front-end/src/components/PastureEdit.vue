@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="appContent">
-    <h5 class="text-right"><router-link :to="{path: '/pastures'}">View all pastures</router-link></h5>
+    <h5 class="text-right"><router-link :to="{name: 'pastures', params: {user}}">View all pastures</router-link></h5>
     <div class="card shadow">
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
@@ -66,6 +66,7 @@ export default {
     return {
       msg: 'Edit pasture',
       pasture: [],
+      user: null,
       errors: []
     }
   },
@@ -79,6 +80,7 @@ export default {
   //   })
   // },
   created() {
+    this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
   watch: {
@@ -86,7 +88,7 @@ export default {
   },
   methods: {
     cancel() {
-      this.$router.push("/pastures");
+      this.$router.push("/" + this.user + "/pastures");
     },
     checkForm: function(e) {
       if (this.pasture.name) return true;
@@ -95,30 +97,30 @@ export default {
       e.preventDefault();
     },
     deletePasture() {
-      axios.delete('http://127.0.0.1:3000/pastures/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/pastures");
+          this.$router.push("/" + this.user + "/pastures");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editPasture() {
-      axios.patch('http://127.0.0.1:3000/pastures/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures/' + this.$route.params.id, {
           name: this.pasture.name,
           comments: this.pasture.comments
         })
         .then((response) => {
           console.log(response);
-          this.$router.push("/pastures");
+          this.$router.push("/" + this.user + "/pastures");
         })
         .catch((error) => {
           console.log(error);
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/pastures/' + this.$route.params.id)
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures/' + this.$route.params.id)
         .then((response) => {
           this.pasture = response.data
         });

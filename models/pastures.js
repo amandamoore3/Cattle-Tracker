@@ -8,7 +8,7 @@ let pastureSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-    index: true,
+    // index: true,
     trim: true
   },
   user: {
@@ -25,9 +25,9 @@ let pastureSchema = mongoose.Schema({
     required: true,
     default: Date.now()
   }
-});
+}, { emitIndexErrors: true });
 
-pastureSchema.index({ user: 1, name: -1 });
+pastureSchema.index({ user: 1 });
 
 let Pasture = mongoose.model('Pasture', pastureSchema);
 

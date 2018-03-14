@@ -49,6 +49,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <small class="text-secondary p-3">Note: this form adds a new calving record, adds calf to active animals, and registers first pasture location.</small>
+
           <form>
             <div class="modal-body">
               <div class="container-fluid">
@@ -214,6 +216,7 @@ export default {
               axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/calving', newCalving)
                 .then((response) => {
                   console.log(response);
+                  this.fetchData();
                 })
             })
           this.hideModal();
@@ -227,7 +230,6 @@ export default {
           this.newCalving.sire = "";
           this.newCalving.comments = "";
           this.errors = [];
-          this.fetchData();
         })
         .catch((err) => {
           console.log(err);

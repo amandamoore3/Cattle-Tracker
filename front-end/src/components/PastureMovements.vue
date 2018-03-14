@@ -26,7 +26,7 @@
               <td>{{pastureMovement.tag_id}}</td>
               <td>{{pastureMovement.name}}</td>
               <td>{{pastureMovement.dateMoved}}</td>
-              <td><router-link :to="{path: '/movements/' + pastureMovement._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+              <td><router-link :to="{name: 'pasture-movement-record', params: {user, id:pastureMovement._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
             </tr>
           </tbody>
         </table>
@@ -75,7 +75,7 @@
                 <div class="form-group">
                   <label for="addPastureMovementName">Pasture name*</label>
                   <select v-model="newPastureMovement.name"  class="form-control" id="addPastureMovementName">
-                    <option disabled value="">Select a pasture</option>
+                    <option disabled >Select a pasture</option>
                     <option v-for="pasture in pastures">{{pasture.name}}</option>
                   </select>
                 </div>
@@ -109,6 +109,7 @@ export default {
       pastureMovements: [],
       pastures: [],
       cows: [],
+      user: null,
       errors: [],
       newPastureMovement: {
         name: "",
@@ -128,6 +129,7 @@ export default {
   //   })
   // },
   created() {
+    this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
   mixins: [hideModal, clearModal],
@@ -138,14 +140,15 @@ export default {
     addPastureMovement() {
       let newPastureMovement = {
         name: this.newPastureMovement.name,
+        user: this.user,
         tag_id: this.newPastureMovement.tag_id,
         dateMoved: this.newPastureMovement.dateMoved,
         comments: this.newPastureMovement.comments
       }
-      axios.post('http://127.0.0.1:3000/movements', newPastureMovement)
+      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', newPastureMovement)
         .then((response) => {
           console.log(response);
-          this.pastureMovements.unshift(newPastureMovement); //this is needed to force vue to update the DOM
+          // this.pastureMovements.unshift(newPastureMovement); //this is needed to force vue to update the DOM
           this.hideModal();
           this.clearModal();
           this.newPastureMovement.name = "";
@@ -153,6 +156,7 @@ export default {
           this.newPastureMovement.tag_id = "";
           this.newPastureMovement.comments = "";
           this.errors = [];
+          this.fetchData();
         })
         .catch((err) => {
           console.log(err);

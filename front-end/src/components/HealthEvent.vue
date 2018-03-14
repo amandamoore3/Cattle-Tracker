@@ -39,8 +39,8 @@
             <form class="custom-form">
               <div class="form-group">
                 <label for="editHealthTagId">Ear Tag Number*</label>
-                <select v-model="health.tag_id"  class="form-control" id="editHealthTagId">
-                  <option disabled value="">Select an active animal</option>
+                <select v-model:value="health.tag_id"  class="form-control" id="editHealthTagId">
+                  <option disabled>Select an active animal</option>
                   <option v-for="cow in cows" v-if="cow.status =='Active'">{{cow.tag_id}}</option>
                 </select>
               </div>

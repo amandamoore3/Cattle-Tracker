@@ -44,7 +44,7 @@
         </div>
         <div class="tab-pane fade" id="deaths" role="tabpanel" aria-labelledby="deaths-tab">
           <div class="table-responsive">
-            <table class="table table table-striped table-hover">
+            <table class="table table-striped table-hover">
               <thead class="thead-custom-darkgray">
                 <tr>
                   <th>Ear tag</th>
@@ -98,7 +98,7 @@ export default {
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-    console.log(this.user);
+    // console.log(this.user);
   },
   watch: {
     '$route': 'fetchData'

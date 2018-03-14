@@ -235,7 +235,7 @@
                   </div>
                   <div class="form-group">
                     <label for="editAnimalPasture">Pasture*</label>
-                    <select v-model:value="pastureMovements.name"  class="form-control" id="editAnimalPasture">
+                    <select :value="pastureMovements.name" v-model="pastureMovements.name"  class="form-control" id="editAnimalPasture">
                       <option disabled value="">To change pasture, add new pasture movement</option>
                       <option disabled v-for="pasture in pastures">{{pasture.name}}</option>
                     </select>

@@ -29,7 +29,7 @@
             <td>{{pregCheck.date}}</td>
             <td>{{pregCheck.method}}</td>
             <td>{{pregCheck.result}}</td>
-            <td><router-link :to="{path: '/pregcheck/' + pregCheck._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+            <td><router-link :to="{name: 'preg-check-event', params:{user, id: pregCheck._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
           </tr>
         </tbody>
       </table>
@@ -125,6 +125,7 @@ export default {
       msg: 'Herd Preg-checks',
       pregChecks: [],
       cows: [],
+      user: null,
       errors: [],
       newPregCheck: {
         tag_id: "",
@@ -145,6 +146,7 @@ export default {
   //   })
   // },
   created() {
+    this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
   mixins: [hideModal, clearModal],
@@ -155,12 +157,13 @@ export default {
     addPregCheck() {
       let newPregCheck = {
         tag_id: this.newPregCheck.tag_id,
+        user: this.user,
         date: this.newPregCheck.date,
         method: this.newPregCheck.method,
         result: this.newPregCheck.result,
         comments: this.newPregCheck.comments
       }
-      axios.post('http://127.0.0.1:3000/pregnancy', newPregCheck)
+      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy', newPregCheck)
         .then((response) => {
           console.log(response);
           this.hideModal();
@@ -195,11 +198,11 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/pregnancy')
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy')
         .then((response) => {
           this.pregChecks = response.data
         });
-      axios.get('http://127.0.0.1:3000/cattle')
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

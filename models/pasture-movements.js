@@ -2,7 +2,6 @@
 
 const mongoose = require('mongoose');
 
-
 //set up the schema/ structure of data
 let pastureMovementsSchema = mongoose.Schema({
   name: {
@@ -12,7 +11,6 @@ let pastureMovementsSchema = mongoose.Schema({
   },
   tag_id: {
     type: String,
-    index: true,
     required: true,
     trim: true
   },
@@ -23,7 +21,6 @@ let pastureMovementsSchema = mongoose.Schema({
   },
   dateMoved: {
     type: Date,
-    // default: Date(),
     required: true,
     trim: true
   },
@@ -38,9 +35,8 @@ let pastureMovementsSchema = mongoose.Schema({
   }
 }, { emitIndexErrors: true });
 
-pastureMovementsSchema.index({ user: 1, tag_id: -1 });
+pastureMovementsSchema.index({ user: 1 });
 
 let PastureMovements = mongoose.model('PastureMovements', pastureMovementsSchema);
-
 
 module.exports = { PastureMovements };

@@ -36,38 +36,38 @@
               </div>
               <div class="form-group">
                 <label for="addCalvingTagId">Ear Tag Number*</label>
-                <select v-model="calving.tag_id"  class="form-control" id="addCalvingTagId">
+                <select v-model:value="calving.tag_id"  class="form-control" id="addCalvingTagId">
                   <option disabled value="">Select an active animal</option>
                   <option v-for="cow in cows" v-if="cow.status =='Active' && cow.type =='Cow'">{{cow.tag_id}}</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="addCalvingCalfId">Calf Ear Tag*</label>
-                <input v-model="calving.calf_id" type="text" class="form-control" id="addCalvingCalfId" placeholder="Calf ear tag number">
+                <input v-model:value="calving.calf_id" type="text" class="form-control" id="addCalvingCalfId" placeholder="Calf ear tag number">
               </div>
               <div class="form-group">
                 <label for="addCalvingSeason">Season*</label>
-                <input v-model="calving.season" type="text" class="form-control" id="addCalvingSeason">
+                <input v-model:value="calving.season" type="text" class="form-control" id="addCalvingSeason">
               </div>
               <div class="form-group">
                 <label for="addCalvingDob">Birth Date*</label>
-                <input v-model="calving.dob" type="date" class="form-control" id="addCalvingDob" placeholder="mm/dd/yyyy">
+                <input v-model:value="calving.dob" type="date" class="form-control" id="addCalvingDob" placeholder="mm/dd/yyyy">
               </div>
               <div class="form-group">
                 <label for="addCalvingSex">Sex*</label>
-                <select v-model="calving.sex" class="form-control" id="addCalvingSex">
+                <select :value="calving.sex" v-model:value="calving.sex" class="form-control" id="addCalvingSex">
                   <option disabled value="">Select sex</option>
-                  <option>Heifer</option>
-                  <option>Bull</option>
+                  <option>Calf- heifer</option>
+                  <option>Calf- bull</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="addCalvingSire">Sire*</label>
-                <input v-model="calving.sire" type="text" class="form-control" id="addCalvingSire" placeholder="Sire">
+                <input v-model:value="calving.sire" type="text" class="form-control" id="addCalvingSire" placeholder="Sire">
               </div>
               <div class="form-group">
                 <label for="addCalvingComments">Comments</label>
-                <input v-model="calving.comments" type="text" class="form-control" id="addCalvingComments" placeholder="Comments">
+                <input v-model:value="calving.comments" type="text" class="form-control" id="addCalvingComments" placeholder="Comments">
               </div>
               <div class="errorContainer text-danger">
                 <p v-if="errors.length">

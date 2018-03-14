@@ -2,13 +2,17 @@
 
 const mongoose = require('mongoose');
 
-
 //set up the schema/ structure of data
 let outcomeSchema = mongoose.Schema({
   tag_id: {
     type: String,
     required: true,
     trim: true
+  },
+  user: {
+    type: String,
+    index: true,
+    required: true
   },
   date: {
     type: Date,
@@ -37,9 +41,10 @@ let outcomeSchema = mongoose.Schema({
     required: true,
     default: Date.now()
   }
-});
+}, { emitIndexErrors: true });
+
+outcomeSchema.index({ user: 1 });
 
 let Outcome = mongoose.model('Outcome', outcomeSchema);
-
 
 module.exports = { Outcome };

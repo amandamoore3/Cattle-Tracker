@@ -24,7 +24,7 @@
             <tr  v-for="pasture in pastures">
               <td>{{pasture.name}}</td>
               <td>{{addAnimals}}</td>
-              <td><router-link :to="{path: '/pastures/' + pasture._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+              <td><router-link :to="{name: 'pasture-edit',params: {user, id: pasture._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
             </tr>
           </tbody>
         </table>
@@ -147,12 +147,12 @@ export default {
       axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures', newPasture)
         .then((response) => {
           console.log(response);
-          this.pastures.unshift(newPasture); //this is needed to force vue to update the DOM
           this.hideModal();
           this.clearModal();
           this.newPasture.name = "";
           this.newPasture.comments = "";
           this.errors = [];
+          this.fetchData();
         })
         .catch((err) => {
           console.log(err);
