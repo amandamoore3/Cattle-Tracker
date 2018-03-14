@@ -11,29 +11,35 @@
         </div>
       </div>
     </div>
+    <template v-if="breedings.length > 0">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="thead-custom-darkgray">
+            <tr>
+              <th>Ear Tag</th>
+              <th>Date</th>
+              <th>Method</th>
+              <th>Sire</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="breeding in breedings" >
+              <td>{{breeding.tag_id}}</td>
+              <td>{{breeding.date}}</td>
+              <td>{{breeding.method}}</td>
+              <td>{{breeding.sire}}</td>
+              <td><router-link :to="{name: 'breeding-event', params:{user, id: breeding._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </template>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-hover">
-        <thead class="thead-custom-darkgray">
-          <tr>
-            <th>Ear Tag</th>
-            <th>Date</th>
-            <th>Method</th>
-            <th>Sire</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="breeding in breedings" >
-            <td>{{breeding.tag_id}}</td>
-            <td>{{breeding.date}}</td>
-            <td>{{breeding.method}}</td>
-            <td>{{breeding.sire}}</td>
-            <td><router-link :to="{name: 'breeding-event', params:{user, id: breeding._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <template v-else>
+      <h6 class= "p-3">There is no breeding data to show. Get started by clicking "New Breeding Record" above.</h6>
+    </template>
+
   </div>
 
   <!-- ADD Modal -->

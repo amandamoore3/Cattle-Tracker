@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="appContent">
-    <h5 class="text-right"><router-link :to="{path: '/pregnancy'}">All Preg-Check Records</router-link></h5>
+    <h5 class="text-right"><router-link :to="{name: 'preg-check', params:{user}}">All Preg-Check Records</router-link></h5>
     <div class="card shadow">
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>

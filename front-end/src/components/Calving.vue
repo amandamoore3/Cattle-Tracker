@@ -12,32 +12,38 @@
           </div>
         </div>
       </div>
-      <div class="table-responsive">
-        <table class="table table table-striped table-hover">
-          <thead class="thead-custom-darkgray">
-            <tr>
-              <th>Ear Tag</th>
-              <th>Calf Ear Tag</th>
-              <th>Season</th>
-              <th>Sex</th>
-              <th>Sire</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr  v-for="calving in calvings" >
-              <td>{{calving.tag_id}}</td>
-              <td>{{calving.calf_id}}</td>
-              <td>{{calving.season}}</td>
-              <td>{{calving.sex}}</td>
-              <td>{{calving.sire}}</td>
-              <td><router-link :to="{name: 'calving-record', params: {user, id:calving._id }}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
+
+      <template v-if="calvings.length > 0">
+        <div class="table-responsive">
+          <table class="table table table-striped table-hover">
+            <thead class="thead-custom-darkgray">
+              <tr>
+                <th>Ear Tag</th>
+                <th>Calf Ear Tag</th>
+                <th>Season</th>
+                <th>Sex</th>
+                <th>Sire</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  v-for="calving in calvings" >
+                <td>{{calving.tag_id}}</td>
+                <td>{{calving.calf_id}}</td>
+                <td>{{calving.season}}</td>
+                <td>{{calving.sex}}</td>
+                <td>{{calving.sire}}</td>
+                <td><router-link :to="{name: 'calving-record', params: {user, id:calving._id }}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </template>
+      <template v-else>
+        <h6 class= "p-3">There is no calving data to show. Get started by clicking "New Calving Record" above.</h6>
+      </template>
+    </div>
 
   <!-- ADD Modal -->
     <div class="modal fade" id="addCalvingModal" tabindex="-1" role="dialog" aria-labelledby="addCalvingModalLabel" aria-hidden="true">

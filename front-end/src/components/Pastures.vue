@@ -11,24 +11,33 @@
           </div>
         </div>
       </div>
-      <div class="table-responsive">
-        <table ref="testing" class="table table table-striped table-hover">
-          <thead class="thead-custom-darkgray">
-            <tr>
-              <th>Pasture</th>
-              <th>Total #</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr  v-for="pasture in pastures">
-              <td>{{pasture.name}}</td>
-              <td>{{addAnimals}}</td>
-              <td><router-link :to="{name: 'pasture-edit',params: {user, id: pasture._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+      <template v-if="pastures.length > 0">
+        <div class="table-responsive">
+          <table ref="testing" class="table table table-striped table-hover">
+            <thead class="thead-custom-darkgray">
+              <tr>
+                <th>Pasture</th>
+                <th>Total #</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  v-for="pasture in pastures">
+                <td>{{pasture.name}}</td>
+                <td>{{addAnimals}}</td>
+                <td><router-link :to="{name: 'pasture-edit',params: {user, id: pasture._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </template>
+
+      <template v-else>
+        <h6 class= "p-3">There are no pastures to show. Get started by clicking "New Pasture" above.</h6>
+      </template>
+
+
     </div>
     <!-- ADD Modal -->
     <div class="modal fade" id="addPastureModal" tabindex="-1" role="dialog" aria-labelledby="addPastureModalLabel" aria-hidden="true">

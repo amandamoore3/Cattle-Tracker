@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="appContent">
-    <h5 class="text-right"><router-link :to="{path: '/health'}">Herd health records</router-link></h5>
+    <h5 class="text-right"><router-link :to="{name: 'health', params:{user}}">Herd health records</router-link></h5>
 
     <div class="card shadow">
       <div class="card-header">

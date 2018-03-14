@@ -1,38 +1,44 @@
 <template lang="html">
-<div class="appContent">
-  <div class="card shadow">
-    <div class="card-header bg-primary text-white">
-      <div class="row no-gutters">
-        <div class="col-8">
-          <h3 class="font-weight-bold">{{msg}}</h3>
-        </div>
-        <div class="col-4">
-          <h5 class="text-right"><a href="#" class="text-white" data-toggle="modal" data-target="#addHealthModal">New Health Record</a></h5>
+  <div class="appContent">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <div class="row no-gutters">
+          <div class="col-8">
+            <h3 class="font-weight-bold">{{msg}}</h3>
+          </div>
+          <div class="col-4">
+            <h5 class="text-right"><a href="#" class="text-white" data-toggle="modal" data-target="#addHealthModal">New Health Record</a></h5>
+          </div>
         </div>
       </div>
-    </div>
-      <div class="table-responsive">
-        <table class="table table table-striped table-hover">
-        <thead class="thead-custom-darkgray">
-          <tr>
-            <th>Ear Tag</th>
-            <th>Treatment Date</th>
-            <th>Medication</th>
-            <th>Diagnosis</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr  v-for="healthEvent in healthEvents" >
-            <td>{{healthEvent.tag_id}}</td>
-            <td>{{healthEvent.treatmentDate}}</td>
-            <td>{{healthEvent.medication}}</td>
-            <td>{{healthEvent.diagnosis}}</td>
-            <td><router-link :to="{name: 'health-event', params: {user, id:healthEvent._id }}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
+
+      <template v-if="healthEvents.length > 0">
+        <div class="table-responsive">
+          <table class="table table table-striped table-hover">
+            <thead class="thead-custom-darkgray">
+              <tr>
+                <th>Ear Tag</th>
+                <th>Treatment Date</th>
+                <th>Medication</th>
+                <th>Diagnosis</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  v-for="healthEvent in healthEvents" >
+                <td>{{healthEvent.tag_id}}</td>
+                <td>{{healthEvent.treatmentDate}}</td>
+                <td>{{healthEvent.medication}}</td>
+                <td>{{healthEvent.diagnosis}}</td>
+                <td><router-link :to="{name: 'health-event', params: {user, id:healthEvent._id }}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </template>
+      <template v-else>
+        <h6 class= "p-3">There is no health data to show. Get started by clicking "New Health Record" above.</h6>
+      </template>
     </div>
 
     <!-- ADD Modal -->

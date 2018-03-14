@@ -33,16 +33,6 @@ const router = new vueRouter({
       component: Home
     },
     {
-      path: '/:user/cattle',
-      name: 'cattle',
-      component: Cows
-    },
-    {
-      path: '/:user/cattle/:id',
-      name: 'individual-animal',
-      component: Animal
-    },
-    {
       path: '/:user/breeding',
       name: 'breeding',
       component: Breeding
@@ -63,14 +53,9 @@ const router = new vueRouter({
       component: CalvingRecord
     },
     {
-      path: '/:user/pregnancy',
-      name: 'preg-check',
-      component: PregCheck
-    },
-    {
-      path: '/:user/pregcheck/:id',
-      name: 'preg-check-event',
-      component: PregCheckEvent
+      path: '/:user/cattle',
+      name: 'cattle',
+      component: Cows
     },
     {
       path: '/:user/health',
@@ -81,6 +66,11 @@ const router = new vueRouter({
       path: '/:user/healthevent/:id',
       name: 'health-event',
       component: HealthEvent
+    },
+    {
+      path: '/:user/cattle/:id',
+      name: 'individual-animal',
+      component: Animal
     },
     {
       path: '/:user/outcomes',
@@ -111,6 +101,16 @@ const router = new vueRouter({
       path: '/:user/movements/:id',
       name: 'pasture-movement-record',
       component: PastureMovementRecord
+    },
+    {
+      path: '/:user/pregnancy',
+      name: 'preg-check',
+      component: PregCheck
+    },
+    {
+      path: '/:user/pregcheck/:id',
+      name: 'preg-check-event',
+      component: PregCheckEvent
     }
   ]
 })

@@ -7,33 +7,39 @@
           <h3 class="font-weight-bold">{{msg}}</h3>
         </div>
         <div class="col-4">
-          <h5 class="text-right"><a href="#" class="text-white" data-toggle="modal" data-target="#addPregCheckModal">New Preg-check record</a></h5>
+          <h5 class="text-right"><a href="#" class="text-white" data-toggle="modal" data-target="#addPregCheckModal">New Preg-check Record</a></h5>
         </div>
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table table-striped table-hover">
-        <thead class="thead-custom-darkgray">
-          <tr>
-            <th>Ear Tag</th>
-            <th>Date</th>
-            <th>Method</th>
-            <th>Result</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr  v-for="pregCheck in pregChecks" >
-            <td>{{pregCheck.tag_id}}</td>
-            <td>{{pregCheck.date}}</td>
-            <td>{{pregCheck.method}}</td>
-            <td>{{pregCheck.result}}</td>
-            <td><router-link :to="{name: 'preg-check-event', params:{user, id: pregCheck._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <template v-if="pregChecks.length > 0">
+      <div class="table-responsive">
+        <table class="table table table-striped table-hover">
+          <thead class="thead-custom-darkgray">
+            <tr>
+              <th>Ear Tag</th>
+              <th>Date</th>
+              <th>Method</th>
+              <th>Result</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  v-for="pregCheck in pregChecks" >
+              <td>{{pregCheck.tag_id}}</td>
+              <td>{{pregCheck.date}}</td>
+              <td>{{pregCheck.method}}</td>
+              <td>{{pregCheck.result}}</td>
+              <td><router-link :to="{name: 'preg-check-event', params:{user, id: pregCheck._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </template>
+
+    <template v-else>
+      <h6 class= "p-3">There is no preg-check data to show. Get started by clicking "New Preg-Check Record" above.</h6>
+    </template>
   </div>
 
   <!-- ADD Modal -->

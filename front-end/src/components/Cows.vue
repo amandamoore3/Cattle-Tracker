@@ -13,29 +13,34 @@
       </div>
     </div>
 
-    <div class="table-responsive">
-      <table class="table table-striped table-hover">
-        <thead class="thead-custom-darkgray">
-          <tr>
-            <th>Ear Tag</th>
-            <th>Type</th>
-            <!-- <th>Pasture</th> -->
-            <th>Birth Date</th>
-            <!-- <th>View/ Edit</th> -->
+    <template v-if="cows.length > 0">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="thead-custom-darkgray">
+            <tr>
+              <th>Ear Tag</th>
+              <th>Type</th>
+              <!-- <th>Pasture</th> -->
+              <th>Birth Date</th>
+              <!-- <th>View/ Edit</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="cow in cows" v-if="cow.status =='Active'">
+              <!-- <router-link :to="{name: 'itemModal', params: {id: item.id}}">See item 1</router-link> -->
+              <td class="font-weight-bold text-md"><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id}}">{{cow.tag_id}}</router-link></td>
+              <td>{{cow.type}}</td>
+              <!-- <td>{{currentPasture}}</td> -->
+              <td>{{cow.dob}}</td>
+              <!-- <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td> -->
           </tr>
-        </thead>
-        <tbody>
-          <tr v-for="cow in cows" v-if="cow.status =='Active'">
-            <!-- <router-link :to="{name: 'itemModal', params: {id: item.id}}">See item 1</router-link> -->
-            <td class="font-weight-bold text-md"><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id}}">{{cow.tag_id}}</router-link></td>
-            <td>{{cow.type}}</td>
-            <!-- <td>{{currentPasture}}</td> -->
-            <td>{{cow.dob}}</td>
-            <!-- <td><router-link :to="{name: 'individual-animal', params:{id: cow.tag_id} }"><span class="icon"><i class="fa fa-2x fa-chevron-circle-right"></i></span></router-link></td> -->
-        </tr>
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
+    </template>
+    <template v-else>
+      <h6 class= "p-3">There are no cattle to show. Get started by clicking "New Animal" above.</h6>
+    </template>
   </div>
 
 <!-- ADD Modal -->

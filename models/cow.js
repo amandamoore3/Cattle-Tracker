@@ -2,28 +2,11 @@
 
 const mongoose = require('mongoose');
 
-
-// let today = new Date();
-// let dd = today.getDate();
-// let mm = today.getMonth() + 1; //January is 0!
-//
-// let yyyy = today.getFullYear();
-// if (dd < 10) {
-//   dd = '0' + dd;
-// }
-// if (mm < 10) {
-//   mm = '0' + mm;
-// }
-// let formattedDate = dd + '/' + mm + '/' + yyyy;
-
-
 //set up the schema/ structure of data
 let cowSchema = mongoose.Schema({
   tag_id: {
     type: String,
     index: true,
-    // unique: true,
-    // dropDups: true,
     required: true,
     minLength: 1,
     trim: true
@@ -41,11 +24,6 @@ let cowSchema = mongoose.Schema({
     type: Date,
     trim: true
   },
-  // pasture: {
-  //   type: String,
-  //   required: true,
-  //   trim: true
-  // },
   dateCreated: {
     type: Date,
     required: true,

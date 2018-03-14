@@ -3,16 +3,16 @@
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
         <h3 class="font-weight-bold">{{msg}}</h3>
-      </div>
-      <div>
-        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link font-weight-bold active" id="sold-tab" data-toggle="tab" href="#sold" role="tab" aria-controls="sold" aria-selected="true">Sold</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link font-weight-bold" id="deaths-tab" data-toggle="tab" href="#deaths" role="tab" aria-controls="deaths" aria-selected="false">Deaths</a>
-          </li>
-        </ul>
+    </div>
+    <div>
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link font-weight-bold active" id="sold-tab" data-toggle="tab" href="#sold" role="tab" aria-controls="sold" aria-selected="true">Sold</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link font-weight-bold" id="deaths-tab" data-toggle="tab" href="#deaths" role="tab" aria-controls="deaths" aria-selected="false">Deaths</a>
+        </li>
+      </ul>
 
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="sold" role="tabpanel" aria-labelledby="sold-tab">
