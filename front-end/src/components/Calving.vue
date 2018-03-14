@@ -9,10 +9,11 @@
           </div>
           <div class="col-4">
             <h5 class="text-right"><a href="#" class="text-white" data-toggle="modal" data-target="#addCalvingModal">New Calving Record</a></h5>
+            <h6 class="text-right"><router-link :to="{name: 'calving-season', params: {user}}" class="text-white">Manage calving seasons</router-link></h6>
+
           </div>
         </div>
       </div>
-
 
       <template v-if="calvings.length > 0">
         <div class="table-responsive">
@@ -89,7 +90,10 @@
               </div>
               <div class="form-group">
                 <label for="addCalvingSeason">Season*</label>
-                <input v-model="newCalving.season" type="text" class="form-control" id="addCalvingSeason">
+                <select v-model="newCalving.season" type="text" class="form-control" id="addCalvingSeason">
+                  <option disabled value="">If season is not listed, add new calving season.</option>
+                  <option v-for="calvingSeason in calvingSeasons">{{calvingSeason.name}}</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="addCalvingDob">Birth Date*</label>
@@ -153,6 +157,7 @@ export default {
       calvings: [],
       cows: [],
       pastures: [],
+      calvingSeasons: [],
       user: null,
       errors: [],
       newCalving: {
@@ -278,6 +283,10 @@ export default {
       axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
         .then((response) => {
           this.pastures = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving-season')
+        .then((response) => {
+          this.calvingSeasons = response.data
         });
     }
   }

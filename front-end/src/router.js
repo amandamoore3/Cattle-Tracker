@@ -4,6 +4,8 @@ import Breeding from './components/Breeding.vue'
 import BreedingEvent from './components/BreedingEvent.vue'
 import Calving from './components/Calving'
 import CalvingRecord from './components/CalvingRecord'
+import CalvingSeason from './components/CalvingSeason'
+import CalvingSeasonRecord from './components/CalvingSeasonRecord'
 import Cows from './components/Cows'
 import Health from './components/Health'
 import HealthEvent from './components/HealthEvent'
@@ -51,6 +53,16 @@ const router = new vueRouter({
       path: '/:user/calvingevent/:id',
       name: 'calving-record',
       component: CalvingRecord
+    },
+    {
+      path: '/:user/calving-season',
+      name: 'calving-season',
+      component: CalvingSeason
+    },
+    {
+      path: '/:user/calving-season/:id',
+      name: 'calving-season-record',
+      component: CalvingSeasonRecord
     },
     {
       path: '/:user/cattle',

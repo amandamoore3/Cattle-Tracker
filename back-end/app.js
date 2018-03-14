@@ -11,6 +11,8 @@ const { Breeding } = require('../models/breeding.js');
 
 const { Calving } = require('../models/calving.js');
 
+const { CalvingSeason } = require('../models/calving-season.js');
+
 const { Cow } = require('../models/cow.js');
 
 const { Health } = require('../models/health.js');
@@ -52,7 +54,6 @@ app.get('/:user/cattle/:id', (req, res) => {
     })
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
@@ -318,12 +319,81 @@ app.get('/:user/health', (req, res) => {
     .sort({ treatmentDate: -1 })
     .then((docs) => {
       res.send(docs)
-
     }, (err) => {
       res.status(400).send(err);
     });
 });
 //  GET ALL DATA FROM HEALTH TABLE
+
+// GET ALL DATA FROM CALVING SEASON TABLE
+app.get('/:user/calving-season', (req, res) => {
+  CalvingSeason.find({ user: req.params.user }).sort({ dateCreated: -1 })
+    .then((docs) => {
+      res.send(docs)
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+// GET ALL DATA FROM CALVING SEASON TABLE
+
+//  GET INDIVIDUAL CALVING SEASON DATA BY OBJECT ID
+app.get('/:user/calving-season/:id', (req, res) => {
+  CalvingSeason.findById(req.params.id)
+    .sort({ dateCreated: -1 })
+    .then((docs) => {
+      res.send(docs)
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+//  GET INDIVIDUAL CALVING SEASON BY OBJECT ID
+
+// POST TO CALVING SEASON TABLE
+app.post('/:user/calving-season', (req, res) => {
+  let newCalvingSeason = new CalvingSeason({
+    user: req.body.user,
+    name: req.body.name,
+    comments: req.body.comments
+  });
+  newCalvingSeason.save()
+    .then((doc) => {
+      res.send(doc);
+    }, (err) => {
+      res.status(400).send(err);
+    });
+});
+// POST TO CALVING SEASON TABLE
+
+//DELETE CALVING SEASON DOCUMENT BY ID
+app.delete('/:user/calving-season/:id', (req, res) => {
+  CalvingSeason.findByIdAndRemove(req.params.id)
+    .then((docs) => {
+      if (!docs) {
+        res.send('Nothing found');
+      }
+      res.send(docs);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+////DELETE CALVING SEASON DOCUMENT BY ID
+
+//UPDATE CALVING SEASON DOCUMENT BY ID
+app.patch('/:user/calving-season/:id', (req, res) => {
+  CalvingSeason.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, {
+      new: true,
+      runValidators: true
+    })
+    .then((response) => {
+      if (!response) {
+        res.send('Nothing found');
+      }
+      res.send(response);
+    }, (err) => {
+      res.status(400).send(err.message);
+    });
+});
+//UPDATE CALVING SEASON DOCUMENT BY ID
 
 //  GET INDIVIDUAL COW HEALTH DATA
 app.get('/:user/health/:id', (req, res) => {
@@ -391,11 +461,7 @@ app.delete('/:user/healthevent/:id', (req, res) => {
 
 //UPDATE HEALTH DOCUMENT BY ID
 app.patch('/:user/healthevent/:id', (req, res) => {
-  Health.findOneAndUpdate({
-      _id: req.params.id
-    }, {
-      $set: req.body
-    }, {
+  Health.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, {
       new: true,
       runValidators: true
     })
