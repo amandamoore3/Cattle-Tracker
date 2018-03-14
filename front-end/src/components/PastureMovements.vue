@@ -7,30 +7,36 @@
             <h3 class="font-weight-bold">{{msg}}</h3>
           </div>
           <div class="col-4">
-            <h5 class="text-right"><a href="#" class="text-white"  data-toggle="modal" data-target="#addPastureMovementModal">Add Movement</a></h5>
+            <h5 class="text-right"><a href="#" class="text-white"  data-toggle="modal" data-target="#addPastureMovementModal">New Movement</a></h5>
           </div>
         </div>
       </div>
-      <div class="table-responsive">
-        <table ref="testing" class="table table table-striped table-hover">
-          <thead class="thead-custom-darkgray">
-            <tr>
-              <th>Ear tag</th>
-              <th>Pasture</th>
-              <th>Date moved</th>
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr  v-for="pastureMovement in pastureMovements">
-              <td>{{pastureMovement.tag_id}}</td>
-              <td>{{pastureMovement.name}}</td>
-              <td>{{pastureMovement.dateMoved}}</td>
-              <td><router-link :to="{name: 'pasture-movement-record', params: {user, id:pastureMovement._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <template v-if="pastureMovements.length > 0">
+        <div class="table-responsive">
+          <table ref="testing" class="table table table-striped table-hover">
+            <thead class="thead-custom-darkgray">
+              <tr>
+                <th>Ear tag</th>
+                <th>Pasture</th>
+                <th>Date moved</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  v-for="pastureMovement in pastureMovements">
+                <td>{{pastureMovement.tag_id}}</td>
+                <td>{{pastureMovement.name}}</td>
+                <td>{{pastureMovement.dateMoved}}</td>
+                <td><router-link :to="{name: 'pasture-movement-record', params: {user, id:pastureMovement._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+       </template>
+
+       <template v-else>
+         <h6 class= "p-3">There are no pasture movments to show. Get started by clicking "New Movement" above.</h6>
+       </template>
     </div>
     <!-- ADD Modal -->
     <div class="modal fade" id="addPastureMovementModal" tabindex="-1" role="dialog" aria-labelledby="addPastureMovementModalLabel" aria-hidden="true">
