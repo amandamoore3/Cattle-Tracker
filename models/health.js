@@ -2,13 +2,17 @@
 
 const mongoose = require('mongoose');
 
-
 //set up the schema/ structure of data
 let healthSchema = mongoose.Schema({
   tag_id: {
     type: String,
     required: true,
     trim: true
+  },
+  user: {
+    type: String,
+    index: true,
+    required: true
   },
   treatmentDate: {
     type: Date,
@@ -41,9 +45,10 @@ let healthSchema = mongoose.Schema({
     type: String,
     trim: true
   }
-});
+}, { emitIndexErrors: true });
+
+healthSchema.index({ user: 1 });
 
 let Health = mongoose.model('Health', healthSchema);
-
 
 module.exports = { Health };

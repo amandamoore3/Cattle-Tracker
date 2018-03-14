@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="appContent">
-    <h5 class="text-right"><router-link :to="{path: '/outcomes'}">Back to outcomes</router-link></h5>
+    <h5 class="text-right"><router-link :to="{name: 'outcomes', params: {user}}">Back to outcomes</router-link></h5>
     <div class="card shadow">
       <div class="card-header">
         <h3 class="font-weight-bold">{{msg}}</h3>
@@ -84,6 +84,7 @@ export default {
     return {
       msg: 'Update this record',
       cow: [],
+      user: null,
       errors: []
     }
   },
@@ -97,14 +98,15 @@ export default {
   //   })
   // },
   created() {
-    axios.get('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
-      .then((response) => {
-        this.cow = response.data
-      });
+    this.user = firebase.auth().currentUser.uid;
+    this.fetchData();
+  },
+  watch: {
+    '$route': 'fetchData'
   },
   methods: {
     cancel() {
-      this.$router.push("/outcomes");
+      this.$router.push("/" + this.user + "/outcomes");
     },
     checkForm: function(e) {
       if (this.cow.status && this.cow.status_date) return true;
@@ -114,17 +116,17 @@ export default {
       e.preventDefault();
     },
     deleteOutcome() {
-      axios.delete('http://127.0.0.1:3000/cattle/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/outcomes");
+          this.$router.push("/" + this.user + "/outcomes");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editOutcome() {
-      axios.patch('http://127.0.0.1:3000/cattle/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id, {
           status: this.cow.status,
           status_date: this.cow.status_date,
           weight: this.cow.weight,
@@ -133,10 +135,16 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$router.push("/outcomes");
+          this.$router.push("/" + this.user + "/outcomes");
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
+        .then((response) => {
+          this.cow = response.data
         });
     }
   }

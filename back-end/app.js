@@ -315,7 +315,7 @@ app.patch('/:user/calvingevent/:id', (req, res) => {
 //  GET ALL DATA FROM HEALTH TABLE
 app.get('/:user/health', (req, res) => {
   Health.find({ user: req.params.user })
-    .sort({ date: -1 }).exec()
+    .sort({ treatmentDate: -1 }).exec()
     .then((docs) => {
       res.send(docs)
 
@@ -331,7 +331,7 @@ app.get('/:user/health/:id', (req, res) => {
       tag_id: req.params.id,
       user: req.params.user
     })
-    .sort({ date: -1 }).exec()
+    .sort({ treatmentDate: -1 })
     .then((docs) => {
       res.send(docs)
 

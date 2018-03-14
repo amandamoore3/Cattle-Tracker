@@ -119,7 +119,7 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/ ' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
       .then((response) => {
         this.calving = response.data
       });
@@ -127,6 +127,9 @@ export default {
       .then((response) => {
         this.cows = response.data
       });
+  },
+  watch: {
+    '$route': 'fetchData'
   },
   methods: {
     cancel() {

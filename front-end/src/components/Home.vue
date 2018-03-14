@@ -38,12 +38,12 @@ export default {
   // },
   created() {
     firebase.auth().onAuthStateChanged((user) => {
-      // if (user) {
-      this.user = firebase.auth().currentUser.uid;
-      // } else {
-      //   this.$router.push('/login');
-      // }
-    });
+      if (user) {
+        this.user = firebase.auth().currentUser.uid;
+      } else {
+        // this.$router.push('/login');
+      }
+    })
   }
 }
 </script>

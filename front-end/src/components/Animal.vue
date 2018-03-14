@@ -32,7 +32,6 @@
       </div>
     </div>
     <h6 class="text-right"><router-link :to="{name: 'cattle', params: {user}}" class="font-weight-bold ">Back to herd information</router-link></h6>
-
     <div class="card  shadow">
       <div>
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -56,7 +55,6 @@
           </li>
         </ul>
       </div>
-
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="calving" role="tabpanel" aria-labelledby="calving-tab">
           <template v-if="cow.type !=='Cow' || calvings.length === 0">
@@ -112,12 +110,10 @@
             </div>
           </template>
         </div>
-
         <div class="tab-pane fade" id="pregnancy" role="tabpanel" aria-labelledby="pregnancy-tab">
           <template v-if="cow.type !=='Cow' || pregnancies.length === 0">
             <p class="pl-3">There is no pregnancy data for this animal.</p>
           </template>
-
           <template v-else>
             <div class="table-responsive">
               <table class="table  table-striped table-hover">
@@ -137,7 +133,6 @@
             </div>
           </template>
         </div>
-
         <div class="tab-pane fade" id="health" role="tabpanel" aria-labelledby="health-tab">
           <template v-if="healthEvents.length === 0">
             <p class="pl-3">There is no health data for this animal.</p>
@@ -161,7 +156,6 @@
             </div>
           </template>
         </div>
-
         <div class="tab-pane fade" id="movements" role="tabpanel" aria-labelledby="movements-tab">
           <template v-if="pastureMovements.length === 0">
             <p class="pl-3">There are no pasture changes for this animal.</p>
@@ -185,15 +179,11 @@
             </div>
           </template>
         </div>
-
-
-
         <div class="tab-pane fade text-center" id="delete" role="tabpanel" aria-labelledby="delete-tab">
           <button class="btn btn-danger" type="button" @click="deleteCow()" name="deleteCow">Delete this animal</button>
         </div>
     </div>
   </div>
-
 
   <!-- EDIT ANIMAL Modal -->
       <div class="modal fade" id="editAnimalModal" tabindex="-1" role="dialog" aria-labelledby="editAnimalModalLabel" aria-hidden="true">
@@ -205,113 +195,107 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <!-- <div class="modal-body"> -->
-                  <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link font-weight-bold active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Information</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link font-weight-bold" id="statusUpdate-tab" data-toggle="tab" href="#statusUpdate" role="tab" aria-controls="statusUpdate" aria-selected="false">Status</a>
-                    </li>
-                  </ul>
-                  <small class="text-right pr-4 text-secondary m-1">Fields marked with (*) are required.</small>
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
-                      <div class="errorContainer custom-form text-danger">
-                        <p v-if="errors.length">
-                          <b>Please correct the following error(s):</b>
-                          <ul>
-                            <li v-for="error in errors">{{ error }}</li>
-                          </ul>
-                        </p>
-                      </div>
-                      <form class="custom-form">
-                        <div class="form-group">
-                          <label for="editAnimalTagId">Ear Tag Number*</label>
-                          <input  v-model:value="cow.tag_id" type="text" class="form-control" id="editAnimalTagId" placeholder="Ear tag number">
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalType">Type*</label>
-                          <select v-model:value="cow.type"  class="form-control" id="editAnimalType">
-                            <option disabled value="">Select type of animal</option>
-                            <option>Cow</option>
-                            <option>Bull</option>
-                            <option>Calf- bull</option>
-                            <option>Calf- heifer</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalDOB">Date of Birth</label>
-                          <input v-model:value="cow.dob"  type="date" class="form-control" id="editAnimalDOB" placeholder="mm/dd/yyyy">
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalPasture">Pasture*</label>
-                          <select v-model:value="pastureMovements.name"  class="form-control" id="editAnimalPasture">
-                            <option disabled value="">To change pasture, add new pasture movement</option>
-                            <option disabled v-for="pasture in pastures">{{pasture.name}}</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalSire">Sire</label>
-                          <input v-model:value="cow.sire"  type="text" class="form-control" id="editAnimalSire" placeholder="Sire">
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalDam">Dam</label>
-                          <input v-model:value="cow.dam" type="text" class="form-control" id="editAnimalDam" placeholder="Dam">
-                        </div>
-                      </form>
-                    </div>
-                    <div class="tab-pane fade" id="statusUpdate" role="tabpanel" aria-labelledby="statusUpdate-tab">
-                      <form class="custom-form">
-                        <div class="form-group">
-                          <label for="editAnimalStatus">Status*</label>
-                          <select v-model:value="cow.status"  class="form-control" id="editAnimalStatus">
-                            <option disabled value="">Select animal status</option>
-                            <option>Active</option>
-                            <option>Sold</option>
-                            <option>Deceased</option>
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalStatusChangeDate">Status Change Date*</label>
-                          <input v-model:value="cow.status_date" type="date" class="form-control" id="editAnimalStatusChangeDate">
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalWeight">Weight</label>
-                          <input v-model:value="cow.weight" type="text" class="form-control" id="editAnimalWeight">
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalCauseOfDeath">Cause of Death</label>
-                          <input v-model:value="cow.causeOfDeath" type="text" class="form-control" id="editAnimalCauseOfDeath">
-                        </div>
-                        <div class="form-group">
-                          <label for="editAnimalStatusComments">Status change comments</label>
-                          <input v-model:value="cow.status_comments" type="text" class="form-control" id="editAnimalStatusComments">
-                        </div>
-                      </form>
-                    </div>
-                    <!-- <div class="form-group">
-                      <label v-for="err in errs" class="danger"></label>
-                    </div> -->
-                    <div class="errorContainer text-danger custom-form">
-                      <p v-if="errors.length">
-                        <b>Please correct the following error(s):</b>
-                        <ul>
-                          <li v-for="error in errors">{{ error }}</li>
-                        </ul>
-                      </p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear()">Cancel</button>
-                      <button type="submit" class="btn btn-primary" @click="checkForm($event); editAnimal();">Update</button>
-                    </div>
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link font-weight-bold active" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="true">Information</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link font-weight-bold" id="statusUpdate-tab" data-toggle="tab" href="#statusUpdate" role="tab" aria-controls="statusUpdate" aria-selected="false">Status</a>
+              </li>
+            </ul>
+            <small class="text-right pr-4 text-secondary m-1">Fields marked with (*) are required.</small>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="update" role="tabpanel" aria-labelledby="update-tab">
+                <div class="errorContainer custom-form text-danger">
+                  <p v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                      <li v-for="error in errors">{{ error }}</li>
+                    </ul>
+                  </p>
+                </div>
+                <form class="custom-form">
+                  <div class="form-group">
+                    <label for="editAnimalTagId">Ear Tag Number*</label>
+                    <input  v-model:value="cow.tag_id" type="text" class="form-control" id="editAnimalTagId" placeholder="Ear tag number">
                   </div>
-                <!-- </div> -->
+                  <div class="form-group">
+                    <label for="editAnimalType">Type*</label>
+                    <select v-model:value="cow.type"  class="form-control" id="editAnimalType">
+                      <option disabled value="">Select type of animal</option>
+                      <option>Cow</option>
+                      <option>Bull</option>
+                      <option>Calf- bull</option>
+                      <option>Calf- heifer</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalDOB">Date of Birth</label>
+                    <input v-model:value="cow.dob"  type="date" class="form-control" id="editAnimalDOB" placeholder="mm/dd/yyyy">
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalPasture">Pasture*</label>
+                    <select v-model:value="pastureMovements.name"  class="form-control" id="editAnimalPasture">
+                      <option disabled value="">To change pasture, add new pasture movement</option>
+                      <option disabled v-for="pasture in pastures">{{pasture.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalSire">Sire</label>
+                    <input v-model:value="cow.sire"  type="text" class="form-control" id="editAnimalSire" placeholder="Sire">
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalDam">Dam</label>
+                    <input v-model:value="cow.dam" type="text" class="form-control" id="editAnimalDam" placeholder="Dam">
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="statusUpdate" role="tabpanel" aria-labelledby="statusUpdate-tab">
+                <form class="custom-form">
+                  <div class="form-group">
+                    <label for="editAnimalStatus">Status*</label>
+                    <select v-model:value="cow.status"  class="form-control" id="editAnimalStatus">
+                      <option disabled value="">Select animal status</option>
+                      <option>Active</option>
+                      <option>Sold</option>
+                      <option>Deceased</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalStatusChangeDate">Status Change Date*</label>
+                    <input v-model:value="cow.status_date" type="date" class="form-control" id="editAnimalStatusChangeDate">
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalWeight">Weight</label>
+                    <input v-model:value="cow.weight" type="text" class="form-control" id="editAnimalWeight">
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalCauseOfDeath">Cause of Death</label>
+                    <input v-model:value="cow.causeOfDeath" type="text" class="form-control" id="editAnimalCauseOfDeath">
+                  </div>
+                  <div class="form-group">
+                    <label for="editAnimalStatusComments">Status change comments</label>
+                    <input v-model:value="cow.status_comments" type="text" class="form-control" id="editAnimalStatusComments">
+                  </div>
+                </form>
+              </div>
+              <div class="errorContainer text-danger custom-form">
+                <p v-if="errors.length">
+                  <b>Please correct the following error(s):</b>
+                  <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                  </ul>
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear()">Cancel</button>
+                <button type="submit" class="btn btn-primary" @click="checkForm($event); editAnimal();">Update</button>
+              </div>
             </div>
           </div>
         </div>
+      </div>
       <!-- EDIT ANIMAL Modal -->
-
   </div>
 </template>
 
@@ -349,44 +333,18 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
-      .then((response) => {
-        this.cow = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding/' + this.$route.params.id)
-      .then((response) => {
-        this.breedings = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving/' + this.$route.params.id)
-      .then((response) => {
-        this.calvings = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/health/' + this.$route.params.id)
-      .then((response) => {
-        this.healthEvents = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id)
-      .then((response) => {
-        this.pregnancies = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
-      .then((response) => {
-        this.pastures = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
-      .then((response) => {
-        this.pastureMovements = response.data
-        this.currentPasture = this.pastureMovements[0].name
-      });
+    this.fetchData();
   },
   mixins: [hideModal, clearModal],
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
     checkForm: function(e) {
       if (this.cow.tag_id && this.cow.type && this.cow.pasture) return true;
       this.errors = [];
       if (!this.cow.tag_id) this.errors.push("Ear tag is required.");
       if (!this.cow.type) this.errors.push("Animal type is required.");
-      // if (!this.cow.pasture) this.errors.push("Pasture is required.");
       e.preventDefault();
     },
     clear() {
@@ -407,7 +365,6 @@ export default {
           tag_id: this.cow.tag_id,
           type: this.cow.type,
           dob: this.cow.dob,
-          // pasture: this.cow.pasture,
           sire: this.cow.sire,
           dam: this.cow.dam,
           status: this.cow.status,
@@ -422,6 +379,37 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
+        .then((response) => {
+          this.cow = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding/' + this.$route.params.id)
+        .then((response) => {
+          this.breedings = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving/' + this.$route.params.id)
+        .then((response) => {
+          this.calvings = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/health/' + this.$route.params.id)
+        .then((response) => {
+          this.healthEvents = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id)
+        .then((response) => {
+          this.pregnancies = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+        .then((response) => {
+          this.pastures = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
+        .then((response) => {
+          this.pastureMovements = response.data
+          this.currentPasture = this.pastureMovements[0].name
         });
     }
   }

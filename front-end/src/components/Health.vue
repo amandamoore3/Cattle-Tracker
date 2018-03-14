@@ -1,6 +1,5 @@
 <template lang="html">
 <div class="appContent">
-
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
       <div class="row no-gutters">
@@ -12,7 +11,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="card-body"> -->
       <div class="table-responsive">
         <table class="table table table-striped table-hover">
         <thead class="thead-custom-darkgray">
@@ -20,9 +18,7 @@
             <th>Ear Tag</th>
             <th>Treatment Date</th>
             <th>Medication</th>
-            <!-- <th>Dosage</th> -->
             <th>Diagnosis</th>
-            <!-- <th>Booster Date</th> -->
             <th>Edit</th>
           </tr>
         </thead>
@@ -31,15 +27,12 @@
             <td>{{healthEvent.tag_id}}</td>
             <td>{{healthEvent.treatmentDate}}</td>
             <td>{{healthEvent.medication}}</td>
-            <!-- <td>{{healthEvent.dosage}}</td> -->
             <td>{{healthEvent.diagnosis}}</td>
-            <!-- <td>{{healthEvent.booster}}</td> -->
-            <td><router-link :to="{path: '/healthevent/' + healthEvent._id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+            <td><router-link :to="{name: 'health-event', params: {user, id:healthEvent._id }}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
           </tr>
         </tbody>
       </table>
       </div>
-    <!-- </div> -->
     </div>
 
     <!-- ADD Modal -->
@@ -134,6 +127,7 @@ export default {
       msg: 'Herd Health Records',
       healthEvents: [],
       cows: [],
+      user: null,
       newHealth: [],
       errors: []
     }
@@ -148,20 +142,18 @@ export default {
   //   })
   // },
   created() {
-    axios.get('http://127.0.0.1:3000/health')
-      .then((response) => {
-        this.healthEvents = response.data
-      });
-    axios.get('http://127.0.0.1:3000/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
+    this.user = firebase.auth().currentUser.uid;
+    this.fetchData();
   },
   mixins: [hideModal, clearModal],
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
     addHealth() {
       let newHealth = {
         tag_id: this.newHealth.tag_id,
+        user: this.user,
         treatmentDate: this.newHealth.treatmentDate,
         medication: this.newHealth.medication,
         dosage: this.newHealth.dosage,
@@ -170,10 +162,9 @@ export default {
         comments: this.newHealth.comments
       }
       console.log(newHealth);
-      axios.post('http://127.0.0.1:3000/health', newHealth)
+      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/health', newHealth)
         .then((response) => {
           console.log(response);
-          this.healthEvents.unshift(newHealth);
           this.hideModal();
           this.clearModal();
           this.newHealth.tag_id = "";
@@ -184,6 +175,7 @@ export default {
           this.newHealth.diagnosis = "";
           this.newHealth.comments = "";
           this.errors = [];
+          this.fetchData();
         })
         .catch((err) => {
           console.log(err);
@@ -207,6 +199,16 @@ export default {
       this.newHealth.diagnosis = "";
       this.newHealth.comments = "";
       this.errors = [];
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/health')
+        .then((response) => {
+          this.healthEvents = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
     }
   }
 

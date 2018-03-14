@@ -103,18 +103,10 @@ export default {
   //   })
   // },
   created() {
-    axios.get('http://127.0.0.1:3000/movements/' + this.$route.params.id)
-      .then((response) => {
-        this.pastureMovement = response.data
-      });
-    axios.get('http://127.0.0.1:3000/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
-    axios.get('http://127.0.0.1:3000/pastures')
-      .then((response) => {
-        this.pastures = response.data
-      });
+    this.fetchData();
+  },
+  watch: {
+    '$route': 'fetchData'
   },
   methods: {
     cancel() {
@@ -151,6 +143,20 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/movements/' + this.$route.params.id)
+        .then((response) => {
+          this.pastureMovement = response.data
+        });
+      axios.get('http://127.0.0.1:3000/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
+      axios.get('http://127.0.0.1:3000/pastures')
+        .then((response) => {
+          this.pastures = response.data
         });
     }
   }

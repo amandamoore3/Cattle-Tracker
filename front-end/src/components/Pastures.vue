@@ -111,15 +111,7 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
-      .then((response) => {
-        this.pastures = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
+    this.fetchData();
   },
   computed: {
     addAnimals: function() {
@@ -142,6 +134,9 @@ export default {
     }
   },
   mixins: [hideModal, clearModal],
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
     addPasture() {
       let newPasture = {
@@ -174,6 +169,16 @@ export default {
       this.newPasture.name = "";
       this.newPasture.comments = "";
       this.errors = [];
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+        .then((response) => {
+          this.pastures = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
     }
   }
 }

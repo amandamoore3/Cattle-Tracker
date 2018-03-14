@@ -145,16 +145,12 @@ export default {
   //   })
   // },
   created() {
-    axios.get('http://127.0.0.1:3000/pregnancy')
-      .then((response) => {
-        this.pregChecks = response.data
-      });
-    axios.get('http://127.0.0.1:3000/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
+    this.fetchData();
   },
   mixins: [hideModal, clearModal],
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
     addPregCheck() {
       let newPregCheck = {
@@ -164,11 +160,9 @@ export default {
         result: this.newPregCheck.result,
         comments: this.newPregCheck.comments
       }
-      // console.log(newPregCheck);
       axios.post('http://127.0.0.1:3000/pregnancy', newPregCheck)
         .then((response) => {
           console.log(response);
-          this.pregChecks.unshift(newPregCheck);
           this.hideModal();
           this.clearModal();
           this.newPregCheck.tag_id = "";
@@ -177,6 +171,7 @@ export default {
           this.newPregCheck.result = "";
           this.newPregCheck.comments = "";
           this.errors = [];
+          this.fetchData();
         })
         .catch((err) => {
           console.log(err);
@@ -198,6 +193,16 @@ export default {
       this.newPregCheck.result = "";
       this.newPregCheck.comments = "";
       this.errors = [];
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/pregnancy')
+        .then((response) => {
+          this.pregChecks = response.data
+        });
+      axios.get('http://127.0.0.1:3000/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
     }
   }
 }

@@ -29,7 +29,7 @@
             <td>{{breeding.date}}</td>
             <td>{{breeding.method}}</td>
             <td>{{breeding.sire}}</td>
-            <td><router-link :to="{name: 'breeding-event', params:{user, id: breeding._id}} "><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+            <td><router-link :to="{name: 'breeding-event', params:{user, id: breeding._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
           </tr>
         </tbody>
       </table>
@@ -143,27 +143,23 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
+  // beforeCreate() {
+  //   firebase.auth().onAuthStateChanged((user) => {
+  //     if (user) {
+  //
+  //     } else {
+  //       this.$router.push('/login');
+  //     }
+  //   })
+  // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding')
-      .then((response) => {
-        this.breedings = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
+    this.fetchData();
   },
   mixins: [hideModal, clearModal],
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
     addBreeding() {
       let newBreeding = {
@@ -179,7 +175,6 @@ export default {
       axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding', newBreeding)
         .then((response) => {
           console.log(response);
-          this.breedings.unshift(newBreeding);
           this.hideModal();
           this.clearModal();
           this.newBreeding.tag_id = "";
@@ -189,6 +184,7 @@ export default {
           this.newBreeding.technician = "";
           this.newBreeding.comments = "";
           this.errors = [];
+          this.fetchData();
         })
         .catch((err) => {
           console.log(err);
@@ -212,6 +208,16 @@ export default {
       this.newBreeding.technician = "";
       this.newBreeding.comments = "";
       this.errors = [];
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding')
+        .then((response) => {
+          this.breedings = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
     }
   }
 }

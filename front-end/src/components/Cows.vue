@@ -171,14 +171,7 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
-      .then((response) => {
-        this.pastures = response.data
-      });
+    this.fetchData();
     // axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
     //   .then((response) => {
     //     this.pastureMovements = response.data
@@ -186,7 +179,11 @@ export default {
     //   });
   },
   mixins: [hideModal, clearModal],
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
+
     addAnimal() {
       let newCow = {
         user: this.user,
@@ -209,7 +206,7 @@ export default {
             .then((response) => {
               console.log(response);
             })
-          this.cows.unshift(newCow);
+          // this.cows.unshift(newCow);
           this.hideModal();
           this.clearModal();
           this.newAnimal.tag_id = "";
@@ -219,10 +216,10 @@ export default {
           this.newAnimal.sire = "";
           this.newAnimal.dam = "";
           this.errors = [];
+          this.fetchData();
         })
         .catch((err) => {
           console.log("Animal:" + err);
-
           this.errors.unshift("There was an error with your request.  Check that you are not using a duplicate ear tag number.");
         });
 
@@ -270,6 +267,16 @@ export default {
       this.newAnimal.sire = "";
       this.newAnimal.dam = "";
       this.errors = [];
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+        .then((response) => {
+          this.pastures = response.data
+        });
     }
   }
 }

@@ -101,6 +101,7 @@ export default {
       msg: 'Edit health record',
       health: [],
       cows: [],
+      user: null,
       errors: []
     }
   },
@@ -114,18 +115,22 @@ export default {
   //   })
   // },
   created() {
-    axios.get('http://127.0.0.1:3000/healthevent/' + this.$route.params.id)
+    this.user = firebase.auth().currentUser.uid;
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/healthevent/' + this.$route.params.id)
       .then((response) => {
         this.health = response.data
       });
-    axios.get('http://127.0.0.1:3000/cattle')
+    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });
   },
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
     cancel() {
-      this.$router.push("/health");
+      this.$router.push("/" + this.user + "/health");
     },
     checkForm: function(e) {
       if (this.health.tag_id && this.health.treatmentDate && this.health.diagnosis) return true;
@@ -136,17 +141,17 @@ export default {
       e.preventDefault();
     },
     deleteHealth() {
-      axios.delete('http://127.0.0.1:3000/healthevent/' + this.$route.params.id)
+      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/healthevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
-          this.$router.push("/health");
+          this.$router.push("/" + this.user + "/health");
         })
         .catch((err) => {
           console.log(err);
         });
     },
     editHealth() {
-      axios.patch('http://127.0.0.1:3000/healthevent/' + this.$route.params.id, {
+      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/healthevent/' + this.$route.params.id, {
           tag_id: this.health.tag_id,
           treatmentDate: this.health.treatmentDate,
           medication: this.health.medication,
@@ -157,7 +162,7 @@ export default {
         })
         .then((response) => {
           console.log(response);
-          this.$router.push("/health");
+          this.$router.push("/" + this.user + "/health");
         })
         .catch((error) => {
           console.log(error);

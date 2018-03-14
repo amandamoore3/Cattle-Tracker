@@ -36,7 +36,7 @@
                   <td>{{cow.status}}</td>
                   <td>{{cow.weight}}</td>
                   <td>{{cow.status_comments}}</td>
-                  <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+                  <td><router-link :to="{name: 'outcomes-records', params:{user, id: cow.tag_id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
                 </tr>
               </tbody>
             </table>
@@ -62,7 +62,7 @@
                   <td>{{cow.status}}</td>
                   <td>{{cow.causeOfDeath}}</td>
                   <td>{{cow.status_comments}}</td>
-                  <td><router-link :to="{path: '/outcomes/' + cow.tag_id}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
+                  <td><router-link :to="{name: 'outcomes-records', params:{user, id: cow.tag_id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
                 </tr>
               </tbody>
             </table>
@@ -82,7 +82,8 @@ export default {
   data() {
     return {
       msg: 'Herd Outcomes',
-      cows: []
+      cows: [],
+      user: null
     }
   },
   // beforeCreate() {
@@ -95,10 +96,20 @@ export default {
   //   })
   // },
   created() {
-    axios.get('http://127.0.0.1:3000/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
+    this.user = firebase.auth().currentUser.uid;
+    this.fetchData();
+    console.log(this.user);
+  },
+  watch: {
+    '$route': 'fetchData'
+  },
+  methods: {
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
+    }
   }
 }
 </script>

@@ -89,8 +89,6 @@
       </div>
     </div>
   </div>
-    <!-- </div>
-  </div> -->
 </template>
 
 <script>
@@ -118,14 +116,10 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
-      .then((response) => {
-        this.breeding = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
+    this.fetchData();
+  },
+  watch: {
+    '$route': 'fetchData'
   },
   methods: {
     cancel() {
@@ -165,6 +159,16 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        });
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
+        .then((response) => {
+          this.breeding = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
         });
     }
   }

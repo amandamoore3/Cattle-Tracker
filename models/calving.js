@@ -2,14 +2,11 @@
 
 const mongoose = require('mongoose');
 
-
-
 //set up the schema/ structure of data
 let calvingSchema = mongoose.Schema({
   tag_id: {
     type: String,
     required: true,
-    // index: true,
     trim: true
   },
   user: {
@@ -56,6 +53,5 @@ let calvingSchema = mongoose.Schema({
 calvingSchema.index({ user: 1 });
 
 let Calving = mongoose.model('Calving', calvingSchema);
-
 
 module.exports = { Calving };

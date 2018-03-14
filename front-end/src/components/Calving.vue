@@ -171,20 +171,12 @@ export default {
   // },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving')
-      .then((response) => {
-        this.calvings = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
-      .then((response) => {
-        this.pastures = response.data
-      });
+    this.fetchData();
   },
   mixins: [hideModal, clearModal],
+  watch: {
+    '$route': 'fetchData'
+  },
   methods: {
     addCalving() {
       let newCalving = {
@@ -212,7 +204,6 @@ export default {
         name: this.newCalving.pasture,
         dateMoved: this.newCalving.dob
       }
-
       axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow)
         .then((response) => {
           // console.log(newCow);
@@ -225,9 +216,8 @@ export default {
                   console.log(response);
                 })
             })
-          this.calvings.unshift(newCalving);
-          this.clearModal();
           this.hideModal();
+          this.clearModal();
           this.newCalving.tag_id = "";
           this.newCalving.calf_id = "";
           this.newCalving.season = "";
@@ -237,11 +227,11 @@ export default {
           this.newCalving.sire = "";
           this.newCalving.comments = "";
           this.errors = [];
+          this.fetchData();
         })
         .catch((err) => {
           console.log(err);
           this.errors.unshift("There was an error with your request.  Check that you are not using a duplicate ear tag number.");
-
         });
     },
     checkForm: function(e) {
@@ -267,6 +257,20 @@ export default {
       this.newCalving.sire = "";
       this.newCalving.comments = "";
       this.errors = [];
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving')
+        .then((response) => {
+          this.calvings = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+        .then((response) => {
+          this.pastures = response.data
+        });
     }
   }
 }

@@ -32,9 +32,6 @@ export default {
       ui = new firebaseui.auth.AuthUI(firebase.auth());
     }
     ui.start('#firebaseui-container', uiConfig);
-
-    // let ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // ui.start('#firebaseui-container', uiConfig);
   }
 }
 </script>
