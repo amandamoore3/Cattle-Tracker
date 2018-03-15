@@ -22,28 +22,20 @@ export default {
   data() {
     return {
       user: null
-      // email: ''
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //       // console.log(this.user);
-  //       // this.email = firebase.auth().currentUser.email;
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   });
-  // },
   created() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.user = firebase.auth().currentUser.uid;
-      } else {
-        // this.$router.push('/login');
-      }
+      // if (user) {
+      this.user = user.uid;
+      // console.log("home:" + this.user);
+
+      // } else {
+      // this.$router.push('/login');
+      // }
     })
+    // this.user = firebase.auth().currentUser.uid;
+
   }
 }
 </script>

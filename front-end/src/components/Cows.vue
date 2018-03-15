@@ -89,14 +89,6 @@
                 <label for="addAnimalDOB">Date of Birth</label>
                 <input v-model="newAnimal.dob" type="date" class="form-control" id="addAnimalDOB" placeholder="mm/dd/yyyy">
               </div>
-              <!-- <div class="form-group">
-                <label for="addAnimalStatus">Status*</label>
-                <select v-model="newAnimal.status" class="form-control" id="addAnimalStatus">
-                  <option selected id="defaultActive">Active</option>
-                  <option>Sold</option>
-                  <option>Deceased</option>
-                </select>
-              </div> -->
               <div class="form-group">
                 <label for="addInitialPastureMovementName">Pasture name*</label>
                 <select v-model="initialPasture.name"  class="form-control" id="addInitialPastureMovementName">
@@ -129,7 +121,7 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -137,16 +129,14 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
-// import app from '../App'
+import { authorization } from './mixins/auth';
 
 export default {
-  // props: ['app'],
   data() {
     return {
       msg: 'Active Cattle',
       cows: [],
       user: null,
-      // appuser: null,
       errors: [],
       pastures: [],
       // currentPasture: [],
@@ -164,16 +154,7 @@ export default {
       }
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       this.user = firebase.auth().currentUser.uid;
-  //       //capture user id and push to uid array.  add user id to each schema. capture uid and add to object sent to db.
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [hideModal, clearModal, authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
@@ -183,12 +164,7 @@ export default {
     //     this.currentPasture = this.pastureMovements[0]
     //   });
   },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
-  },
   methods: {
-
     addAnimal() {
       let newCow = {
         user: this.user,
@@ -211,7 +187,6 @@ export default {
             .then((response) => {
               console.log(response);
             })
-          // this.cows.unshift(newCow);
           this.hideModal();
           this.clearModal();
           this.newAnimal.tag_id = "";
@@ -283,6 +258,9 @@ export default {
           this.pastures = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

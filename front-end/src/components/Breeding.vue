@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="appContent">
-  <div class="card shadow">
+  <div  v-cloak class="card shadow">
     <div class="card-header text-white bg-primary">
       <div class="row no-gutters">
         <div class="col-8">
@@ -129,7 +129,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
-// import { getUserId } from './mixins/user';
+import { authorization } from './mixins/auth';
 
 export default {
   data() {
@@ -149,22 +149,10 @@ export default {
       }
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [hideModal, clearModal, authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-  },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     addBreeding() {
@@ -225,6 +213,9 @@ export default {
           this.cows = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

@@ -95,6 +95,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+import { authorization } from './mixins/auth';
 
 export default {
   data() {
@@ -110,13 +111,10 @@ export default {
       }
     }
   },
+  mixins: [hideModal, clearModal, authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-  },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     addCalvingSeason() {
@@ -156,11 +154,10 @@ export default {
         .then((response) => {
           this.calvingSeasons = response.data
         });
-      // axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
-      //   .then((response) => {
-      //     this.cows = response.data
-      //   });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

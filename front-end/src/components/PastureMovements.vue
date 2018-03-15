@@ -107,6 +107,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+import { authorization } from './mixins/auth';
 
 export default {
   data() {
@@ -125,22 +126,10 @@ export default {
       }
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [hideModal, clearModal, authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-  },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     addPastureMovement() {
@@ -154,7 +143,6 @@ export default {
       axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', newPastureMovement)
         .then((response) => {
           console.log(response);
-          // this.pastureMovements.unshift(newPastureMovement); //this is needed to force vue to update the DOM
           this.hideModal();
           this.clearModal();
           this.newPastureMovement.name = "";
@@ -198,6 +186,9 @@ export default {
           this.cows = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

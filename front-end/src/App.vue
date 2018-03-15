@@ -36,15 +36,16 @@
           </nav>
         </template>
         <template v-else>
+
           <nav class="navbar navbar-dark fixed-top navbar-expand-lg custom-nav shadow">
             <router-link :to="{ name: 'home'}" class="navbar-brand">Cattle-Tracks</router-link>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <router-link :to="{name: 'login'}" class="nav-link">Login</router-link>
+                  <router-link :to="{ name: 'login'}" class="nav-link">Login <span class="sr-only">(current)</span></router-link>
                 </li>
               </ul>
             </div>
@@ -73,33 +74,23 @@
 import firebase from 'firebase';
 export default {
   name: 'app',
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        //forces conditional rendering
-        this.user = user.uid
-        // console.log("appbeforecreate:" + this.user);
-        // this.$bindAsArray('items', db.ref(`items/${user.uid}`))
-      } else {
-        this.$router.push('/login');
-      }
-    })
-  },
   data() {
     return {
       user: null
-      // items: []
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //       //capture user id and push to uid array.  add user id to each schema. capture uid and add to object sent to db.
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged((user) => {
+      // if (user) {
+      //forces conditional rendering
+      this.user = user.uid
+      // console.log("appbeforecreate:" + this.user);
+      // this.$bindAsArray('items', db.ref(`items/${user.uid}`))
+      // } else {
+      // this.$router.push('/login');
+      // }
+    })
+  },
   created() {
     this.user = firebase.auth().currentUser.uid;
     // console.log("app:" + this.user);
@@ -107,8 +98,7 @@ export default {
   methods: {
     logout() {
       firebase.auth().signOut()
-      // .then(this.$router.push('/'));
-      // this.$router.push('/login');
+      this.$router.push('/login');
     }
   }
 }

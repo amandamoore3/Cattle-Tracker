@@ -2,7 +2,7 @@
 <div class="appContent">
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
-        <h3 class="font-weight-bold">{{msg}}</h3>
+      <h3 class="font-weight-bold">{{msg}}</h3>
     </div>
 
     <template v-if="cows.length > 0">
@@ -73,13 +73,9 @@
         </div>
       </div>
     </template>
-
     <template v-else>
       <h6 class= "p-3">There is no outcome data to show.  Add outcomes by editing the animal you wish to update.</h6>
     </template>
-
-
-
   </div>
 </div>
 </template>
@@ -87,6 +83,8 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import { authorization } from './mixins/auth';
+
 
 export default {
   data() {
@@ -96,22 +94,10 @@ export default {
       user: null
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-    // console.log(this.user);
-  },
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     fetchData() {
@@ -120,6 +106,9 @@ export default {
           this.cows = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

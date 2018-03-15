@@ -18,14 +18,14 @@
             <thead class="thead-custom-darkgray">
               <tr>
                 <th>Pasture</th>
-                <th>Total #</th>
+                <!-- <th>Total #</th> -->
                 <th>Edit</th>
               </tr>
             </thead>
             <tbody>
               <tr  v-for="pasture in pastures">
                 <td>{{pasture.name}}</td>
-                <td>{{addAnimals}}</td>
+                <!-- <td>{{addAnimals}}</td> -->
                 <td><router-link :to="{name: 'pasture-edit',params: {user, id: pasture._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
               </tr>
             </tbody>
@@ -94,6 +94,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+import { authorization } from './mixins/auth';
 
 export default {
   data() {
@@ -109,15 +110,7 @@ export default {
       }
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [hideModal, clearModal, authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
@@ -141,10 +134,6 @@ export default {
       }
       return sum;
     }
-  },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     addPasture() {
@@ -189,6 +178,9 @@ export default {
           this.cows = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

@@ -97,6 +97,7 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import { authorization } from './mixins/auth';
 
 export default {
   data() {
@@ -108,28 +109,10 @@ export default {
       errors: []
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
-      .then((response) => {
-        this.calving = response.data
-      });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
-      .then((response) => {
-        this.cows = response.data
-      });
-  },
-  watch: {
-    '$route': 'fetchData'
+    this.fetchData();
   },
   methods: {
     cancel() {
@@ -173,6 +156,19 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    fetchData() {
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
+        .then((response) => {
+          this.calving = response.data
+        });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+        .then((response) => {
+          this.cows = response.data
+        });
+    },
+    watch: {
+      '$route': 'fetchData'
     }
   }
 }

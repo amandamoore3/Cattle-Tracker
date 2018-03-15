@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-/* Replace your config info below*/
+
 const config = {
   apiKey: "AIzaSyD0PtzK1SvkKNdNf5te8MWIYlfGhoLsHtY",
   authDomain: "cattle-tracks.firebaseapp.com",

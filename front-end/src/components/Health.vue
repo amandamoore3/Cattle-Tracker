@@ -126,6 +126,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+import { authorization } from './mixins/auth';
 
 export default {
   data() {
@@ -138,22 +139,10 @@ export default {
       errors: []
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [hideModal, clearModal, authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-  },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     addHealth() {
@@ -216,9 +205,10 @@ export default {
           this.cows = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
-
-
 }
 </script>
 

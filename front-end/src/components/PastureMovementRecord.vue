@@ -82,6 +82,7 @@
 <script>
 import axios from 'axios';
 import firebase from 'firebase';
+import { authorization } from './mixins/auth';
 
 export default {
   data() {
@@ -94,21 +95,10 @@ export default {
       errors: []
     }
   },
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
+  mixins: [authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-  },
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     cancel() {
@@ -161,6 +151,9 @@ export default {
           this.pastures = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

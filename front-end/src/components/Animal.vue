@@ -304,6 +304,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+import { authorization } from './mixins/auth';
 
 export default {
   name: 'individual-animal',
@@ -311,6 +312,7 @@ export default {
     return {
       msg: 'Animal Information',
       user: null,
+      // loading: false,
       cow: [],
       breedings: [],
       calvings: [],
@@ -322,6 +324,7 @@ export default {
       errors: []
     }
   },
+  mixins: [hideModal, clearModal, authorization],
   // beforeCreate() {
   //   firebase.auth().onAuthStateChanged((user) => {
   //     if (user) {
@@ -332,12 +335,9 @@ export default {
   //   })
   // },
   created() {
+    // this.loading = true;
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-  },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
   },
   methods: {
     checkForm: function(e) {
@@ -386,6 +386,11 @@ export default {
         .then((response) => {
           this.cow = response.data
         });
+      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
+        .then((response) => {
+          this.pastureMovements = response.data
+          this.currentPasture = this.pastureMovements[0].name
+        });
       axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding/' + this.$route.params.id)
         .then((response) => {
           this.breedings = response.data
@@ -406,12 +411,12 @@ export default {
         .then((response) => {
           this.pastures = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
-        .then((response) => {
-          this.pastureMovements = response.data
-          this.currentPasture = this.pastureMovements[0].name
-        });
+
+      // this.loading = false;
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>

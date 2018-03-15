@@ -149,6 +149,8 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { clearModal } from './mixins/clearModal';
 import { hideModal } from './mixins/hideModal';
+import { authorization } from './mixins/auth';
+
 
 export default {
   data() {
@@ -173,6 +175,8 @@ export default {
       }
     }
   },
+  mixins: [hideModal, clearModal, authorization],
+
   // beforeCreate() {
   //   firebase.auth().onAuthStateChanged((user) => {
   //     if (user) {
@@ -186,10 +190,7 @@ export default {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
-  mixins: [hideModal, clearModal],
-  watch: {
-    '$route': 'fetchData'
-  },
+
   methods: {
     addCalving() {
       let newCalving = {
@@ -289,6 +290,9 @@ export default {
           this.calvingSeasons = response.data
         });
     }
+  },
+  watch: {
+    '$route': 'fetchData'
   }
 }
 </script>
