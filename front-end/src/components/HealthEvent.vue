@@ -133,10 +133,7 @@ export default {
     },
     deleteHealth() {
       axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/healthevent/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/health");
-        })
+        .then(this.$router.push("/" + this.user + "/health"))
         .catch((err) => {
           console.log(err);
         });
@@ -151,12 +148,9 @@ export default {
           diagnosis: this.health.diagnosis,
           comments: this.health.comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/health");
-        })
-        .catch((error) => {
-          console.log(error);
+        .then(this.$router.push("/" + this.user + "/health"))
+        .catch((err) => {
+          console.log(err);
         });
     }
   },

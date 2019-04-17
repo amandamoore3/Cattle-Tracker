@@ -159,8 +159,7 @@ export default {
         comments: this.newPregCheck.comments
       }
       axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pregnancy', newPregCheck)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.hideModal();
           this.clearModal();
           this.newPregCheck.tag_id = "";

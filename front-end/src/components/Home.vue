@@ -26,16 +26,8 @@ export default {
   },
   created() {
     firebase.auth().onAuthStateChanged((user) => {
-      // if (user) {
       this.user = user.uid;
-      // console.log("home:" + this.user);
-
-      // } else {
-      // this.$router.push('/login');
-      // }
     })
-    // this.user = firebase.auth().currentUser.uid;
-
   }
 }
 </script>

@@ -88,10 +88,7 @@ export default {
     },
     deletePasture() {
       axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/pastures");
-        })
+        .then(this.$router.push("/" + this.user + "/pastures"))
         .catch((err) => {
           console.log(err);
         });
@@ -101,12 +98,9 @@ export default {
           name: this.pasture.name,
           comments: this.pasture.comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/pastures");
-        })
-        .catch((error) => {
-          console.log(error);
+        .then(this.$router.push("/" + this.user + "/pastures"))
+        .catch((err) => {
+          console.log(err);
         });
     },
     fetchData() {

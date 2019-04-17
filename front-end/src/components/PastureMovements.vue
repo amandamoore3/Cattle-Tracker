@@ -141,8 +141,7 @@ export default {
         comments: this.newPastureMovement.comments
       }
       axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/movements', newPastureMovement)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.hideModal();
           this.clearModal();
           this.newPastureMovement.name = "";

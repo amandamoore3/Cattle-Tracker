@@ -114,10 +114,7 @@ export default {
     },
     deleteMovement() {
       axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/movements/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/movements");
-        })
+        .then(this.$router.push("/" + this.user + "/movements"))
         .catch((err) => {
           console.log(err);
         });
@@ -129,12 +126,9 @@ export default {
           dateMoved: this.pastureMovement.dateMoved,
           comments: this.pastureMovement.comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/movements");
-        })
-        .catch((error) => {
-          console.log(error);
+        .then(this.$router.push("/" + this.user + "/movements"))
+        .catch((err) => {
+          console.log(err);
         });
     },
     fetchData() {

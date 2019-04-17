@@ -115,26 +115,20 @@ export default {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
-  computed: {
-    addAnimals: function() {
-      let cow = this.cows;
-      let pasture = this.pastures;
-      let sum = 0;
-      // console.log(this.cows);
-      // let sum = 0;
-      // for (let i = 0; i < cow.length; i++) {
-      //   sum += 1;
-      // }
-      // return sum;
-      for (let i = 0; i < cow.length; i++) {
-
-        if (cow[i].status == 'Active' && cow[i].pasture == pasture.name) {
-          sum += 1;
-        }
-      }
-      return sum;
-    }
-  },
+  // computed: {
+  //   addAnimals: function() {
+  //     let cow = this.cows;
+  //     let pasture = this.pastures;
+  //     let sum = 0;
+  //     for (let i = 0; i < cow.length; i++) {
+  //
+  //       if (cow[i].status == 'Active' && cow[i].pasture == pasture.name) {
+  //         sum += 1;
+  //       }
+  //     }
+  //     return sum;
+  //   }
+  // },
   methods: {
     addPasture() {
       let newPasture = {
@@ -143,8 +137,7 @@ export default {
         comments: this.newPasture.comments
       }
       axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures', newPasture)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           this.hideModal();
           this.clearModal();
           this.newPasture.name = "";

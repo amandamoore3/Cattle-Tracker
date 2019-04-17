@@ -107,10 +107,7 @@ export default {
     },
     deleteOutcome() {
       axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/outcomes");
-        })
+        .then(this.$router.push("/" + this.user + "/outcomes"))
         .catch((err) => {
           console.log(err);
         });
@@ -123,12 +120,9 @@ export default {
           causeOfDeath: this.cow.causeOfDeath,
           status_comments: this.cow.status_comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/outcomes");
-        })
-        .catch((error) => {
-          console.log(error);
+        .then(this.$router.push("/" + this.user + "/outcomes"))
+        .catch((err) => {
+          console.log(err);
         });
     },
     fetchData() {

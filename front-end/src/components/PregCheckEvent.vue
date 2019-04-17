@@ -120,10 +120,8 @@ export default {
     },
     deletePregCheck() {
       axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/pregnancy");
-        })
+        .then(
+          this.$router.push("/" + this.user + "/pregnancy"))
         .catch((err) => {
           console.log(err);
         });
@@ -136,12 +134,9 @@ export default {
           result: this.pregCheck.result,
           comments: this.pregCheck.comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/pregnancy");
-        })
-        .catch((error) => {
-          console.log(error);
+        .then(this.$router.push("/" + this.user + "/pregnancy"))
+        .catch((err) => {
+          console.log(err);
         });
     },
     fetchData() {
