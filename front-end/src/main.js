@@ -6,6 +6,7 @@ import Vue from 'vue';
 import vueRouter from 'vue-router';
 import "./stylesheets/style.scss";
 
+
 Vue.use(vueRouter);
 
 const vm = new Vue({

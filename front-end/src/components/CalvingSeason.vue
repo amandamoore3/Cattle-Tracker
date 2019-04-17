@@ -24,7 +24,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr  v-for="calvingSeason in calvingSeasons">
+              <tr v-for="calvingSeason in calvingSeasons">
                 <td>{{calvingSeason.name}}</td>
                 <td>{{calvingSeason.dateCreated}}</td>
                 <td><router-link :to="{name: 'calving-season-record',params: {user, id: calvingSeason._id}}"><i class="fa fa-2x fa-chevron-circle-right"></i></router-link></td>
@@ -37,8 +37,6 @@
       <template v-else>
         <h6 class= "p-3">There are no calving season to show. Get started by clicking "New Calving Season" above.</h6>
       </template>
-
-
     </div>
     <!-- ADD Modal -->
     <div class="modal fade" id="addCalvingSeasonModal" tabindex="-1" role="dialog" aria-labelledby="addCalvingSeasonModalLabel" aria-hidden="true">
@@ -103,7 +101,6 @@ export default {
       msg: 'Calving Seasons',
       calvingSeasons: [],
       user: null,
-      // cows: [],
       errors: [],
       newCalvingSeason: {
         name: "",
@@ -123,9 +120,8 @@ export default {
         user: this.user,
         comments: this.newCalvingSeason.comments
       }
-      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/calving-season', newCalvingSeason)
-        .then((response) => {
-          console.log(response);
+      axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving-season', newCalvingSeason)
+        .then(() => {
           this.hideModal();
           this.clearModal();
           this.newCalvingSeason.name = "";
@@ -150,7 +146,7 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving-season')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving-season')
         .then((response) => {
           this.calvingSeasons = response.data
         });

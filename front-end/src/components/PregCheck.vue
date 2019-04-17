@@ -158,7 +158,7 @@ export default {
         result: this.newPregCheck.result,
         comments: this.newPregCheck.comments
       }
-      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy', newPregCheck)
+      axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pregnancy', newPregCheck)
         .then((response) => {
           console.log(response);
           this.hideModal();
@@ -193,11 +193,11 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pregnancy')
         .then((response) => {
           this.pregChecks = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

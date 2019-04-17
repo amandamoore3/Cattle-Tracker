@@ -165,10 +165,8 @@ export default {
         technician: this.newBreeding.technician,
         comments: this.newBreeding.comments
       }
-      console.log(newBreeding);
-      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding', newBreeding)
-        .then((response) => {
-          console.log(response);
+      axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/breeding', newBreeding)
+        .then(() => {
           this.hideModal();
           this.clearModal();
           this.newBreeding.tag_id = "";
@@ -204,11 +202,11 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breeding')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/breeding')
         .then((response) => {
           this.breedings = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

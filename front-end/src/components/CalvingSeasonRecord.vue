@@ -87,32 +87,25 @@ export default {
       e.preventDefault();
     },
     deleteCalvingSeason() {
-      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/calving-season/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/calving-season");
-        })
+      axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving-season/' + this.$route.params.id)
+        .then(this.$router.push("/" + this.user + "/calving-season"))
         .catch((err) => {
           console.log(err);
         });
     },
     editCalvingSeason() {
-      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/calving-season/' + this.$route.params.id, {
+      axios.patch('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving-season/' + this.$route.params.id, {
           name: this.calvingSeason.name,
           comments: this.calvingSeason.comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/calving-season");
-        })
-        .catch((error) => {
-          console.log(error);
+        .then(this.$router.push("/" + this.user + "/calving-season"))
+        .catch((err) => {
+          console.log(err);
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving-season/' + this.$route.params.id)
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving-season/' + this.$route.params.id)
         .then((response) => {
-          console.log(response);
           this.calvingSeason = response.data
         });
     }

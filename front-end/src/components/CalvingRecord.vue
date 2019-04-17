@@ -130,17 +130,14 @@ export default {
       e.preventDefault();
     },
     deleteCalving() {
-      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/calving");
-        })
+      axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
+        .then(this.$router.push("/" + this.user + "/calving"))
         .catch((err) => {
           console.log(err);
         });
     },
     editCalving() {
-      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id, {
+      axios.patch('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id, {
           tag_id: this.calving.tag_id,
           calf_id: this.calving.calf_id,
           season: this.calving.season,
@@ -149,20 +146,17 @@ export default {
           sire: this.calving.sire,
           comments: this.calving.comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/calving");
-        })
-        .catch((error) => {
-          console.log(error);
+        .then(this.$router.push("/" + this.user + "/calving"))
+        .catch((err) => {
+          console.log(err);
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calvingevent/' + this.$route.params.id)
         .then((response) => {
           this.calving = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

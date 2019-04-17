@@ -119,7 +119,7 @@ export default {
       e.preventDefault();
     },
     deletePregCheck() {
-      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id)
+      axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
           this.$router.push("/" + this.user + "/pregnancy");
@@ -129,7 +129,7 @@ export default {
         });
     },
     editPregCheck() {
-      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id, {
+      axios.patch('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pregnancy/' + this.$route.params.id, {
           tag_id: this.pregCheck.tag_id,
           date: this.pregCheck.date,
           method: this.pregCheck.method,
@@ -145,11 +145,11 @@ export default {
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pregcheck/' + this.$route.params.id)
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pregcheck/' + this.$route.params.id)
         .then((response) => {
           this.pregCheck = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

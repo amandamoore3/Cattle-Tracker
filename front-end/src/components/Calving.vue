@@ -176,21 +176,10 @@ export default {
     }
   },
   mixins: [hideModal, clearModal, authorization],
-
-  // beforeCreate() {
-  //   firebase.auth().onAuthStateChanged((user) => {
-  //     if (user) {
-  //
-  //     } else {
-  //       this.$router.push('/login');
-  //     }
-  //   })
-  // },
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
   },
-
   methods: {
     addCalving() {
       let newCalving = {
@@ -218,16 +207,12 @@ export default {
         name: this.newCalving.pasture,
         dateMoved: this.newCalving.dob
       }
-      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow)
-        .then((response) => {
-          // console.log(newCow);
-          // console.log(newCalving);
-          // console.log(firstPastureMovement);
-          axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', firstPastureMovement)
-            .then((response) => {
-              axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/calving', newCalving)
-                .then((response) => {
-                  console.log(response);
+      axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle', newCow)
+        .then(() => {
+          axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/movements', firstPastureMovement)
+            .then(() => {
+              axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving', newCalving)
+                .then(() => {
                   this.fetchData();
                 })
             })
@@ -273,19 +258,19 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving')
         .then((response) => {
           this.calvings = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures')
         .then((response) => {
           this.pastures = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/calving-season')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/calving-season')
         .then((response) => {
           this.calvingSeasons = response.data
         });

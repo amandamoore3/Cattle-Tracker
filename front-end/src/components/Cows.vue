@@ -1,5 +1,6 @@
 <template lang="html">
 <div class="appContent">
+
   <div class="card shadow">
     <div class="card-header bg-primary text-white">
       <div class="row no-gutters ">
@@ -37,11 +38,14 @@
           </tbody>
         </table>
       </div>
+
+
+
     </template>
     <template v-else>
       <h6 class= "p-3">There are no cattle to show. Get started by clicking "New Animal" above.</h6>
     </template>
-  </div>
+  <!-- </div> -->
 
 <!-- ADD Modal -->
     <div class="modal fade" id="addAnimalModal" tabindex="-1" role="dialog" aria-labelledby="addAnimalModalLabel" aria-hidden="true">
@@ -122,6 +126,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -139,7 +144,6 @@ export default {
       user: null,
       errors: [],
       pastures: [],
-      // currentPasture: [],
       newAnimal: {
         tag_id: "",
         type: "",
@@ -158,11 +162,6 @@ export default {
   created() {
     this.user = firebase.auth().currentUser.uid;
     this.fetchData();
-    // axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/movement/' + this.$route.params.id)
-    //   .then((response) => {
-    //     this.pastureMovements = response.data
-    //     this.currentPasture = this.pastureMovements[0]
-    //   });
   },
   methods: {
     addAnimal() {
@@ -181,12 +180,9 @@ export default {
         name: this.initialPasture.name,
         dateMoved: Date.now()
       }
-      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow)
-        .then((response) => {
-          axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', firstPastureMovement)
-            .then((response) => {
-              console.log(response);
-            })
+      axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle', newCow)
+        .then(() => {
+          axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/movements', firstPastureMovement);
           this.hideModal();
           this.clearModal();
           this.newAnimal.tag_id = "";
@@ -199,14 +195,14 @@ export default {
           this.fetchData();
         })
         .catch((err) => {
-          console.log("Animal:" + err);
+          console.log(err);
           this.errors.unshift("There was an error with your request.  Check that you are not using a duplicate ear tag number.");
         });
 
       //TESTING AXIOS.ALL(): CONSOLE.LOG RETURNS ERROR FOR BOTH POST REQUESTS ON FORCED ERROR.  INITIAL PASTURE STILL POSTS TO DB.
       // axios.all([
-      //     axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle', newCow),
-      //     axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/movements', firstPastureMovement)
+      //     axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle', newCow),
+      //     axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/movements', firstPastureMovement)
       //   ])
       //   .then(axios.spread((initialPasture, newAnimal) => {
       //     console.log(initialPasture);
@@ -249,11 +245,11 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures')
         .then((response) => {
           this.pastures = response.data
         });

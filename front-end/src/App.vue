@@ -36,7 +36,6 @@
           </nav>
         </template>
         <template v-else>
-
           <nav class="navbar navbar-dark fixed-top navbar-expand-lg custom-nav shadow">
             <router-link :to="{ name: 'home'}" class="navbar-brand">Cattle-Tracks</router-link>
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +53,6 @@
       </div>
     </div>
   </div>
-
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -81,19 +79,13 @@ export default {
   },
   beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
-      // if (user) {
       //forces conditional rendering
       this.user = user.uid
-      // console.log("appbeforecreate:" + this.user);
-      // this.$bindAsArray('items', db.ref(`items/${user.uid}`))
-      // } else {
-      // this.$router.push('/login');
-      // }
+
     })
   },
   created() {
     this.user = firebase.auth().currentUser.uid;
-    // console.log("app:" + this.user);
   },
   methods: {
     logout() {

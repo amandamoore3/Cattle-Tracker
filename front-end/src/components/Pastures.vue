@@ -142,7 +142,7 @@ export default {
         user: this.user,
         comments: this.newPasture.comments
       }
-      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures', newPasture)
+      axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures', newPasture)
         .then((response) => {
           console.log(response);
           this.hideModal();
@@ -169,11 +169,11 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures')
         .then((response) => {
           this.pastures = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

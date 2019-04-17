@@ -87,7 +87,7 @@ export default {
       e.preventDefault();
     },
     deletePasture() {
-      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures/' + this.$route.params.id)
+      axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
           this.$router.push("/" + this.user + "/pastures");
@@ -97,7 +97,7 @@ export default {
         });
     },
     editPasture() {
-      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures/' + this.$route.params.id, {
+      axios.patch('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures/' + this.$route.params.id, {
           name: this.pasture.name,
           comments: this.pasture.comments
         })
@@ -110,7 +110,7 @@ export default {
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/pastures/' + this.$route.params.id)
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/pastures/' + this.$route.params.id)
         .then((response) => {
           this.pasture = response.data
         });

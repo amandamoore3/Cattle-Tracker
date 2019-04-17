@@ -156,10 +156,8 @@ export default {
         diagnosis: this.newHealth.diagnosis,
         comments: this.newHealth.comments
       }
-      console.log(newHealth);
-      axios.post('http://127.0.0.1:3000/' + this.$route.params.user + '/health', newHealth)
-        .then((response) => {
-          console.log(response);
+      axios.post('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/health', newHealth)
+        .then(() => {
           this.hideModal();
           this.clearModal();
           this.newHealth.tag_id = "";
@@ -196,11 +194,11 @@ export default {
       this.errors = [];
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/health')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/health')
         .then((response) => {
           this.healthEvents = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

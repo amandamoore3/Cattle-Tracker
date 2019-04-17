@@ -110,11 +110,11 @@ export default {
   mixins: [authorization],
   created() {
     this.user = firebase.auth().currentUser.uid;
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/healthevent/' + this.$route.params.id)
+    axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/healthevent/' + this.$route.params.id)
       .then((response) => {
         this.health = response.data
       });
-    axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+    axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
       .then((response) => {
         this.cows = response.data
       });
@@ -132,7 +132,7 @@ export default {
       e.preventDefault();
     },
     deleteHealth() {
-      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/healthevent/' + this.$route.params.id)
+      axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/healthevent/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
           this.$router.push("/" + this.user + "/health");
@@ -142,7 +142,7 @@ export default {
         });
     },
     editHealth() {
-      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/healthevent/' + this.$route.params.id, {
+      axios.patch('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/healthevent/' + this.$route.params.id, {
           tag_id: this.health.tag_id,
           treatmentDate: this.health.treatmentDate,
           medication: this.health.medication,

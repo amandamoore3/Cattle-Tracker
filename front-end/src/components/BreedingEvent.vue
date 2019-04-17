@@ -125,17 +125,14 @@ export default {
       e.preventDefault();
     },
     deleteBreeding() {
-      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/breeding");
-        })
+      axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
+        .then(this.$router.push("/" + this.user + "/breeding"))
         .catch((err) => {
           console.log(err);
         });
     },
     editBreeding() {
-      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id, {
+      axios.patch('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id, {
           tag_id: this.breeding.tag_id,
           date: this.breeding.date,
           method: this.breeding.method,
@@ -143,20 +140,17 @@ export default {
           technician: this.breeding.technician,
           comments: this.breeding.comments
         })
-        .then((response) => {
-          console.log(response);
-          this.$router.push("/" + this.user + "/breeding");
-        })
+        .then(this.$router.push("/" + this.user + "/breeding"))
         .catch((error) => {
           console.log(error);
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/breedingevent/' + this.$route.params.id)
         .then((response) => {
           this.breeding = response.data
         });
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle')
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle')
         .then((response) => {
           this.cows = response.data
         });

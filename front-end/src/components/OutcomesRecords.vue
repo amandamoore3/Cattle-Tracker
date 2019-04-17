@@ -106,7 +106,7 @@ export default {
       e.preventDefault();
     },
     deleteOutcome() {
-      axios.delete('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
+      axios.delete('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
         .then((response) => {
           console.log(response);
           this.$router.push("/" + this.user + "/outcomes");
@@ -116,7 +116,7 @@ export default {
         });
     },
     editOutcome() {
-      axios.patch('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id, {
+      axios.patch('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle/' + this.$route.params.id, {
           status: this.cow.status,
           status_date: this.cow.status_date,
           weight: this.cow.weight,
@@ -132,7 +132,7 @@ export default {
         });
     },
     fetchData() {
-      axios.get('http://127.0.0.1:3000/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
+      axios.get('https://fathomless-plateau-17194.herokuapp.com/' + this.$route.params.user + '/cattle/' + this.$route.params.id)
         .then((response) => {
           this.cow = response.data
         });
