@@ -2,26 +2,26 @@
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
-
-const { mongooseConnect } = require('../db/mongoose.js');
+const port = process.env.PORT || 3000;
+const { mongooseConnect } = require('./db/mongoose.js');
 
 const { client } = require('mongodb');
 
-const { Breeding } = require('../models/breeding.js');
+const { Breeding } = require('./models/breeding.js');
 
-const { Calving } = require('../models/calving.js');
+const { Calving } = require('./models/calving.js');
 
-const { CalvingSeason } = require('../models/calving-season.js');
+const { CalvingSeason } = require('./models/calving-season.js');
 
-const { Cow } = require('../models/cow.js');
+const { Cow } = require('./models/cow.js');
 
-const { Health } = require('../models/health.js');
+const { Health } = require('./models/health.js');
 
-const { Pasture } = require('../models/pastures.js');
+const { Pasture } = require('./models/pastures.js');
 
-const { PastureMovements } = require('../models/pasture-movements.js');
+const { PastureMovements } = require('./models/pasture-movements.js');
 
-const { PregCheck } = require('../models/preg-check.js');
+const { PregCheck } = require('./models/preg-check.js');
 
 
 
@@ -742,6 +742,6 @@ app.patch('/:user/pregnancy/:id', (req, res) => {
 //UPDATE PREG-CHECK DOCUMENT BY ID
 
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('listening on port 3000');
 });
